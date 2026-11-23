@@ -72,8 +72,5 @@ function input_setup()
 		);	
 	};
 
-
-
-	// DualSense trigger effects are not in the demo yet: steam_input_set_dualsense_trigger_effect is missing from 3.0.0 (#204)
 }
 

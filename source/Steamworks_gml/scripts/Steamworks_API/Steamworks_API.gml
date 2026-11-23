@@ -132,6 +132,14 @@
 
 #macro STEAM_INPUT_MIN_ANALOG_ACTION_DATA -1.0
 
+#macro STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2 0
+
+#macro STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2 1
+
+#macro STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM 2
+
+#macro STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM 10
+
 #macro STEAM_USER_STATS_LEADERBOARD_NAME_MAX 128
 
 #macro STEAM_USER_STATS_STAT_NAME_MAX 128
@@ -1416,6 +1424,23 @@ enum SteamInputActionOrigin
     Generic_MISC8 = 494,
     Count = 495,
     MaximumPossibleValue = 32767
+}
+
+enum SteamInputTriggerEffectTriggerMask
+{
+    L2 = 1,
+    R2 = 2
+}
+
+enum SteamInputTriggerEffectMode
+{
+    OFF = 0,
+    FEEDBACK = 1,
+    WEAPON = 2,
+    VIBRATION = 3,
+    MULTIPLE_POSITION_FEEDBACK = 4,
+    SLOPE_FEEDBACK = 5,
+    MULTIPLE_POSITION_VIBRATION = 6
 }
 
 enum SteamLeaderboardDataRequest
@@ -3044,6 +3069,105 @@ function SteamInputDeviceBindingRevision() constructor
 }
 
 /**
+ * @returns {Struct.SteamInputTriggerEffectFeedbackParam}
+ */
+function SteamInputTriggerEffectFeedbackParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 669102374;
+
+    self.position = undefined;
+    self.strength = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectWeaponParam}
+ */
+function SteamInputTriggerEffectWeaponParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 3342228483;
+
+    self.start_position = undefined;
+    self.end_position = undefined;
+    self.strength = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectVibrationParam}
+ */
+function SteamInputTriggerEffectVibrationParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 2003994389;
+
+    self.position = undefined;
+    self.amplitude = undefined;
+    self.frequency = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectMultiplePositionFeedbackParam}
+ */
+function SteamInputTriggerEffectMultiplePositionFeedbackParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 64582199;
+
+    self.strength = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectSlopeFeedbackParam}
+ */
+function SteamInputTriggerEffectSlopeFeedbackParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 239739123;
+
+    self.start_position = undefined;
+    self.end_position = undefined;
+    self.start_strength = undefined;
+    self.end_strength = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectMultiplePositionVibrationParam}
+ */
+function SteamInputTriggerEffectMultiplePositionVibrationParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 2814307730;
+
+    self.frequency = undefined;
+    self.amplitude = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamInputDeviceEvent}
  */
 function SteamInputDeviceEvent() constructor
@@ -4109,6 +4233,26 @@ function SteamPartiesBeaconDetails() constructor
 }
 
 /**
+ * @returns {Struct.SteamInputTriggerEffectCommandData}
+ */
+function SteamInputTriggerEffectCommandData() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 3425765595;
+
+    self.feedback_param = undefined;
+    self.weapon_param = undefined;
+    self.vibration_param = undefined;
+    self.multiple_position_feedback_param = undefined;
+    self.slope_feedback_param = undefined;
+    self.multiple_position_vibration_param = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamNetworkingSocketsStatusChanged}
  */
 function SteamNetworkingSocketsStatusChanged() constructor
@@ -4122,6 +4266,38 @@ function SteamNetworkingSocketsStatusChanged() constructor
     self.conn = undefined;
     self.old_state = undefined;
     self.info = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectCommand}
+ */
+function SteamInputTriggerEffectCommand() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 2176896947;
+
+    self.mode = undefined;
+    self.command_data = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInputTriggerEffectParam}
+ */
+function SteamInputTriggerEffectParam() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 3212869443;
+
+    self.trigger_mask = undefined;
+    self.command = undefined;
 
 }
 
@@ -8827,6 +9003,337 @@ function __SteamInputDeviceBindingRevision_decode(_buffer, _offset)
 }
 
 /**
+ * @func __SteamInputTriggerEffectFeedbackParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectFeedbackParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectFeedbackParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: position, type: UInt8
+        if (!is_numeric(self.position)) show_error($"{_where} :: self.position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.position);
+
+        // field: strength, type: UInt8
+        if (!is_numeric(self.strength)) show_error($"{_where} :: self.strength expected number", true);
+        buffer_write(_buffer, buffer_u8, self.strength);
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectFeedbackParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectFeedbackParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectFeedbackParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectFeedbackParam();
+    with (_inst)
+    {
+        // field: position, type: UInt8
+        self.position = buffer_read(_buffer, buffer_u8);
+
+        // field: strength, type: UInt8
+        self.strength = buffer_read(_buffer, buffer_u8);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectWeaponParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectWeaponParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectWeaponParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: start_position, type: UInt8
+        if (!is_numeric(self.start_position)) show_error($"{_where} :: self.start_position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.start_position);
+
+        // field: end_position, type: UInt8
+        if (!is_numeric(self.end_position)) show_error($"{_where} :: self.end_position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.end_position);
+
+        // field: strength, type: UInt8
+        if (!is_numeric(self.strength)) show_error($"{_where} :: self.strength expected number", true);
+        buffer_write(_buffer, buffer_u8, self.strength);
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectWeaponParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectWeaponParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectWeaponParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectWeaponParam();
+    with (_inst)
+    {
+        // field: start_position, type: UInt8
+        self.start_position = buffer_read(_buffer, buffer_u8);
+
+        // field: end_position, type: UInt8
+        self.end_position = buffer_read(_buffer, buffer_u8);
+
+        // field: strength, type: UInt8
+        self.strength = buffer_read(_buffer, buffer_u8);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectVibrationParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectVibrationParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectVibrationParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: position, type: UInt8
+        if (!is_numeric(self.position)) show_error($"{_where} :: self.position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.position);
+
+        // field: amplitude, type: UInt8
+        if (!is_numeric(self.amplitude)) show_error($"{_where} :: self.amplitude expected number", true);
+        buffer_write(_buffer, buffer_u8, self.amplitude);
+
+        // field: frequency, type: UInt8
+        if (!is_numeric(self.frequency)) show_error($"{_where} :: self.frequency expected number", true);
+        buffer_write(_buffer, buffer_u8, self.frequency);
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectVibrationParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectVibrationParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectVibrationParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectVibrationParam();
+    with (_inst)
+    {
+        // field: position, type: UInt8
+        self.position = buffer_read(_buffer, buffer_u8);
+
+        // field: amplitude, type: UInt8
+        self.amplitude = buffer_read(_buffer, buffer_u8);
+
+        // field: frequency, type: UInt8
+        self.frequency = buffer_read(_buffer, buffer_u8);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectMultiplePositionFeedbackParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectMultiplePositionFeedbackParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectMultiplePositionFeedbackParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: strength, type: UInt8[10]
+        if (!is_array(self.strength) || (array_length(self.strength) != 10)) show_error($"{_where} :: self.strength expected array (size 10)", true);
+        for (var _i = 0; _i < 10; ++_i)
+        {
+            if (!is_numeric(self.strength[_i])) show_error($"{_where} :: self.strength[_i] expected number", true);
+            buffer_write(_buffer, buffer_u8, self.strength[_i]);
+        }
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectMultiplePositionFeedbackParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectMultiplePositionFeedbackParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectMultiplePositionFeedbackParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectMultiplePositionFeedbackParam();
+    with (_inst)
+    {
+        // field: strength, type: UInt8[10]
+        self.strength = array_create(10);
+        for (var _i = 0; _i < 10; ++_i)
+        {
+            self.strength[_i] = buffer_read(_buffer, buffer_u8);
+        }
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectSlopeFeedbackParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectSlopeFeedbackParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectSlopeFeedbackParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: start_position, type: UInt8
+        if (!is_numeric(self.start_position)) show_error($"{_where} :: self.start_position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.start_position);
+
+        // field: end_position, type: UInt8
+        if (!is_numeric(self.end_position)) show_error($"{_where} :: self.end_position expected number", true);
+        buffer_write(_buffer, buffer_u8, self.end_position);
+
+        // field: start_strength, type: UInt8
+        if (!is_numeric(self.start_strength)) show_error($"{_where} :: self.start_strength expected number", true);
+        buffer_write(_buffer, buffer_u8, self.start_strength);
+
+        // field: end_strength, type: UInt8
+        if (!is_numeric(self.end_strength)) show_error($"{_where} :: self.end_strength expected number", true);
+        buffer_write(_buffer, buffer_u8, self.end_strength);
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectSlopeFeedbackParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectSlopeFeedbackParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectSlopeFeedbackParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectSlopeFeedbackParam();
+    with (_inst)
+    {
+        // field: start_position, type: UInt8
+        self.start_position = buffer_read(_buffer, buffer_u8);
+
+        // field: end_position, type: UInt8
+        self.end_position = buffer_read(_buffer, buffer_u8);
+
+        // field: start_strength, type: UInt8
+        self.start_strength = buffer_read(_buffer, buffer_u8);
+
+        // field: end_strength, type: UInt8
+        self.end_strength = buffer_read(_buffer, buffer_u8);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectMultiplePositionVibrationParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectMultiplePositionVibrationParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectMultiplePositionVibrationParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: frequency, type: UInt8
+        if (!is_numeric(self.frequency)) show_error($"{_where} :: self.frequency expected number", true);
+        buffer_write(_buffer, buffer_u8, self.frequency);
+
+        // field: amplitude, type: UInt8[10]
+        if (!is_array(self.amplitude) || (array_length(self.amplitude) != 10)) show_error($"{_where} :: self.amplitude expected array (size 10)", true);
+        for (var _i = 0; _i < 10; ++_i)
+        {
+            if (!is_numeric(self.amplitude[_i])) show_error($"{_where} :: self.amplitude[_i] expected number", true);
+            buffer_write(_buffer, buffer_u8, self.amplitude[_i]);
+        }
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectMultiplePositionVibrationParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectMultiplePositionVibrationParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectMultiplePositionVibrationParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectMultiplePositionVibrationParam();
+    with (_inst)
+    {
+        // field: frequency, type: UInt8
+        self.frequency = buffer_read(_buffer, buffer_u8);
+
+        // field: amplitude, type: UInt8[10]
+        self.amplitude = array_create(10);
+        for (var _i = 0; _i < 10; ++_i)
+        {
+            self.amplitude[_i] = buffer_read(_buffer, buffer_u8);
+        }
+
+    }
+
+    return _inst;
+}
+
+/**
  * @func __SteamInputDeviceEvent_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamInputDeviceEvent} _inst
  * @param {Id.Buffer} _buffer
@@ -12390,6 +12897,173 @@ function __SteamPartiesBeaconDetails_decode(_buffer, _offset)
 }
 
 /**
+ * @func __SteamInputTriggerEffectCommandData_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectCommandData} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectCommandData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: feedback_param, type: optional<struct SteamInputTriggerEffectFeedbackParam>
+        if (is_undefined(self.feedback_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.feedback_param.__uid != 669102374) show_error($"{_where} :: self.feedback_param expected SteamInputTriggerEffectFeedbackParam", true);
+            __SteamInputTriggerEffectFeedbackParam_encode(self.feedback_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+        // field: weapon_param, type: optional<struct SteamInputTriggerEffectWeaponParam>
+        if (is_undefined(self.weapon_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.weapon_param.__uid != 3342228483) show_error($"{_where} :: self.weapon_param expected SteamInputTriggerEffectWeaponParam", true);
+            __SteamInputTriggerEffectWeaponParam_encode(self.weapon_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+        // field: vibration_param, type: optional<struct SteamInputTriggerEffectVibrationParam>
+        if (is_undefined(self.vibration_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.vibration_param.__uid != 2003994389) show_error($"{_where} :: self.vibration_param expected SteamInputTriggerEffectVibrationParam", true);
+            __SteamInputTriggerEffectVibrationParam_encode(self.vibration_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+        // field: multiple_position_feedback_param, type: optional<struct SteamInputTriggerEffectMultiplePositionFeedbackParam>
+        if (is_undefined(self.multiple_position_feedback_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.multiple_position_feedback_param.__uid != 64582199) show_error($"{_where} :: self.multiple_position_feedback_param expected SteamInputTriggerEffectMultiplePositionFeedbackParam", true);
+            __SteamInputTriggerEffectMultiplePositionFeedbackParam_encode(self.multiple_position_feedback_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+        // field: slope_feedback_param, type: optional<struct SteamInputTriggerEffectSlopeFeedbackParam>
+        if (is_undefined(self.slope_feedback_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.slope_feedback_param.__uid != 239739123) show_error($"{_where} :: self.slope_feedback_param expected SteamInputTriggerEffectSlopeFeedbackParam", true);
+            __SteamInputTriggerEffectSlopeFeedbackParam_encode(self.slope_feedback_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+        // field: multiple_position_vibration_param, type: optional<struct SteamInputTriggerEffectMultiplePositionVibrationParam>
+        if (is_undefined(self.multiple_position_vibration_param))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (self.multiple_position_vibration_param.__uid != 2814307730) show_error($"{_where} :: self.multiple_position_vibration_param expected SteamInputTriggerEffectMultiplePositionVibrationParam", true);
+            __SteamInputTriggerEffectMultiplePositionVibrationParam_encode(self.multiple_position_vibration_param, _buffer, buffer_tell(_buffer), _where);
+        }
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectCommandData_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectCommandData}
+ * @ignore
+ */
+function __SteamInputTriggerEffectCommandData_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectCommandData();
+    with (_inst)
+    {
+        // field: feedback_param, type: optional<struct SteamInputTriggerEffectFeedbackParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.feedback_param = __SteamInputTriggerEffectFeedbackParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.feedback_param = undefined;
+        }
+
+        // field: weapon_param, type: optional<struct SteamInputTriggerEffectWeaponParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.weapon_param = __SteamInputTriggerEffectWeaponParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.weapon_param = undefined;
+        }
+
+        // field: vibration_param, type: optional<struct SteamInputTriggerEffectVibrationParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.vibration_param = __SteamInputTriggerEffectVibrationParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.vibration_param = undefined;
+        }
+
+        // field: multiple_position_feedback_param, type: optional<struct SteamInputTriggerEffectMultiplePositionFeedbackParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.multiple_position_feedback_param = __SteamInputTriggerEffectMultiplePositionFeedbackParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.multiple_position_feedback_param = undefined;
+        }
+
+        // field: slope_feedback_param, type: optional<struct SteamInputTriggerEffectSlopeFeedbackParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.slope_feedback_param = __SteamInputTriggerEffectSlopeFeedbackParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.slope_feedback_param = undefined;
+        }
+
+        // field: multiple_position_vibration_param, type: optional<struct SteamInputTriggerEffectMultiplePositionVibrationParam>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            self.multiple_position_vibration_param = __SteamInputTriggerEffectMultiplePositionVibrationParam_decode(_buffer, buffer_tell(_buffer));
+        }
+        else
+        {
+            self.multiple_position_vibration_param = undefined;
+        }
+
+    }
+
+    return _inst;
+}
+
+/**
  * @func __SteamNetworkingSocketsStatusChanged_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamNetworkingSocketsStatusChanged} _inst
  * @param {Id.Buffer} _buffer
@@ -12440,6 +13114,113 @@ function __SteamNetworkingSocketsStatusChanged_decode(_buffer, _offset)
 
         // field: info, type: struct SteamNetworkingSocketsConnectionInfo
         self.info = __SteamNetworkingSocketsConnectionInfo_decode(_buffer, buffer_tell(_buffer));
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectCommand_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectCommand} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectCommand_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: mode, type: enum SteamInputTriggerEffectMode
+
+        if (!is_numeric(self.mode)) show_error($"{_where} :: self.mode expected number", true);
+        buffer_write(_buffer, buffer_s32, self.mode);
+
+        // field: command_data, type: struct SteamInputTriggerEffectCommandData
+        if (self.command_data.__uid != 3425765595) show_error($"{_where} :: self.command_data expected SteamInputTriggerEffectCommandData", true);
+        __SteamInputTriggerEffectCommandData_encode(self.command_data, _buffer, buffer_tell(_buffer), _where);
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectCommand_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectCommand}
+ * @ignore
+ */
+function __SteamInputTriggerEffectCommand_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectCommand();
+    with (_inst)
+    {
+        // field: mode, type: enum SteamInputTriggerEffectMode
+        self.mode = buffer_read(_buffer, buffer_s32);
+
+        // field: command_data, type: struct SteamInputTriggerEffectCommandData
+        self.command_data = __SteamInputTriggerEffectCommandData_decode(_buffer, buffer_tell(_buffer));
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInputTriggerEffectParam_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInputTriggerEffectParam} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInputTriggerEffectParam_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: trigger_mask, type: UInt8
+        if (!is_numeric(self.trigger_mask)) show_error($"{_where} :: self.trigger_mask expected number", true);
+        buffer_write(_buffer, buffer_u8, self.trigger_mask);
+
+        // field: command, type: struct SteamInputTriggerEffectCommand[2]
+        if (!is_array(self.command) || (array_length(self.command) != 2)) show_error($"{_where} :: self.command expected array (size 2)", true);
+        for (var _i = 0; _i < 2; ++_i)
+        {
+            if (self.command[_i].__uid != 2176896947) show_error($"{_where} :: self.command[_i] expected SteamInputTriggerEffectCommand", true);
+            __SteamInputTriggerEffectCommand_encode(self.command[_i], _buffer, buffer_tell(_buffer), _where);
+        }
+
+    }
+}
+
+/**
+ * @func __SteamInputTriggerEffectParam_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInputTriggerEffectParam}
+ * @ignore
+ */
+function __SteamInputTriggerEffectParam_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInputTriggerEffectParam();
+    with (_inst)
+    {
+        // field: trigger_mask, type: UInt8
+        self.trigger_mask = buffer_read(_buffer, buffer_u8);
+
+        // field: command, type: struct SteamInputTriggerEffectCommand[2]
+        self.command = array_create(2);
+        for (var _i = 0; _i < 2; ++_i)
+        {
+            self.command[_i] = __SteamInputTriggerEffectCommand_decode(_buffer, buffer_tell(_buffer));
+        }
 
     }
 
@@ -19086,7 +19867,7 @@ function steam_input_get_string_for_action_origin(_origin)
 
 /**
  * @param {Real} _input_handle
- * @param {Array[Real]} _param
+ * @param {Struct.SteamInputTriggerEffectParam} _param
  * @returns {Bool}
  */
 function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
@@ -19100,15 +19881,9 @@ function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
     buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    // param: _param, type: UInt32[]
-    if (!is_array(_param)) show_error($"{_GMFUNCTION_} :: _param expected array", true);
-    var __length__ = array_length(_param);
-    buffer_write(__args_buffer__, buffer_u32, __length__);
-    for (var _i = 0; _i < __length__; ++_i)
-    {
-        if (!is_numeric(_param[_i])) show_error($"{_GMFUNCTION_} :: _param[_i] expected number", true);
-        buffer_write(__args_buffer__, buffer_u32, _param[_i]);
-    }
+    // param: _param, type: struct SteamInputTriggerEffectParam
+    if (_param.__uid != 3212869443) show_error($"{_GMFUNCTION_} :: _param expected SteamInputTriggerEffectParam", true);
+    __SteamInputTriggerEffectParam_encode(_param, __args_buffer__, buffer_tell(__args_buffer__), _GMFUNCTION_);
 
     var __return_value__ = __steam_input_set_dualsense_trigger_effect(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
@@ -24687,6 +25462,12 @@ function __Steamworks_get_decoders()
         __SteamInputMotionData_decode,
         __SteamInputActionOrigins_decode,
         __SteamInputDeviceBindingRevision_decode,
+        __SteamInputTriggerEffectFeedbackParam_decode,
+        __SteamInputTriggerEffectWeaponParam_decode,
+        __SteamInputTriggerEffectVibrationParam_decode,
+        __SteamInputTriggerEffectMultiplePositionFeedbackParam_decode,
+        __SteamInputTriggerEffectSlopeFeedbackParam_decode,
+        __SteamInputTriggerEffectMultiplePositionVibrationParam_decode,
         __SteamInputDeviceEvent_decode,
         __SteamUserStatsAchievementAndUnlockTime_decode,
         __SteamUserStatsMostAchievedAchievementInfo_decode,
@@ -24750,7 +25531,10 @@ function __Steamworks_get_decoders()
         __SteamPartiesChangeNumOpenSlotsResult_decode,
         __SteamPartiesReservationNotification_decode,
         __SteamPartiesBeaconDetails_decode,
-        __SteamNetworkingSocketsStatusChanged_decode
+        __SteamInputTriggerEffectCommandData_decode,
+        __SteamNetworkingSocketsStatusChanged_decode,
+        __SteamInputTriggerEffectCommand_decode,
+        __SteamInputTriggerEffectParam_decode
     ];
     return __decoders__;
 }
@@ -24770,4 +25554,4 @@ function __Steamworks_is_available()
 // # Exports
 // #####################################################################
 
-#export STEAM_API_BREAKPAD_INVALID_HANDLE, STEAM_API_GAME_EXTRA_INFO_MAX, STEAM_API_SALT_SIZE, STEAM_API_GID_NIL, STEAM_API_AUTH_TICKET_INVALID, STEAM_API_JOB_ID_NIL, STEAM_API_TXN_ID_NIL, STEAM_API_TXN_ID_UNKNOWN, STEAM_API_API_CALL_INVALID, STEAM_API_APP_ID_INVALID, STEAM_API_BUNDLE_ID_INVALID, STEAM_API_CELL_ID_INVALID, STEAM_API_DEPOT_ID_INVALID, STEAM_API_ASSET_CLASS_ID_INVALID, STEAM_API_MANIFEST_ID_INVALID, STEAM_API_STEAM_ACCOUNT_ID_MASK, STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK, STEAM_API_STEAM_USER_CONSOLE_INSTANCE, STEAM_API_STEAM_USER_DESKTOP_INSTANCE, STEAM_API_STEAM_USER_WEB_INSTANCE, STEAM_API_PACKAGE_ID_FREE_SUB, STEAM_API_PACKAGE_ID_INVALID, STEAM_API_PARTNER_ID_INVALID, STEAM_API_PHYSICAL_ITEM_ID_INVALID, STEAM_API_QUERY_PORT_ERROR, STEAM_API_QUERY_PORT_NOT_INITIALIZED, STEAM_ID_NIL, STEAM_ID_NON_STEAM_GS, STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS, STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH, STEAM_FRIENDS_PERSONA_NAME_MAX, STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX, STEAM_FRIENDS_FRIENDS_GROUP_LIMIT, STEAM_FRIENDS_CHAT_METADATA_MAX, STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16, STEAM_FRIENDS_GROUP_ID_INVALID, STEAM_FRIENDS_INTERFACE_VERSION, STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX, STEAM_APPS_INTERFACE_VERSION, STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE, STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX, STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX, STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES, STEAM_SCREENSHOTS_MAX_TAGGED_USERS, STEAM_SCREENSHOTS_THUMB_WIDTH, STEAM_SCREENSHOTS_INTERFACE_VERSION, STEAM_USER_INTERFACE_VERSION, STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN, STEAM_UTILS_INTERFACE_VERSION, STEAM_UGC_NUM_RESULTS_PER_PAGE, STEAM_UGC_DEVELOPER_METADATA_MAX, STEAM_UGC_QUERY_HANDLE_INVALID, STEAM_UGC_UPDATE_HANDLE_INVALID, STEAM_UGC_INTERFACE_VERSION, STEAM_INPUT_INTERFACE_VERSION, STEAM_INPUT_HANDLE_ALL_CONTROLLERS, STEAM_INPUT_MAX_ANALOG_ACTIONS, STEAM_INPUT_MAX_ANALOG_ACTION_DATA, STEAM_INPUT_MAX_COUNT, STEAM_INPUT_MAX_DIGITAL_ACTIONS, STEAM_INPUT_MAX_ORIGINS, STEAM_INPUT_MIN_ANALOG_ACTION_DATA, STEAM_USER_STATS_LEADERBOARD_NAME_MAX, STEAM_USER_STATS_STAT_NAME_MAX, STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX, STEAM_USER_STATS_INTERFACE_VERSION, STEAM_MUSIC_INTERFACE_VERSION, STEAM_TIMELINE_MAX_TIMELINE_PRIORITY, STEAM_INVENTORY_RESULT_INVALID, STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID, STEAM_INVENTORY_INTERFACE_VERSION, STEAM_REMOTE_STORAGE_FILENAME_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX, STEAM_REMOTE_STORAGE_TAG_LIST_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID, STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS, STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE, STEAM_REMOTE_STORAGE_INTERFACE_VERSION, STEAM_MATCHMAKING_SERVER_QUERY_INVALID, STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH, STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE, STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY, STEAM_MATCHMAKING_FAVORITE_FLAG_NONE, STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION, STEAM_MATCHMAKING_INTERFACE_VERSION, STEAM_NETWORKING_POLL_GROUP_INVALID, STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND, SteamApiAccountType, SteamApiDenyReason, SteamApiGameIdType, SteamApiLaunchOptionType, SteamApiMarketingMessageFlag, SteamApiNotificationPosition, SteamApiUniverse, SteamApiUserHasLicenseForAppResult, SteamApiVoiceResult, SteamApiResult, SteamFriendsOverlayToStoreFlag, SteamFriendsOverlayToWebpageMode, SteamFriendsChatEntryType, SteamFriendsFriendFlag, SteamFriendsPersonaState, SteamFriendsRelationship, SteamFriendsPersonaChange, SteamAppsBetaBranchFlags, SteamScreenshotsVrScreenshotType, SteamUserDurationControlProgress, SteamUserDurationControlNotification, SteamMarketNotAllowedReasonFlags, SteamNetworkingIdentityType, SteamUserBeginAuthSessionResult, SteamAuthSessionResponse, SteamUserDurationControlOnlineState, SteamUtilsCheckFileSignature, SteamUtilsApiCallFailure, SteamUtilsGamepadTextInputMode, SteamUtilsGamepadTextInputLineMode, SteamUtilsFloatingGamepadTextInputMode, SteamUtilsTextFilteringContext, SteamUgcMatchingUgcType, SteamUgcQuery, SteamUserUgcList, SteamUserUgcListSortOrder, SteamUgcItemPreviewType, SteamRemoteStoragePublishedFileVisibility, SteamUgcContentDescriptorId, SteamUgcItemState, SteamUgcItemUpdateStatus, SteamUgcStatisticType, SteamInputControllerSourceMode, SteamInputControllerLEDFlag, SteamInputGlyphSize, SteamInputGlyphStyle, SteamInputType, SteamInputXboxOrigin, SteamInputActionOrigin, SteamLeaderboardDataRequest, SteamLeaderboardSortMethod, SteamLeaderboardDisplayType, SteamLeaderboardUploadScoreMethod, SteamMusicPlaybackStatus, SteamTimelineGameMode, SteamTimelineEventClipPriority, SteamInventoryItemFlags, SteamRemoteStoragePlatform, SteamRemoteStorageUgcReadAction, SteamRemoteStorageWorkshopFileType, SteamMatchmakingLobbyType, SteamMatchmakingLobbyComparison, SteamMatchmakingLobbyDistanceFilter, SteamMatchmakingChatMemberStateChange, SteamMatchmakingChatRoomEnterResponse, SteamNetworkingConnectionEnd, SteamNetworkingConnectionState, SteamNetworkingSendFlags, SteamNetworkingConfigValue, SteamNetworkingConnectionInfoFlags, SteamPartiesBeaconLocationType, SteamPartiesBeaconLocationData, SteamId, SteamFriendsGetFollowerCountResult, SteamFriendsIsFollowingResult, SteamFriendsEnumerateFollowingListResult, SteamFriendsRequestClanOfficerListResult, SteamFriendsDownloadClanActivityCountsResult, SteamFriendsAvatarImageLoaded, SteamFriendsClanActivityCounts, SteamFriendsClanChatMessage, SteamFriendsFriendGamePlayed, SteamFriendsFriendMessage, SteamFriendsPersonaStateChange, SteamFriendsGameOverlayActivated, SteamFriendsGameRichPresenceJoinRequested, SteamFriendsGameLobbyJoinRequested, SteamFriendsFriendRichPresenceUpdate, SteamFriendsGameServerChangeRequested, SteamAppsFileDetailsResult, SteamAppsDlcData, SteamAppsIsTimedTrialResult, SteamAppsNumBetas, SteamAppsBetaInfo, SteamAppsDlcDownloadProgress, SteamAppsDlcInstalled, SteamScreenshotsScreenshotReady, SteamUserStoreAuthUrlResponse, SteamUserEncryptedAppTicketResponse, SteamUserDurationControl, SteamUserMarketEligibilityResponse, SteamUserAuthSessionTicket, SteamUserGetAuthSessionTicketResponse, SteamUserAvailableVoice, SteamUserGetVoiceResult, SteamUserDecompressVoiceResult, SteamUserGetTicketForWebApiResponse, SteamUserValidateAuthTicketResponse, SteamUserSteamServersDisconnected, SteamUserSteamServerConnectFailure, SteamUserClientGameServerDeny, SteamUserMicroTxnAuthorizationResponse, SteamUtilsCheckFileSignatureResult, SteamUtilsLowBatteryPower, SteamUtilsSteamApiCallCompleted, SteamUtilsImageSize, SteamUtilsFilterTextResult, SteamUtilsGamepadTextInputDismissed, SteamUtilsWarningMessage, SteamUgcItemDownloadInfo, SteamUgcItemInstallInfo, SteamUgcItemUpdateProgress, SteamUgcQueryResult, SteamUgcAdditionalPreview, SteamUgcKeyValueTag, SteamUgcItemInstalled, SteamUgcUserSubscribedItemsListChanged, SteamUgcQueryCompleted, SteamUgcCreateItemResult, SteamUgcSubmitItemUpdateResult, SteamUgcSubscribeItemResult, SteamUgcUnsubscribeItemResult, SteamUgcFavoriteItemsListChanged, SteamUgcSetUserItemVoteResult, SteamUgcGetUserItemVoteResult, SteamUgcSupportedGameVersionData, SteamUgcDeleteItemResult, SteamUgcAddAppDependencyResult, SteamUgcRemoveAppDependencyResult, SteamUgcAddUGCDependencyResult, SteamUgcRemoveUGCDependencyResult, SteamUgcGetAppDependenciesResult, SteamUgcStartPlaytimeTrackingResult, SteamUgcStopPlaytimeTrackingResult, SteamUgcDownloadItemResult, SteamUgcWorkshopEULAStatusResult, SteamInputAnalogActionData, SteamInputDigitalActionData, SteamInputMotionData, SteamInputActionOrigins, SteamInputDeviceBindingRevision, SteamInputDeviceEvent, SteamUserStatsAchievementAndUnlockTime, SteamUserStatsMostAchievedAchievementInfo, SteamUserStatsDownloadedLeaderboardEntry, SteamUserStatsLeaderboardFindResult, SteamUserStatsScoresDownloadedResult, SteamUserStatsScoreUploadedResult, SteamUserStatsNumberOfCurrentPlayersResult, SteamUserStatsGlobalAchievementPercentagesReadyResult, SteamUserStatsGlobalStatsReceivedResult, SteamUserStatsAttachLeaderboardUgcResult, SteamUserStatsAchievementIconFetched, SteamUserStatsUnloaded, SteamUserStatsUserStatsReceived, SteamUserStatsUserStatsStored, SteamUserStatsUserAchievementStored, SteamUserStatsIntMinMax, SteamUserStatsFloatMinMax, SteamMusicPlaybackStatusHasChanged, SteamMusicVolumeHasChanged, SteamTimelineGamePhaseRecordingExists, SteamTimelineEventRecordingExists, SteamInventoryItemDefQuantity, SteamInventoryItemInstanceQuantity, SteamInventoryItemWithPrice, SteamInventoryItemDetails, SteamInventoryDeserializeResult, SteamInventoryItemPrice, SteamInventoryResultReady, SteamInventoryFullUpdate, SteamInventoryStartPurchaseResult, SteamInventoryEligiblePromoItemDefIdsResult, SteamInventoryRequestPricesResult, SteamRemoteStorageFileNameAndSize, SteamRemoteStorageQuota, SteamRemoteStorageUgcDetails, SteamRemoteStorageFileShareResult, SteamRemoteStorageFileWriteAsyncResult, SteamRemoteStorageDownloadUgcResult, SteamRemoteStoragePublishedFileSubscribed, SteamRemoteStoragePublishedFileUnsubscribed, SteamMatchmakingLobbyCreated, SteamMatchmakingLobbyEnter, SteamMatchmakingLobbyMatchList, SteamMatchmakingLobbyDataUpdate, SteamMatchmakingLobbyChatUpdate, SteamMatchmakingLobbyChatMsg, SteamMatchmakingLobbyGameCreated, SteamMatchmakingLobbyInvite, SteamMatchmakingLobbyDataEntry, SteamMatchmakingLobbyChatEntry, SteamMatchmakingLobbyGameServer, SteamMatchmakingFavoriteGame, SteamNetworkingMessagesSessionRequest, SteamNetworkingMessagesSessionFailed, SteamNetworkingMessage, SteamNetworkingSocketsConnectionInfo, SteamPartiesBeaconLocation, SteamPartiesCreateBeaconResult, SteamPartiesJoinPartyResult, SteamPartiesChangeNumOpenSlotsResult, SteamPartiesReservationNotification, SteamPartiesBeaconDetails, SteamNetworkingSocketsStatusChanged, steam_friends_activate_game_overlay_invite_dialog, steam_friends_activate_game_overlay_to_store, steam_friends_activate_game_overlay_to_user, steam_friends_activate_game_overlay_to_web_page, steam_friends_close_clan_chat_window_in_steam, steam_friends_download_clan_activity_counts, steam_friends_enumerate_following_list, steam_friends_set_callback_avatar_image_loaded, steam_friends_get_chat_member_by_index, steam_friends_get_clan_activity_counts, steam_friends_get_clan_chat_member_count, steam_friends_get_clan_chat_message, steam_friends_get_clan_name, steam_friends_get_clan_officer_by_index, steam_friends_get_clan_officer_count, steam_friends_get_clan_owner, steam_friends_get_clan_tag, steam_friends_get_coplay_friend, steam_friends_get_follower_count, steam_friends_get_friend_by_index, steam_friends_get_friend_coplay_game, steam_friends_get_friend_coplay_time, steam_friends_get_friend_count, steam_friends_get_friend_count_from_source, steam_friends_get_friend_from_source_by_index, steam_friends_get_friend_game_played, steam_friends_get_friend_message, steam_friends_get_friend_persona_name, steam_friends_get_friend_persona_name_history, steam_friends_get_friend_persona_state, steam_friends_get_friend_relationship, steam_friends_get_friend_rich_presence, steam_friends_get_friend_rich_presence_key_by_index, steam_friends_get_friend_rich_presence_key_count, steam_friends_get_friend_steam_level, steam_friends_get_large_friend_avatar, steam_friends_get_medium_friend_avatar, steam_friends_get_friends_group_members_list, steam_friends_get_persona_state, steam_friends_get_player_nickname, steam_friends_get_small_friend_avatar, steam_friends_has_friend, steam_friends_invite_user_to_game, steam_friends_is_clan_chat_admin, steam_friends_is_clan_public, steam_friends_is_clan_official_game_group, steam_friends_is_clan_chat_window_open_in_steam, steam_friends_is_following, steam_friends_request_clan_officer_list, steam_friends_request_friend_rich_presence, steam_friends_request_user_information, steam_friends_set_in_game_voice_speaking, steam_friends_set_played_with, steam_friends_set_callback_persona_state_change, steam_friends_set_callback_game_overlay_activated, steam_friends_set_callback_game_rich_presence_join_requested, steam_friends_set_callback_game_lobby_join_requested, steam_friends_set_callback_friend_rich_presence_update, steam_friends_set_callback_game_server_change_requested, steam_apps_get_dlc_data_by_index, steam_apps_is_timed_trial, steam_apps_get_app_install_dir, steam_apps_get_app_owner, steam_apps_get_current_beta_name, steam_apps_get_num_betas, steam_apps_get_beta_info, steam_apps_get_dlc_download_progress, steam_apps_get_app_ownership_ticket_data, steam_apps_get_file_details, steam_apps_get_installed_depots, steam_apps_get_launch_command_line, steam_apps_set_callback_dlc_installed, steam_screenshots_add_vr_screenshot_to_library, steam_screenshots_tag_published_file, steam_screenshots_tag_user, steam_screenshots_write_screenshot, steam_screenshots_set_callback_screenshot_ready, steam_screenshots_set_callback_screenshot_requested, steam_user_advertise_game, steam_user_begin_auth_session, steam_user_set_duration_control_online_state, steam_user_decompress_voice, steam_user_end_auth_session, steam_user_get_auth_session_ticket, steam_user_get_steam_id, steam_user_decode_steam_id, steam_user_get_available_voice, steam_user_get_voice, steam_user_request_encrypted_app_ticket, steam_user_get_encrypted_app_ticket, steam_user_request_auth_ticket_for_web_api, steam_user_fetch_auth_ticket_for_web_api, steam_user_get_duration_control, steam_user_request_store_auth_url, steam_user_get_market_eligibility, steam_user_track_app_usage_event, steam_user_user_has_license_for_app, steam_user_set_callback_steam_servers_connected, steam_user_set_callback_steam_server_connect_failure, steam_user_set_callback_steam_servers_disconnected, steam_user_set_callback_client_game_server_deny, steam_user_set_callback_licenses_updated, steam_user_set_callback_microtxn_authorization_response, steam_user_set_callback_get_auth_session_ticket_response, steam_user_set_callback_validate_auth_ticket_response, steam_utils_check_file_signature, steam_utils_get_api_call_failure_reason, steam_utils_get_api_call_result, steam_utils_set_callback_ip_country, steam_utils_set_callback_low_battery_power, steam_utils_set_callback_steam_api_call_completed, steam_utils_set_callback_app_resuming_from_suspend, steam_utils_set_callback_steam_shutdown, steam_utils_get_connected_universe, steam_utils_get_entered_gamepad_text_input, steam_utils_get_image_rgba, steam_utils_get_image_size, steam_utils_is_api_call_completed, steam_utils_filter_text, steam_utils_set_overlay_notification_position, steam_utils_show_gamepad_text_input, steam_utils_show_floating_gamepad_text_input, steam_utils_set_callback_gamepad_text_input_dismissed, steam_utils_set_callback_floating_gamepad_text_input_dismissed, steam_utils_set_callback_warning_message, steam_ugc_add_app_dependency, steam_ugc_add_dependency, steam_ugc_add_excluded_tag, steam_ugc_add_item_key_value_tag, steam_ugc_add_item_preview_file, steam_ugc_add_item_preview_video, steam_ugc_add_item_to_favorites, steam_ugc_add_required_key_value_tag, steam_ugc_add_required_tag, steam_ugc_add_required_tag_group, steam_ugc_create_item, steam_ugc_create_query_all_ugc_request, steam_ugc_create_query_ugc_details_request, steam_ugc_create_query_user_ugc_request, steam_ugc_delete_item, steam_ugc_download_item, steam_ugc_get_app_dependencies, steam_ugc_get_item_download_info, steam_ugc_get_item_install_info, steam_ugc_get_item_state, steam_ugc_get_item_update_progress, steam_ugc_get_subscribed_items, steam_ugc_get_query_ugc_result, steam_ugc_get_query_ugc_num_tags, steam_ugc_get_query_ugc_tag, steam_ugc_get_query_ugc_tag_display_name, steam_ugc_get_query_ugc_preview_url, steam_ugc_get_query_ugc_metadata, steam_ugc_get_query_ugc_children, steam_ugc_get_query_ugc_statistic, steam_ugc_get_query_ugc_num_additional_previews, steam_ugc_get_query_ugc_additional_preview, steam_ugc_get_supported_game_version_data, steam_ugc_get_query_ugc_num_key_value_tags, steam_ugc_get_query_ugc_key_value_tag, steam_ugc_get_query_ugc_content_descriptors, steam_ugc_remove_app_dependency, steam_ugc_remove_dependency, steam_ugc_remove_item_from_favorites, steam_ugc_remove_all_item_key_value_tags, steam_ugc_remove_item_key_value_tags, steam_ugc_remove_item_preview, steam_ugc_add_content_descriptor, steam_ugc_remove_content_descriptor, steam_ugc_set_required_game_versions, steam_ugc_send_query_ugc_request, steam_ugc_release_query_ugc_request, steam_ugc_set_callback_item_installed, steam_ugc_set_callback_download_item_result, steam_ugc_set_allow_cached_response, steam_ugc_set_cloud_file_name_filter, steam_ugc_set_item_content, steam_ugc_set_item_description, steam_ugc_set_item_metadata, steam_ugc_set_item_preview, steam_ugc_set_item_tags, steam_ugc_set_item_title, steam_ugc_set_item_update_language, steam_ugc_get_user_content_descriptor_preferences, steam_ugc_set_items_disabled_locally, steam_ugc_set_item_visibility, steam_ugc_set_language, steam_ugc_set_match_any_tag, steam_ugc_set_ranked_by_trend_days, steam_ugc_set_return_additional_previews, steam_ugc_set_return_children, steam_ugc_set_return_key_value_tags, steam_ugc_set_return_long_description, steam_ugc_set_return_metadata, steam_ugc_set_return_only_ids, steam_ugc_set_return_playtime_stats, steam_ugc_set_return_total_only, steam_ugc_set_search_text, steam_ugc_set_subscriptions_load_order, steam_ugc_set_user_item_vote, steam_ugc_get_user_item_vote, steam_ugc_start_item_update, steam_ugc_start_playtime_tracking, steam_ugc_stop_playtime_tracking, steam_ugc_stop_playtime_tracking_for_all_items, steam_ugc_submit_item_update, steam_ugc_subscribe_item, steam_ugc_unsubscribe_item, steam_ugc_set_callback_user_subscribed_items_list_changed, steam_ugc_update_item_preview_file, steam_ugc_update_item_preview_video, steam_ugc_get_workshop_eula_status, steam_ugc_get_num_supported_game_versions, steam_input_activate_action_set, steam_input_activate_action_set_layer, steam_input_deactivate_action_set_layer, steam_input_deactivate_all_action_set_layers, steam_input_get_active_action_set_layers, steam_input_get_action_set_handle, steam_input_get_analog_action_data, steam_input_get_analog_action_handle, steam_input_get_analog_action_origins, steam_input_get_glyph_png_for_action_origin, steam_input_get_glyph_svg_for_action_origin, steam_input_get_connected_controllers, steam_input_get_controller_for_gamepad_index, steam_input_get_current_action_set, steam_input_get_digital_action_data, steam_input_get_digital_action_handle, steam_input_get_digital_action_origins, steam_input_get_gamepad_index_for_controller, steam_input_get_input_type_for_handle, steam_input_get_motion_data, steam_input_get_string_for_action_origin, steam_input_set_dualsense_trigger_effect, steam_input_set_led_color, steam_input_show_binding_panel, steam_input_stop_analog_action_momentum, steam_input_trigger_vibration, steam_input_trigger_vibration_extended, steam_input_get_action_origin_from_xbox_origin, steam_input_translate_action_origin, steam_input_get_device_binding_revision, steam_input_get_remote_play_session_id, steam_input_set_callback_device_connected, steam_input_set_callback_device_disconnected, steam_userstats_get_stat_int, steam_userstats_get_stat_float, steam_userstats_get_achievement, steam_userstats_achievement_and_unlock_time, steam_userstats_request_user_stats, steam_userstats_user_stat_int, steam_userstats_user_stat_float, steam_userstats_user_achievement, steam_userstats_user_achievement_and_unlock_time, steam_userstats_find_or_create_leaderboard, steam_userstats_find_leaderboard, steam_userstats_leaderboard_name, steam_userstats_leaderboard_entry_count, steam_userstats_leaderboard_sort_method, steam_userstats_leaderboard_display_type, steam_userstats_download_leaderboard_entries, steam_userstats_download_leaderboard_entries_for_users, steam_userstats_downloaded_leaderboard_entry, steam_userstats_upload_leaderboard_score, steam_userstats_attach_leaderboard_ugc, steam_userstats_number_of_current_players, steam_userstats_request_global_achievement_percentages, steam_userstats_most_achieved_achievement_info, steam_userstats_next_most_achieved_achievement_info, steam_userstats_request_global_stats, steam_userstats_global_stat_int64, steam_userstats_global_stat_double, steam_userstats_global_stat_history_int64, steam_userstats_global_stat_history_double, steam_userstats_achievement_progress_int, steam_userstats_achievement_progress_float, steam_userstats_set_callback_user_stats_received, steam_userstats_set_callback_user_stats_stored, steam_userstats_set_callback_user_achievement_stored, steam_userstats_set_callback_user_achievement_icon_fetched, steam_userstats_set_callback_user_stats_unloaded, steam_music_get_playback_status, steam_music_set_callback_playback_status_has_changed, steam_music_set_callback_volume_has_changed, steam_timeline_add_instantaneous_timeline_event, steam_timeline_add_range_timeline_event, steam_timeline_start_range_timeline_event, steam_timeline_update_range_timeline_event, steam_timeline_end_range_timeline_event, steam_timeline_remove_timeline_event, steam_timeline_does_event_recording_exist, steam_timeline_does_game_phase_recording_exist, steam_timeline_set_timeline_game_mode, steam_timeline_open_overlay_to_timeline_event, steam_inventory_add_promo_item, steam_inventory_add_promo_items, steam_inventory_check_result_steam_id, steam_inventory_consume_item, steam_inventory_deserialize_result, steam_inventory_exchange_items, steam_inventory_generate_items, steam_inventory_get_result_items, steam_inventory_get_result_status, steam_inventory_request_eligible_promo_item_definition_ids, steam_inventory_get_eligible_promo_item_definition_ids, steam_inventory_get_item_definition_ids, steam_inventory_get_items_by_id, steam_inventory_serialize_result, steam_inventory_get_result_item_property_keys_array, steam_inventory_get_result_item_property, steam_inventory_start_purchase, steam_inventory_request_prices, steam_inventory_get_items_with_prices, steam_inventory_start_update_properties, steam_inventory_remove_property, steam_inventory_set_property_string, steam_inventory_set_property_bool, steam_inventory_set_property_int64, steam_inventory_set_property_float, steam_inventory_submit_update_properties, steam_inventory_transfer_item_quantity, steam_inventory_trigger_item_drop, steam_inventory_grant_promo_items, steam_inventory_get_item_definition_property, steam_inventory_get_item_definition_property_keys, steam_inventory_get_item_price, steam_inventory_set_callback_result_ready, steam_inventory_set_callback_full_update, steam_inventory_set_callback_definition_update, steam_remote_storage_set_callback_published_file_subscribed, steam_remote_storage_set_callback_published_file_unsubscribed, steam_remote_storage_set_callback_local_file_change, steam_remote_storage_file_write, steam_remote_storage_file_write_async, steam_remote_storage_file_read, steam_remote_storage_get_file_timestamp, steam_remote_storage_get_file_name_and_size, steam_remote_storage_get_quota, steam_remote_storage_set_sync_platforms, steam_remote_storage_get_sync_platforms, steam_remote_storage_file_write_stream_open, steam_remote_storage_file_write_stream_write_chunk, steam_remote_storage_file_write_stream_close, steam_remote_storage_file_write_stream_cancel, steam_remote_storage_get_cached_ugc_handle, steam_remote_storage_get_ugc_details, steam_remote_storage_ugc_read, steam_remote_storage_file_share, steam_remote_storage_ugc_download, steam_remote_storage_ugc_download_to_location, steam_matchmaking_set_callback_lobby_data_update, steam_matchmaking_set_callback_lobby_chat_update, steam_matchmaking_set_callback_lobby_chat_msg, steam_matchmaking_set_callback_lobby_game_created, steam_matchmaking_set_callback_lobby_invite, steam_matchmaking_create_lobby, steam_matchmaking_join_lobby, steam_matchmaking_request_lobby_list, steam_matchmaking_add_request_lobby_list_string_filter, steam_matchmaking_add_request_lobby_list_numerical_filter, steam_matchmaking_add_request_lobby_list_distance_filter, steam_matchmaking_get_lobby_by_index, steam_matchmaking_leave_lobby, steam_matchmaking_set_lobby_owner, steam_matchmaking_get_lobby_owner, steam_matchmaking_get_num_lobby_members, steam_matchmaking_get_lobby_member_by_index, steam_matchmaking_set_lobby_data, steam_matchmaking_get_lobby_data, steam_matchmaking_delete_lobby_data, steam_matchmaking_get_lobby_data_count, steam_matchmaking_get_lobby_data_by_index, steam_matchmaking_set_lobby_member_data, steam_matchmaking_get_lobby_member_data, steam_matchmaking_send_lobby_chat_msg, steam_matchmaking_get_lobby_chat_entry, steam_matchmaking_request_lobby_data, steam_matchmaking_set_lobby_joinable, steam_matchmaking_set_lobby_type, steam_matchmaking_invite_user_to_lobby, steam_matchmaking_set_lobby_game_server, steam_matchmaking_set_linked_lobby, steam_matchmaking_get_lobby_game_server, steam_matchmaking_get_favorite_game, steam_networking_messages_set_callback_session_request, steam_networking_messages_set_callback_session_failed, steam_networking_messages_send_message_to_user, steam_networking_messages_receive_messages_on_channel, steam_networking_messages_accept_session_with_user, steam_networking_messages_close_session_with_user, steam_networking_messages_close_channel_with_user, steam_networking_sockets_set_callback_connection_status_changed, steam_networking_sockets_accept_connection, steam_networking_sockets_close_connection, steam_networking_sockets_set_connection_user_data, steam_networking_sockets_get_connection_user_data, steam_networking_sockets_send_message_to_connection, steam_networking_sockets_flush_messages_on_connection, steam_networking_sockets_receive_messages_on_connection, steam_networking_sockets_get_connection_info, steam_networking_sockets_create_socket_pair, steam_networking_sockets_connect_p2p, steam_networking_sockets_receive_messages_on_poll_group, steam_parties_set_callback_reservation_notification, steam_parties_set_callback_available_beacon_locations_updated, steam_parties_set_callback_active_beacons_updated, steam_parties_get_num_available_beacon_locations, steam_parties_get_available_beacon_locations, steam_parties_create_beacon, steam_parties_on_reservation_completed, steam_parties_cancel_reservation, steam_parties_change_num_open_slots, steam_parties_destroy_beacon, steam_parties_get_beacon_by_index, steam_parties_get_beacon_details, steam_parties_join_party, steam_parties_get_beacon_location_data
+#export STEAM_API_BREAKPAD_INVALID_HANDLE, STEAM_API_GAME_EXTRA_INFO_MAX, STEAM_API_SALT_SIZE, STEAM_API_GID_NIL, STEAM_API_AUTH_TICKET_INVALID, STEAM_API_JOB_ID_NIL, STEAM_API_TXN_ID_NIL, STEAM_API_TXN_ID_UNKNOWN, STEAM_API_API_CALL_INVALID, STEAM_API_APP_ID_INVALID, STEAM_API_BUNDLE_ID_INVALID, STEAM_API_CELL_ID_INVALID, STEAM_API_DEPOT_ID_INVALID, STEAM_API_ASSET_CLASS_ID_INVALID, STEAM_API_MANIFEST_ID_INVALID, STEAM_API_STEAM_ACCOUNT_ID_MASK, STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK, STEAM_API_STEAM_USER_CONSOLE_INSTANCE, STEAM_API_STEAM_USER_DESKTOP_INSTANCE, STEAM_API_STEAM_USER_WEB_INSTANCE, STEAM_API_PACKAGE_ID_FREE_SUB, STEAM_API_PACKAGE_ID_INVALID, STEAM_API_PARTNER_ID_INVALID, STEAM_API_PHYSICAL_ITEM_ID_INVALID, STEAM_API_QUERY_PORT_ERROR, STEAM_API_QUERY_PORT_NOT_INITIALIZED, STEAM_ID_NIL, STEAM_ID_NON_STEAM_GS, STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS, STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH, STEAM_FRIENDS_PERSONA_NAME_MAX, STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX, STEAM_FRIENDS_FRIENDS_GROUP_LIMIT, STEAM_FRIENDS_CHAT_METADATA_MAX, STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16, STEAM_FRIENDS_GROUP_ID_INVALID, STEAM_FRIENDS_INTERFACE_VERSION, STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX, STEAM_APPS_INTERFACE_VERSION, STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE, STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX, STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX, STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES, STEAM_SCREENSHOTS_MAX_TAGGED_USERS, STEAM_SCREENSHOTS_THUMB_WIDTH, STEAM_SCREENSHOTS_INTERFACE_VERSION, STEAM_USER_INTERFACE_VERSION, STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN, STEAM_UTILS_INTERFACE_VERSION, STEAM_UGC_NUM_RESULTS_PER_PAGE, STEAM_UGC_DEVELOPER_METADATA_MAX, STEAM_UGC_QUERY_HANDLE_INVALID, STEAM_UGC_UPDATE_HANDLE_INVALID, STEAM_UGC_INTERFACE_VERSION, STEAM_INPUT_INTERFACE_VERSION, STEAM_INPUT_HANDLE_ALL_CONTROLLERS, STEAM_INPUT_MAX_ANALOG_ACTIONS, STEAM_INPUT_MAX_ANALOG_ACTION_DATA, STEAM_INPUT_MAX_COUNT, STEAM_INPUT_MAX_DIGITAL_ACTIONS, STEAM_INPUT_MAX_ORIGINS, STEAM_INPUT_MIN_ANALOG_ACTION_DATA, STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2, STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2, STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM, STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM, STEAM_USER_STATS_LEADERBOARD_NAME_MAX, STEAM_USER_STATS_STAT_NAME_MAX, STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX, STEAM_USER_STATS_INTERFACE_VERSION, STEAM_MUSIC_INTERFACE_VERSION, STEAM_TIMELINE_MAX_TIMELINE_PRIORITY, STEAM_INVENTORY_RESULT_INVALID, STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID, STEAM_INVENTORY_INTERFACE_VERSION, STEAM_REMOTE_STORAGE_FILENAME_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX, STEAM_REMOTE_STORAGE_TAG_LIST_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID, STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS, STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE, STEAM_REMOTE_STORAGE_INTERFACE_VERSION, STEAM_MATCHMAKING_SERVER_QUERY_INVALID, STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH, STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE, STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY, STEAM_MATCHMAKING_FAVORITE_FLAG_NONE, STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION, STEAM_MATCHMAKING_INTERFACE_VERSION, STEAM_NETWORKING_POLL_GROUP_INVALID, STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND, SteamApiAccountType, SteamApiDenyReason, SteamApiGameIdType, SteamApiLaunchOptionType, SteamApiMarketingMessageFlag, SteamApiNotificationPosition, SteamApiUniverse, SteamApiUserHasLicenseForAppResult, SteamApiVoiceResult, SteamApiResult, SteamFriendsOverlayToStoreFlag, SteamFriendsOverlayToWebpageMode, SteamFriendsChatEntryType, SteamFriendsFriendFlag, SteamFriendsPersonaState, SteamFriendsRelationship, SteamFriendsPersonaChange, SteamAppsBetaBranchFlags, SteamScreenshotsVrScreenshotType, SteamUserDurationControlProgress, SteamUserDurationControlNotification, SteamMarketNotAllowedReasonFlags, SteamNetworkingIdentityType, SteamUserBeginAuthSessionResult, SteamAuthSessionResponse, SteamUserDurationControlOnlineState, SteamUtilsCheckFileSignature, SteamUtilsApiCallFailure, SteamUtilsGamepadTextInputMode, SteamUtilsGamepadTextInputLineMode, SteamUtilsFloatingGamepadTextInputMode, SteamUtilsTextFilteringContext, SteamUgcMatchingUgcType, SteamUgcQuery, SteamUserUgcList, SteamUserUgcListSortOrder, SteamUgcItemPreviewType, SteamRemoteStoragePublishedFileVisibility, SteamUgcContentDescriptorId, SteamUgcItemState, SteamUgcItemUpdateStatus, SteamUgcStatisticType, SteamInputControllerSourceMode, SteamInputControllerLEDFlag, SteamInputGlyphSize, SteamInputGlyphStyle, SteamInputType, SteamInputXboxOrigin, SteamInputActionOrigin, SteamInputTriggerEffectTriggerMask, SteamInputTriggerEffectMode, SteamLeaderboardDataRequest, SteamLeaderboardSortMethod, SteamLeaderboardDisplayType, SteamLeaderboardUploadScoreMethod, SteamMusicPlaybackStatus, SteamTimelineGameMode, SteamTimelineEventClipPriority, SteamInventoryItemFlags, SteamRemoteStoragePlatform, SteamRemoteStorageUgcReadAction, SteamRemoteStorageWorkshopFileType, SteamMatchmakingLobbyType, SteamMatchmakingLobbyComparison, SteamMatchmakingLobbyDistanceFilter, SteamMatchmakingChatMemberStateChange, SteamMatchmakingChatRoomEnterResponse, SteamNetworkingConnectionEnd, SteamNetworkingConnectionState, SteamNetworkingSendFlags, SteamNetworkingConfigValue, SteamNetworkingConnectionInfoFlags, SteamPartiesBeaconLocationType, SteamPartiesBeaconLocationData, SteamId, SteamFriendsGetFollowerCountResult, SteamFriendsIsFollowingResult, SteamFriendsEnumerateFollowingListResult, SteamFriendsRequestClanOfficerListResult, SteamFriendsDownloadClanActivityCountsResult, SteamFriendsAvatarImageLoaded, SteamFriendsClanActivityCounts, SteamFriendsClanChatMessage, SteamFriendsFriendGamePlayed, SteamFriendsFriendMessage, SteamFriendsPersonaStateChange, SteamFriendsGameOverlayActivated, SteamFriendsGameRichPresenceJoinRequested, SteamFriendsGameLobbyJoinRequested, SteamFriendsFriendRichPresenceUpdate, SteamFriendsGameServerChangeRequested, SteamAppsFileDetailsResult, SteamAppsDlcData, SteamAppsIsTimedTrialResult, SteamAppsNumBetas, SteamAppsBetaInfo, SteamAppsDlcDownloadProgress, SteamAppsDlcInstalled, SteamScreenshotsScreenshotReady, SteamUserStoreAuthUrlResponse, SteamUserEncryptedAppTicketResponse, SteamUserDurationControl, SteamUserMarketEligibilityResponse, SteamUserAuthSessionTicket, SteamUserGetAuthSessionTicketResponse, SteamUserAvailableVoice, SteamUserGetVoiceResult, SteamUserDecompressVoiceResult, SteamUserGetTicketForWebApiResponse, SteamUserValidateAuthTicketResponse, SteamUserSteamServersDisconnected, SteamUserSteamServerConnectFailure, SteamUserClientGameServerDeny, SteamUserMicroTxnAuthorizationResponse, SteamUtilsCheckFileSignatureResult, SteamUtilsLowBatteryPower, SteamUtilsSteamApiCallCompleted, SteamUtilsImageSize, SteamUtilsFilterTextResult, SteamUtilsGamepadTextInputDismissed, SteamUtilsWarningMessage, SteamUgcItemDownloadInfo, SteamUgcItemInstallInfo, SteamUgcItemUpdateProgress, SteamUgcQueryResult, SteamUgcAdditionalPreview, SteamUgcKeyValueTag, SteamUgcItemInstalled, SteamUgcUserSubscribedItemsListChanged, SteamUgcQueryCompleted, SteamUgcCreateItemResult, SteamUgcSubmitItemUpdateResult, SteamUgcSubscribeItemResult, SteamUgcUnsubscribeItemResult, SteamUgcFavoriteItemsListChanged, SteamUgcSetUserItemVoteResult, SteamUgcGetUserItemVoteResult, SteamUgcSupportedGameVersionData, SteamUgcDeleteItemResult, SteamUgcAddAppDependencyResult, SteamUgcRemoveAppDependencyResult, SteamUgcAddUGCDependencyResult, SteamUgcRemoveUGCDependencyResult, SteamUgcGetAppDependenciesResult, SteamUgcStartPlaytimeTrackingResult, SteamUgcStopPlaytimeTrackingResult, SteamUgcDownloadItemResult, SteamUgcWorkshopEULAStatusResult, SteamInputAnalogActionData, SteamInputDigitalActionData, SteamInputMotionData, SteamInputActionOrigins, SteamInputDeviceBindingRevision, SteamInputTriggerEffectFeedbackParam, SteamInputTriggerEffectWeaponParam, SteamInputTriggerEffectVibrationParam, SteamInputTriggerEffectMultiplePositionFeedbackParam, SteamInputTriggerEffectSlopeFeedbackParam, SteamInputTriggerEffectMultiplePositionVibrationParam, SteamInputDeviceEvent, SteamUserStatsAchievementAndUnlockTime, SteamUserStatsMostAchievedAchievementInfo, SteamUserStatsDownloadedLeaderboardEntry, SteamUserStatsLeaderboardFindResult, SteamUserStatsScoresDownloadedResult, SteamUserStatsScoreUploadedResult, SteamUserStatsNumberOfCurrentPlayersResult, SteamUserStatsGlobalAchievementPercentagesReadyResult, SteamUserStatsGlobalStatsReceivedResult, SteamUserStatsAttachLeaderboardUgcResult, SteamUserStatsAchievementIconFetched, SteamUserStatsUnloaded, SteamUserStatsUserStatsReceived, SteamUserStatsUserStatsStored, SteamUserStatsUserAchievementStored, SteamUserStatsIntMinMax, SteamUserStatsFloatMinMax, SteamMusicPlaybackStatusHasChanged, SteamMusicVolumeHasChanged, SteamTimelineGamePhaseRecordingExists, SteamTimelineEventRecordingExists, SteamInventoryItemDefQuantity, SteamInventoryItemInstanceQuantity, SteamInventoryItemWithPrice, SteamInventoryItemDetails, SteamInventoryDeserializeResult, SteamInventoryItemPrice, SteamInventoryResultReady, SteamInventoryFullUpdate, SteamInventoryStartPurchaseResult, SteamInventoryEligiblePromoItemDefIdsResult, SteamInventoryRequestPricesResult, SteamRemoteStorageFileNameAndSize, SteamRemoteStorageQuota, SteamRemoteStorageUgcDetails, SteamRemoteStorageFileShareResult, SteamRemoteStorageFileWriteAsyncResult, SteamRemoteStorageDownloadUgcResult, SteamRemoteStoragePublishedFileSubscribed, SteamRemoteStoragePublishedFileUnsubscribed, SteamMatchmakingLobbyCreated, SteamMatchmakingLobbyEnter, SteamMatchmakingLobbyMatchList, SteamMatchmakingLobbyDataUpdate, SteamMatchmakingLobbyChatUpdate, SteamMatchmakingLobbyChatMsg, SteamMatchmakingLobbyGameCreated, SteamMatchmakingLobbyInvite, SteamMatchmakingLobbyDataEntry, SteamMatchmakingLobbyChatEntry, SteamMatchmakingLobbyGameServer, SteamMatchmakingFavoriteGame, SteamNetworkingMessagesSessionRequest, SteamNetworkingMessagesSessionFailed, SteamNetworkingMessage, SteamNetworkingSocketsConnectionInfo, SteamPartiesBeaconLocation, SteamPartiesCreateBeaconResult, SteamPartiesJoinPartyResult, SteamPartiesChangeNumOpenSlotsResult, SteamPartiesReservationNotification, SteamPartiesBeaconDetails, SteamInputTriggerEffectCommandData, SteamNetworkingSocketsStatusChanged, SteamInputTriggerEffectCommand, SteamInputTriggerEffectParam, steam_friends_activate_game_overlay_invite_dialog, steam_friends_activate_game_overlay_to_store, steam_friends_activate_game_overlay_to_user, steam_friends_activate_game_overlay_to_web_page, steam_friends_close_clan_chat_window_in_steam, steam_friends_download_clan_activity_counts, steam_friends_enumerate_following_list, steam_friends_set_callback_avatar_image_loaded, steam_friends_get_chat_member_by_index, steam_friends_get_clan_activity_counts, steam_friends_get_clan_chat_member_count, steam_friends_get_clan_chat_message, steam_friends_get_clan_name, steam_friends_get_clan_officer_by_index, steam_friends_get_clan_officer_count, steam_friends_get_clan_owner, steam_friends_get_clan_tag, steam_friends_get_coplay_friend, steam_friends_get_follower_count, steam_friends_get_friend_by_index, steam_friends_get_friend_coplay_game, steam_friends_get_friend_coplay_time, steam_friends_get_friend_count, steam_friends_get_friend_count_from_source, steam_friends_get_friend_from_source_by_index, steam_friends_get_friend_game_played, steam_friends_get_friend_message, steam_friends_get_friend_persona_name, steam_friends_get_friend_persona_name_history, steam_friends_get_friend_persona_state, steam_friends_get_friend_relationship, steam_friends_get_friend_rich_presence, steam_friends_get_friend_rich_presence_key_by_index, steam_friends_get_friend_rich_presence_key_count, steam_friends_get_friend_steam_level, steam_friends_get_large_friend_avatar, steam_friends_get_medium_friend_avatar, steam_friends_get_friends_group_members_list, steam_friends_get_persona_state, steam_friends_get_player_nickname, steam_friends_get_small_friend_avatar, steam_friends_has_friend, steam_friends_invite_user_to_game, steam_friends_is_clan_chat_admin, steam_friends_is_clan_public, steam_friends_is_clan_official_game_group, steam_friends_is_clan_chat_window_open_in_steam, steam_friends_is_following, steam_friends_request_clan_officer_list, steam_friends_request_friend_rich_presence, steam_friends_request_user_information, steam_friends_set_in_game_voice_speaking, steam_friends_set_played_with, steam_friends_set_callback_persona_state_change, steam_friends_set_callback_game_overlay_activated, steam_friends_set_callback_game_rich_presence_join_requested, steam_friends_set_callback_game_lobby_join_requested, steam_friends_set_callback_friend_rich_presence_update, steam_friends_set_callback_game_server_change_requested, steam_apps_get_dlc_data_by_index, steam_apps_is_timed_trial, steam_apps_get_app_install_dir, steam_apps_get_app_owner, steam_apps_get_current_beta_name, steam_apps_get_num_betas, steam_apps_get_beta_info, steam_apps_get_dlc_download_progress, steam_apps_get_app_ownership_ticket_data, steam_apps_get_file_details, steam_apps_get_installed_depots, steam_apps_get_launch_command_line, steam_apps_set_callback_dlc_installed, steam_screenshots_add_vr_screenshot_to_library, steam_screenshots_tag_published_file, steam_screenshots_tag_user, steam_screenshots_write_screenshot, steam_screenshots_set_callback_screenshot_ready, steam_screenshots_set_callback_screenshot_requested, steam_user_advertise_game, steam_user_begin_auth_session, steam_user_set_duration_control_online_state, steam_user_decompress_voice, steam_user_end_auth_session, steam_user_get_auth_session_ticket, steam_user_get_steam_id, steam_user_decode_steam_id, steam_user_get_available_voice, steam_user_get_voice, steam_user_request_encrypted_app_ticket, steam_user_get_encrypted_app_ticket, steam_user_request_auth_ticket_for_web_api, steam_user_fetch_auth_ticket_for_web_api, steam_user_get_duration_control, steam_user_request_store_auth_url, steam_user_get_market_eligibility, steam_user_track_app_usage_event, steam_user_user_has_license_for_app, steam_user_set_callback_steam_servers_connected, steam_user_set_callback_steam_server_connect_failure, steam_user_set_callback_steam_servers_disconnected, steam_user_set_callback_client_game_server_deny, steam_user_set_callback_licenses_updated, steam_user_set_callback_microtxn_authorization_response, steam_user_set_callback_get_auth_session_ticket_response, steam_user_set_callback_validate_auth_ticket_response, steam_utils_check_file_signature, steam_utils_get_api_call_failure_reason, steam_utils_get_api_call_result, steam_utils_set_callback_ip_country, steam_utils_set_callback_low_battery_power, steam_utils_set_callback_steam_api_call_completed, steam_utils_set_callback_app_resuming_from_suspend, steam_utils_set_callback_steam_shutdown, steam_utils_get_connected_universe, steam_utils_get_entered_gamepad_text_input, steam_utils_get_image_rgba, steam_utils_get_image_size, steam_utils_is_api_call_completed, steam_utils_filter_text, steam_utils_set_overlay_notification_position, steam_utils_show_gamepad_text_input, steam_utils_show_floating_gamepad_text_input, steam_utils_set_callback_gamepad_text_input_dismissed, steam_utils_set_callback_floating_gamepad_text_input_dismissed, steam_utils_set_callback_warning_message, steam_ugc_add_app_dependency, steam_ugc_add_dependency, steam_ugc_add_excluded_tag, steam_ugc_add_item_key_value_tag, steam_ugc_add_item_preview_file, steam_ugc_add_item_preview_video, steam_ugc_add_item_to_favorites, steam_ugc_add_required_key_value_tag, steam_ugc_add_required_tag, steam_ugc_add_required_tag_group, steam_ugc_create_item, steam_ugc_create_query_all_ugc_request, steam_ugc_create_query_ugc_details_request, steam_ugc_create_query_user_ugc_request, steam_ugc_delete_item, steam_ugc_download_item, steam_ugc_get_app_dependencies, steam_ugc_get_item_download_info, steam_ugc_get_item_install_info, steam_ugc_get_item_state, steam_ugc_get_item_update_progress, steam_ugc_get_subscribed_items, steam_ugc_get_query_ugc_result, steam_ugc_get_query_ugc_num_tags, steam_ugc_get_query_ugc_tag, steam_ugc_get_query_ugc_tag_display_name, steam_ugc_get_query_ugc_preview_url, steam_ugc_get_query_ugc_metadata, steam_ugc_get_query_ugc_children, steam_ugc_get_query_ugc_statistic, steam_ugc_get_query_ugc_num_additional_previews, steam_ugc_get_query_ugc_additional_preview, steam_ugc_get_supported_game_version_data, steam_ugc_get_query_ugc_num_key_value_tags, steam_ugc_get_query_ugc_key_value_tag, steam_ugc_get_query_ugc_content_descriptors, steam_ugc_remove_app_dependency, steam_ugc_remove_dependency, steam_ugc_remove_item_from_favorites, steam_ugc_remove_all_item_key_value_tags, steam_ugc_remove_item_key_value_tags, steam_ugc_remove_item_preview, steam_ugc_add_content_descriptor, steam_ugc_remove_content_descriptor, steam_ugc_set_required_game_versions, steam_ugc_send_query_ugc_request, steam_ugc_release_query_ugc_request, steam_ugc_set_callback_item_installed, steam_ugc_set_callback_download_item_result, steam_ugc_set_allow_cached_response, steam_ugc_set_cloud_file_name_filter, steam_ugc_set_item_content, steam_ugc_set_item_description, steam_ugc_set_item_metadata, steam_ugc_set_item_preview, steam_ugc_set_item_tags, steam_ugc_set_item_title, steam_ugc_set_item_update_language, steam_ugc_get_user_content_descriptor_preferences, steam_ugc_set_items_disabled_locally, steam_ugc_set_item_visibility, steam_ugc_set_language, steam_ugc_set_match_any_tag, steam_ugc_set_ranked_by_trend_days, steam_ugc_set_return_additional_previews, steam_ugc_set_return_children, steam_ugc_set_return_key_value_tags, steam_ugc_set_return_long_description, steam_ugc_set_return_metadata, steam_ugc_set_return_only_ids, steam_ugc_set_return_playtime_stats, steam_ugc_set_return_total_only, steam_ugc_set_search_text, steam_ugc_set_subscriptions_load_order, steam_ugc_set_user_item_vote, steam_ugc_get_user_item_vote, steam_ugc_start_item_update, steam_ugc_start_playtime_tracking, steam_ugc_stop_playtime_tracking, steam_ugc_stop_playtime_tracking_for_all_items, steam_ugc_submit_item_update, steam_ugc_subscribe_item, steam_ugc_unsubscribe_item, steam_ugc_set_callback_user_subscribed_items_list_changed, steam_ugc_update_item_preview_file, steam_ugc_update_item_preview_video, steam_ugc_get_workshop_eula_status, steam_ugc_get_num_supported_game_versions, steam_input_activate_action_set, steam_input_activate_action_set_layer, steam_input_deactivate_action_set_layer, steam_input_deactivate_all_action_set_layers, steam_input_get_active_action_set_layers, steam_input_get_action_set_handle, steam_input_get_analog_action_data, steam_input_get_analog_action_handle, steam_input_get_analog_action_origins, steam_input_get_glyph_png_for_action_origin, steam_input_get_glyph_svg_for_action_origin, steam_input_get_connected_controllers, steam_input_get_controller_for_gamepad_index, steam_input_get_current_action_set, steam_input_get_digital_action_data, steam_input_get_digital_action_handle, steam_input_get_digital_action_origins, steam_input_get_gamepad_index_for_controller, steam_input_get_input_type_for_handle, steam_input_get_motion_data, steam_input_get_string_for_action_origin, steam_input_set_dualsense_trigger_effect, steam_input_set_led_color, steam_input_show_binding_panel, steam_input_stop_analog_action_momentum, steam_input_trigger_vibration, steam_input_trigger_vibration_extended, steam_input_get_action_origin_from_xbox_origin, steam_input_translate_action_origin, steam_input_get_device_binding_revision, steam_input_get_remote_play_session_id, steam_input_set_callback_device_connected, steam_input_set_callback_device_disconnected, steam_userstats_get_stat_int, steam_userstats_get_stat_float, steam_userstats_get_achievement, steam_userstats_achievement_and_unlock_time, steam_userstats_request_user_stats, steam_userstats_user_stat_int, steam_userstats_user_stat_float, steam_userstats_user_achievement, steam_userstats_user_achievement_and_unlock_time, steam_userstats_find_or_create_leaderboard, steam_userstats_find_leaderboard, steam_userstats_leaderboard_name, steam_userstats_leaderboard_entry_count, steam_userstats_leaderboard_sort_method, steam_userstats_leaderboard_display_type, steam_userstats_download_leaderboard_entries, steam_userstats_download_leaderboard_entries_for_users, steam_userstats_downloaded_leaderboard_entry, steam_userstats_upload_leaderboard_score, steam_userstats_attach_leaderboard_ugc, steam_userstats_number_of_current_players, steam_userstats_request_global_achievement_percentages, steam_userstats_most_achieved_achievement_info, steam_userstats_next_most_achieved_achievement_info, steam_userstats_request_global_stats, steam_userstats_global_stat_int64, steam_userstats_global_stat_double, steam_userstats_global_stat_history_int64, steam_userstats_global_stat_history_double, steam_userstats_achievement_progress_int, steam_userstats_achievement_progress_float, steam_userstats_set_callback_user_stats_received, steam_userstats_set_callback_user_stats_stored, steam_userstats_set_callback_user_achievement_stored, steam_userstats_set_callback_user_achievement_icon_fetched, steam_userstats_set_callback_user_stats_unloaded, steam_music_get_playback_status, steam_music_set_callback_playback_status_has_changed, steam_music_set_callback_volume_has_changed, steam_timeline_add_instantaneous_timeline_event, steam_timeline_add_range_timeline_event, steam_timeline_start_range_timeline_event, steam_timeline_update_range_timeline_event, steam_timeline_end_range_timeline_event, steam_timeline_remove_timeline_event, steam_timeline_does_event_recording_exist, steam_timeline_does_game_phase_recording_exist, steam_timeline_set_timeline_game_mode, steam_timeline_open_overlay_to_timeline_event, steam_inventory_add_promo_item, steam_inventory_add_promo_items, steam_inventory_check_result_steam_id, steam_inventory_consume_item, steam_inventory_deserialize_result, steam_inventory_exchange_items, steam_inventory_generate_items, steam_inventory_get_result_items, steam_inventory_get_result_status, steam_inventory_request_eligible_promo_item_definition_ids, steam_inventory_get_eligible_promo_item_definition_ids, steam_inventory_get_item_definition_ids, steam_inventory_get_items_by_id, steam_inventory_serialize_result, steam_inventory_get_result_item_property_keys_array, steam_inventory_get_result_item_property, steam_inventory_start_purchase, steam_inventory_request_prices, steam_inventory_get_items_with_prices, steam_inventory_start_update_properties, steam_inventory_remove_property, steam_inventory_set_property_string, steam_inventory_set_property_bool, steam_inventory_set_property_int64, steam_inventory_set_property_float, steam_inventory_submit_update_properties, steam_inventory_transfer_item_quantity, steam_inventory_trigger_item_drop, steam_inventory_grant_promo_items, steam_inventory_get_item_definition_property, steam_inventory_get_item_definition_property_keys, steam_inventory_get_item_price, steam_inventory_set_callback_result_ready, steam_inventory_set_callback_full_update, steam_inventory_set_callback_definition_update, steam_remote_storage_set_callback_published_file_subscribed, steam_remote_storage_set_callback_published_file_unsubscribed, steam_remote_storage_set_callback_local_file_change, steam_remote_storage_file_write, steam_remote_storage_file_write_async, steam_remote_storage_file_read, steam_remote_storage_get_file_timestamp, steam_remote_storage_get_file_name_and_size, steam_remote_storage_get_quota, steam_remote_storage_set_sync_platforms, steam_remote_storage_get_sync_platforms, steam_remote_storage_file_write_stream_open, steam_remote_storage_file_write_stream_write_chunk, steam_remote_storage_file_write_stream_close, steam_remote_storage_file_write_stream_cancel, steam_remote_storage_get_cached_ugc_handle, steam_remote_storage_get_ugc_details, steam_remote_storage_ugc_read, steam_remote_storage_file_share, steam_remote_storage_ugc_download, steam_remote_storage_ugc_download_to_location, steam_matchmaking_set_callback_lobby_data_update, steam_matchmaking_set_callback_lobby_chat_update, steam_matchmaking_set_callback_lobby_chat_msg, steam_matchmaking_set_callback_lobby_game_created, steam_matchmaking_set_callback_lobby_invite, steam_matchmaking_create_lobby, steam_matchmaking_join_lobby, steam_matchmaking_request_lobby_list, steam_matchmaking_add_request_lobby_list_string_filter, steam_matchmaking_add_request_lobby_list_numerical_filter, steam_matchmaking_add_request_lobby_list_distance_filter, steam_matchmaking_get_lobby_by_index, steam_matchmaking_leave_lobby, steam_matchmaking_set_lobby_owner, steam_matchmaking_get_lobby_owner, steam_matchmaking_get_num_lobby_members, steam_matchmaking_get_lobby_member_by_index, steam_matchmaking_set_lobby_data, steam_matchmaking_get_lobby_data, steam_matchmaking_delete_lobby_data, steam_matchmaking_get_lobby_data_count, steam_matchmaking_get_lobby_data_by_index, steam_matchmaking_set_lobby_member_data, steam_matchmaking_get_lobby_member_data, steam_matchmaking_send_lobby_chat_msg, steam_matchmaking_get_lobby_chat_entry, steam_matchmaking_request_lobby_data, steam_matchmaking_set_lobby_joinable, steam_matchmaking_set_lobby_type, steam_matchmaking_invite_user_to_lobby, steam_matchmaking_set_lobby_game_server, steam_matchmaking_set_linked_lobby, steam_matchmaking_get_lobby_game_server, steam_matchmaking_get_favorite_game, steam_networking_messages_set_callback_session_request, steam_networking_messages_set_callback_session_failed, steam_networking_messages_send_message_to_user, steam_networking_messages_receive_messages_on_channel, steam_networking_messages_accept_session_with_user, steam_networking_messages_close_session_with_user, steam_networking_messages_close_channel_with_user, steam_networking_sockets_set_callback_connection_status_changed, steam_networking_sockets_accept_connection, steam_networking_sockets_close_connection, steam_networking_sockets_set_connection_user_data, steam_networking_sockets_get_connection_user_data, steam_networking_sockets_send_message_to_connection, steam_networking_sockets_flush_messages_on_connection, steam_networking_sockets_receive_messages_on_connection, steam_networking_sockets_get_connection_info, steam_networking_sockets_create_socket_pair, steam_networking_sockets_connect_p2p, steam_networking_sockets_receive_messages_on_poll_group, steam_parties_set_callback_reservation_notification, steam_parties_set_callback_available_beacon_locations_updated, steam_parties_set_callback_active_beacons_updated, steam_parties_get_num_available_beacon_locations, steam_parties_get_available_beacon_locations, steam_parties_create_beacon, steam_parties_on_reservation_completed, steam_parties_cancel_reservation, steam_parties_change_num_open_slots, steam_parties_destroy_beacon, steam_parties_get_beacon_by_index, steam_parties_get_beacon_details, steam_parties_join_party, steam_parties_get_beacon_location_data

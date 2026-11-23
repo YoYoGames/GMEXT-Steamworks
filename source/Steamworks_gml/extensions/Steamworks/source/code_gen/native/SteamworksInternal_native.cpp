@@ -4042,8 +4042,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_set_dualsense_trigger_effect(char* __a
     // field: input_handle, type: UInt64
     std::uint64_t input_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: param, type: UInt32[]
-    std::vector<std::uint32_t> param = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: param, type: struct SteamInputTriggerEffectParam
+    gm_structs::SteamInputTriggerEffectParam param = gm::wire::codec::readValue<gm_structs::SteamInputTriggerEffectParam>(__br);
 
     auto&& __result = steam_input_set_dualsense_trigger_effect(input_handle, param);
     return static_cast<double>(__result);

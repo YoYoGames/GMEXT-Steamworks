@@ -3999,6 +3999,150 @@ class `[[SteamInputDeviceBindingRevision]]` prototype Object
 }
 
 
+// isteamdualsense.h types, ScePad prefix renamed to SteamInput for consistency
+
+// a bitmask for the trigger_mask field
+[global, type_hint = `uint8`]
+enum SteamInputTriggerEffectTriggerMask
+{
+    L2 = 1,
+    R2 = 2
+}
+
+// index for SteamInputTriggerEffectTriggerMask.L2 in the command array
+const STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2 : int32 =  0;
+// index for SteamInputTriggerEffectTriggerMask.R2 in the command array
+const STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2 : int32 =  1;
+// required length of the command array
+const STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM        : int32 =  2;
+// required length of the strength array for multiple position effects
+const STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM  : int32 = 10;
+
+// for the mode field of SteamInputTriggerEffectCommand, stored directly as the enum type
+[global, bind = typed_gml]
+enum SteamInputTriggerEffectMode : int32
+{
+    OFF                         = 0,
+    FEEDBACK                    = 1,
+    WEAPON                      = 2,
+    VIBRATION                   = 3,
+    MULTIPLE_POSITION_FEEDBACK  = 4,
+    SLOPE_FEEDBACK              = 5,
+    MULTIPLE_POSITION_VIBRATION = 6
+}
+
+[global]
+class `[[SteamInputTriggerEffectFeedbackParam]]` prototype Object
+{
+    [field, type_hint = `uint8`]
+    property position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property strength : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectWeaponParam]]` prototype Object
+{
+    [field, type_hint = `uint8`]
+    property start_position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property end_position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property strength : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectVibrationParam]]` prototype Object
+{
+    [field, type_hint = `uint8`]
+    property position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property amplitude : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property frequency : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectMultiplePositionFeedbackParam]]` prototype Object
+{
+    [field, type_hint = `uint8[10]`] // length is STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM
+    property strength : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectSlopeFeedbackParam]]` prototype Object
+{
+    [field, type_hint = `uint8`]
+    property start_position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property end_position : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property start_strength : gmval { get; set; }
+
+    [field, type_hint = `uint8`]
+    property end_strength : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectMultiplePositionVibrationParam]]` prototype Object
+{
+    [field, type_hint = `uint8`]
+    property frequency : gmval { get; set; }
+
+    [field, type_hint = `uint8[10]`] // length is STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM
+    property amplitude : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectCommandData]]` prototype Object
+{
+    [field, type_hint = `SteamInputTriggerEffectFeedbackParam?`]
+    property feedback_param : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectWeaponParam?`]
+    property weapon_param : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectVibrationParam?`]
+    property vibration_param : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectMultiplePositionFeedbackParam?`]
+    property multiple_position_feedback_param : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectSlopeFeedbackParam?`]
+    property slope_feedback_param : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectMultiplePositionVibrationParam?`]
+    property multiple_position_vibration_param : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectCommand]]` prototype Object
+{
+    [field, type_hint = `SteamInputTriggerEffectMode`] // tells which ..._param will be set for command_data
+    property mode : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectCommandData`]
+    property command_data : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputTriggerEffectParam]]` prototype Object
+{
+    [field, type_hint = `uint8`] // bitmask of SteamInputTriggerEffectTriggerMask enum values
+    property trigger_mask : gmval { get; set; }
+
+    [field, type_hint = `SteamInputTriggerEffectCommand[2]`] // length is STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM
+    property command : gmval { get; set; }
+}
+
+
 // ActivateActionSet
 [global, bind = typed_gml]
 function steam_input_activate_action_set([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_handle: gmval): unit;
@@ -4099,9 +4243,8 @@ function steam_input_init(explicitly_call_run_frame: bool): bool;
 function steam_input_run_frame(): unit;
 
 // SetDualSenseTriggerEffect
-// TODO: Not currently supported in the GM binding (requires a native ScePadTriggerEffectParam pointer).
 [global, bind = typed_gml]
-function steam_input_set_dualsense_trigger_effect([type_hint=uint64] input_handle: gmval, [type_hint=`uint32[]`] param: gmval): bool;
+function steam_input_set_dualsense_trigger_effect([type_hint=uint64] input_handle: gmval, [type_hint=`SteamInputTriggerEffectParam`] param: gmval): bool;
 
 // SetLEDColor
 [global, bind = typed_gml]
