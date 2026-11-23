@@ -14,6 +14,9 @@ for(var i = 0; i < array_length(controllers); i++)
 	if (contype == SteamInputType.PS5Controller)
     {
         // -- adaptive trigger effects example
+        // This demo sets the effect on every Step so it is easy to follow. A real game shouldn't do that: set the
+        // effect once, when the controller connects or when the effect needs to change, since each call sends the
+        // whole effect to the controller.
         input_effect_param.trigger_mask = SteamInputTriggerEffectTriggerMask.L2 | SteamInputTriggerEffectTriggerMask.R2;
         // --
         input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].mode = SteamInputTriggerEffectMode.VIBRATION;
