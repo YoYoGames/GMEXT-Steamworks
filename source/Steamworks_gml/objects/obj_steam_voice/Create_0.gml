@@ -85,13 +85,6 @@ voice_get_speaker = function(_steam_id)
 	return _speaker;
 }
 
-_temp_buffer_copy = function(_src, _src_offset, _size, _dest, _dest_offset){
-	for (var i = 0; i < _size; i++) {
-	    var _byte = buffer_peek(_src, _src_offset + i, buffer_u8);
-	    buffer_poke(_dest, _src_offset + i, buffer_u8, _byte);
-	}
-}
-
 /// @desc Decompresses a Steam voice packet and queues it for playback.
 voice_play = function(_steam_id, _buffer, _offset, _size)
 {
@@ -114,7 +107,7 @@ voice_play = function(_steam_id, _buffer, _offset, _size)
 	// Audio queues read directly from the buffer until it has played, so every
 	// chunk needs its own buffer. It is freed in the Async - Audio Playback event.
 	var _chunk = buffer_create(_result.written_bytes, buffer_fixed, 1);
-	_temp_buffer_copy(pcm_buffer, 0, _result.written_bytes, _chunk, 0);
+	buffer_copy(pcm_buffer, 0, _result.written_bytes, _chunk, 0);
 
 	var _speaker = voice_get_speaker(_steam_id);
 	

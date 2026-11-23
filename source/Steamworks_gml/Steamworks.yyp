@@ -191,7 +191,6 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_steam_init","path":"rooms/rm_steam_init/rm_steam_init.yy",},},
-    {"roomId":{"name":"rm_steam_voice","path":"rooms/rm_steam_voice/rm_steam_voice.yy",},},
     {"roomId":{"name":"rm_steam_main","path":"rooms/rm_steam_main/rm_steam_main.yy",},},
     {"roomId":{"name":"rm_steam_overlay","path":"rooms/rm_steam_overlay/rm_steam_overlay.yy",},},
     {"roomId":{"name":"rm_steam_remote_storage","path":"rooms/rm_steam_remote_storage/rm_steam_remote_storage.yy",},},
@@ -213,6 +212,7 @@
     {"roomId":{"name":"rm_steam_parties_client","path":"rooms/rm_steam_parties_client/rm_steam_parties_client.yy",},},
     {"roomId":{"name":"rm_steam_parties_host","path":"rooms/rm_steam_parties_host/rm_steam_parties_host.yy",},},
     {"roomId":{"name":"rm_steam_parties","path":"rooms/rm_steam_parties/rm_steam_parties.yy",},},
+    {"roomId":{"name":"rm_steam_voice","path":"rooms/rm_steam_voice/rm_steam_voice.yy",},},
   ],
   "templateType":null,
   "TextureGroups":[
