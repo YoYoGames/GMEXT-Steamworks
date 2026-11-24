@@ -617,6 +617,7 @@ static inline gm_structs::SteamUserStatsUserStatsReceived userstats_fromNative(c
 static inline gm_structs::SteamUserStatsLeaderboardFindResult userstats_fromNative(const LeaderboardFindResult_t& e)
 {
     gm_structs::SteamUserStatsLeaderboardFindResult out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.leaderboard_handle = (std::uint64_t)e.m_hSteamLeaderboard;
     out.leaderboard_found = (e.m_bLeaderboardFound != 0);
     return out;
@@ -625,6 +626,7 @@ static inline gm_structs::SteamUserStatsLeaderboardFindResult userstats_fromNati
 static inline gm_structs::SteamUserStatsScoresDownloadedResult userstats_fromNative(const LeaderboardScoresDownloaded_t& e)
 {
     gm_structs::SteamUserStatsScoresDownloadedResult out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.leaderboard_handle = (std::uint64_t)e.m_hSteamLeaderboard;
     out.entries_handle = (std::uint64_t)e.m_hSteamLeaderboardEntries;
     out.entry_count = (std::uint32_t)e.m_cEntryCount;
@@ -655,6 +657,7 @@ static inline gm_structs::SteamUserStatsAttachLeaderboardUgcResult userstats_fro
 static inline gm_structs::SteamUserStatsNumberOfCurrentPlayersResult userstats_fromNative(const NumberOfCurrentPlayers_t& e)
 {
     gm_structs::SteamUserStatsNumberOfCurrentPlayersResult out{};
+    out.result = (e.m_bSuccess != 0) ? gm_enums::SteamApiResult::Ok : gm_enums::SteamApiResult::Fail;
     out.success = (e.m_bSuccess != 0);
     out.players = (int32)e.m_cPlayers;
     return out;

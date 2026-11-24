@@ -1810,6 +1810,7 @@ namespace gm_structs
 
     struct SteamFriendsRequestClanOfficerListResult
     {
+        gm_enums::SteamApiResult result;
         bool success;
         std::uint64_t clan_id;
         std::int32_t officers;
@@ -1950,6 +1951,7 @@ namespace gm_structs
 
     struct SteamUserStoreAuthUrlResponse
     {
+        gm_enums::SteamApiResult result;
         std::string url;
     };
 
@@ -1972,6 +1974,7 @@ namespace gm_structs
 
     struct SteamUserMarketEligibilityResponse
     {
+        gm_enums::SteamApiResult result;
         bool allowed;
         gm_enums::SteamMarketNotAllowedReasonFlags not_allowed_reason;
         std::uint32_t allowed_at_time;
@@ -2409,12 +2412,14 @@ namespace gm_structs
 
     struct SteamUserStatsLeaderboardFindResult
     {
+        gm_enums::SteamApiResult result;
         std::uint64_t leaderboard_handle;
         bool leaderboard_found;
     };
 
     struct SteamUserStatsScoresDownloadedResult
     {
+        gm_enums::SteamApiResult result;
         std::uint64_t leaderboard_handle;
         std::uint64_t entries_handle;
         std::uint32_t entry_count;
@@ -2432,6 +2437,7 @@ namespace gm_structs
 
     struct SteamUserStatsNumberOfCurrentPlayersResult
     {
+        gm_enums::SteamApiResult result;
         bool success;
         std::int32_t players;
     };
@@ -2513,6 +2519,7 @@ namespace gm_structs
 
     struct SteamTimelineGamePhaseRecordingExists
     {
+        gm_enums::SteamApiResult result;
         std::string phase_id;
         std::uint64_t recording_ms;
         std::uint64_t longest_clip_ms;
@@ -2522,6 +2529,7 @@ namespace gm_structs
 
     struct SteamTimelineEventRecordingExists
     {
+        gm_enums::SteamApiResult result;
         std::uint64_t event_id;
         bool recording_exists;
     };
@@ -2659,6 +2667,7 @@ namespace gm_structs
 
     struct SteamMatchmakingLobbyEnter
     {
+        gm_enums::SteamApiResult result;
         std::uint64_t lobby_id;
         std::uint32_t chat_permissions;
         bool locked;
@@ -2667,6 +2676,7 @@ namespace gm_structs
 
     struct SteamMatchmakingLobbyMatchList
     {
+        gm_enums::SteamApiResult result;
         std::uint32_t lobbies_count;
     };
 
@@ -2944,6 +2954,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamFriendsRequestClanOfficerListResult>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamFriendsRequestClanOfficerListResult& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.success);
         gm::wire::codec::writeValue(_buf, obj.clan_id);
         gm::wire::codec::writeValue(_buf, obj.officers);
@@ -2953,6 +2964,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamFriendsRequestClanOfficerListResult readValue<gm_structs::SteamFriendsRequestClanOfficerListResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamFriendsRequestClanOfficerListResult obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.success = gm::wire::codec::readValue<bool>(_buf);
         obj.clan_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.officers = gm::wire::codec::readValue<std::int32_t>(_buf);
@@ -3308,6 +3320,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserStoreAuthUrlResponse>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStoreAuthUrlResponse& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.url);
     }
 
@@ -3315,6 +3328,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserStoreAuthUrlResponse readValue<gm_structs::SteamUserStoreAuthUrlResponse>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserStoreAuthUrlResponse obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.url = gm::wire::codec::readValue<std::string>(_buf);
         return obj;
     }
@@ -3364,6 +3378,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserMarketEligibilityResponse>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserMarketEligibilityResponse& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.allowed);
         gm::wire::codec::writeValue(_buf, obj.not_allowed_reason);
         gm::wire::codec::writeValue(_buf, obj.allowed_at_time);
@@ -3375,6 +3390,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserMarketEligibilityResponse readValue<gm_structs::SteamUserMarketEligibilityResponse>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserMarketEligibilityResponse obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.allowed = gm::wire::codec::readValue<bool>(_buf);
         obj.not_allowed_reason = gm::wire::codec::readValue<gm_enums::SteamMarketNotAllowedReasonFlags>(_buf);
         obj.allowed_at_time = gm::wire::codec::readValue<std::uint32_t>(_buf);
@@ -4482,6 +4498,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserStatsLeaderboardFindResult>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsLeaderboardFindResult& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.leaderboard_handle);
         gm::wire::codec::writeValue(_buf, obj.leaderboard_found);
     }
@@ -4490,6 +4507,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserStatsLeaderboardFindResult readValue<gm_structs::SteamUserStatsLeaderboardFindResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserStatsLeaderboardFindResult obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.leaderboard_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.leaderboard_found = gm::wire::codec::readValue<bool>(_buf);
         return obj;
@@ -4498,6 +4516,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserStatsScoresDownloadedResult>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsScoresDownloadedResult& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.leaderboard_handle);
         gm::wire::codec::writeValue(_buf, obj.entries_handle);
         gm::wire::codec::writeValue(_buf, obj.entry_count);
@@ -4507,6 +4526,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserStatsScoresDownloadedResult readValue<gm_structs::SteamUserStatsScoresDownloadedResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserStatsScoresDownloadedResult obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.leaderboard_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.entries_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.entry_count = gm::wire::codec::readValue<std::uint32_t>(_buf);
@@ -4540,6 +4560,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsNumberOfCurrentPlayersResult& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.success);
         gm::wire::codec::writeValue(_buf, obj.players);
     }
@@ -4548,6 +4569,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserStatsNumberOfCurrentPlayersResult readValue<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserStatsNumberOfCurrentPlayersResult obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.success = gm::wire::codec::readValue<bool>(_buf);
         obj.players = gm::wire::codec::readValue<std::int32_t>(_buf);
         return obj;
@@ -4754,6 +4776,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamTimelineGamePhaseRecordingExists>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamTimelineGamePhaseRecordingExists& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.phase_id);
         gm::wire::codec::writeValue(_buf, obj.recording_ms);
         gm::wire::codec::writeValue(_buf, obj.longest_clip_ms);
@@ -4765,6 +4788,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamTimelineGamePhaseRecordingExists readValue<gm_structs::SteamTimelineGamePhaseRecordingExists>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamTimelineGamePhaseRecordingExists obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.phase_id = gm::wire::codec::readValue<std::string>(_buf);
         obj.recording_ms = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.longest_clip_ms = gm::wire::codec::readValue<std::uint64_t>(_buf);
@@ -4776,6 +4800,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamTimelineEventRecordingExists>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamTimelineEventRecordingExists& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.event_id);
         gm::wire::codec::writeValue(_buf, obj.recording_exists);
     }
@@ -4784,6 +4809,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamTimelineEventRecordingExists readValue<gm_structs::SteamTimelineEventRecordingExists>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamTimelineEventRecordingExists obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.event_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.recording_exists = gm::wire::codec::readValue<bool>(_buf);
         return obj;
@@ -5134,6 +5160,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamMatchmakingLobbyEnter>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamMatchmakingLobbyEnter& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.lobby_id);
         gm::wire::codec::writeValue(_buf, obj.chat_permissions);
         gm::wire::codec::writeValue(_buf, obj.locked);
@@ -5144,6 +5171,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamMatchmakingLobbyEnter readValue<gm_structs::SteamMatchmakingLobbyEnter>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamMatchmakingLobbyEnter obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.lobby_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.chat_permissions = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.locked = gm::wire::codec::readValue<bool>(_buf);
@@ -5154,6 +5182,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamMatchmakingLobbyMatchList>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamMatchmakingLobbyMatchList& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.lobbies_count);
     }
 
@@ -5161,6 +5190,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamMatchmakingLobbyMatchList readValue<gm_structs::SteamMatchmakingLobbyMatchList>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamMatchmakingLobbyMatchList obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.lobbies_count = gm::wire::codec::readValue<std::uint32_t>(_buf);
         return obj;
     }

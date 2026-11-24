@@ -709,6 +709,7 @@
  *
  * This struct holds information on a received store authentication URL.
  * 
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {String} url The authenticated URL that was requested.
  * @struct_end 
  */
@@ -749,6 +750,7 @@
  *
  * This struct holds info on a user's Steam Community Market eligibility.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
  * @member {Enum.SteamMarketNotAllowedReasonFlags} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an ${constant.SteamMarketNotAllowedReasonFlags} bitfield).
  * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.

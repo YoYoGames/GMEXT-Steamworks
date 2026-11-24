@@ -1797,6 +1797,7 @@ function SteamFriendsRequestClanOfficerListResult() constructor
      */
     static __uid = 3581036;
 
+    self.result = undefined;
     self.success = undefined;
     self.clan_id = undefined;
     self.officers = undefined;
@@ -2147,6 +2148,7 @@ function SteamUserStoreAuthUrlResponse() constructor
      */
     static __uid = 4276589035;
 
+    self.result = undefined;
     self.url = undefined;
 
 }
@@ -2199,6 +2201,7 @@ function SteamUserMarketEligibilityResponse() constructor
      */
     static __uid = 3177849834;
 
+    self.result = undefined;
     self.allowed = undefined;
     self.not_allowed_reason = undefined;
     self.allowed_at_time = undefined;
@@ -3246,6 +3249,7 @@ function SteamUserStatsLeaderboardFindResult() constructor
      */
     static __uid = 3474580816;
 
+    self.result = undefined;
     self.leaderboard_handle = undefined;
     self.leaderboard_found = undefined;
 
@@ -3262,6 +3266,7 @@ function SteamUserStatsScoresDownloadedResult() constructor
      */
     static __uid = 3634037196;
 
+    self.result = undefined;
     self.leaderboard_handle = undefined;
     self.entries_handle = undefined;
     self.entry_count = undefined;
@@ -3299,6 +3304,7 @@ function SteamUserStatsNumberOfCurrentPlayersResult() constructor
      */
     static __uid = 339603487;
 
+    self.result = undefined;
     self.success = undefined;
     self.players = undefined;
 
@@ -3510,6 +3516,7 @@ function SteamTimelineGamePhaseRecordingExists() constructor
      */
     static __uid = 1026498664;
 
+    self.result = undefined;
     self.phase_id = undefined;
     self.recording_ms = undefined;
     self.longest_clip_ms = undefined;
@@ -3529,6 +3536,7 @@ function SteamTimelineEventRecordingExists() constructor
      */
     static __uid = 2357313499;
 
+    self.result = undefined;
     self.event_id = undefined;
     self.recording_exists = undefined;
 
@@ -3876,6 +3884,7 @@ function SteamMatchmakingLobbyEnter() constructor
      */
     static __uid = 1535015755;
 
+    self.result = undefined;
     self.lobby_id = undefined;
     self.chat_permissions = undefined;
     self.locked = undefined;
@@ -3894,6 +3903,7 @@ function SteamMatchmakingLobbyMatchList() constructor
      */
     static __uid = 3619150160;
 
+    self.result = undefined;
     self.lobbies_count = undefined;
 
 }
@@ -4635,6 +4645,11 @@ function __SteamFriendsRequestClanOfficerListResult_encode(_inst, _buffer, _offs
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: success, type: Bool
         if (!is_bool(self.success)) show_error($"{_where} :: self.success expected bool", true);
         buffer_write(_buffer, buffer_bool, self.success);
@@ -4664,6 +4679,9 @@ function __SteamFriendsRequestClanOfficerListResult_decode(_buffer, _offset)
     _inst = new SteamFriendsRequestClanOfficerListResult();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: success, type: Bool
         self.success = bool(buffer_read(_buffer, buffer_bool));
 
@@ -5801,6 +5819,11 @@ function __SteamUserStoreAuthUrlResponse_encode(_inst, _buffer, _offset, _where 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: url, type: String
         if (!is_string(self.url)) show_error($"{_where} :: self.url expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.url));
@@ -5823,6 +5846,9 @@ function __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
     _inst = new SteamUserStoreAuthUrlResponse();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: url, type: String
         buffer_read(_buffer, buffer_u32);
         self.url = buffer_read(_buffer, buffer_string);
@@ -5982,6 +6008,11 @@ function __SteamUserMarketEligibilityResponse_encode(_inst, _buffer, _offset, _w
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: allowed, type: Bool
         if (!is_bool(self.allowed)) show_error($"{_where} :: self.allowed expected bool", true);
         buffer_write(_buffer, buffer_bool, self.allowed);
@@ -6020,6 +6051,9 @@ function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
     _inst = new SteamUserMarketEligibilityResponse();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: allowed, type: Bool
         self.allowed = bool(buffer_read(_buffer, buffer_bool));
 
@@ -9583,6 +9617,11 @@ function __SteamUserStatsLeaderboardFindResult_encode(_inst, _buffer, _offset, _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: leaderboard_handle, type: UInt64
         if (!is_numeric(self.leaderboard_handle)) show_error($"{_where} :: self.leaderboard_handle expected number", true);
         buffer_write(_buffer, buffer_u64, self.leaderboard_handle);
@@ -9608,6 +9647,9 @@ function __SteamUserStatsLeaderboardFindResult_decode(_buffer, _offset)
     _inst = new SteamUserStatsLeaderboardFindResult();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: leaderboard_handle, type: UInt64
         self.leaderboard_handle = buffer_read(_buffer, buffer_u64);
 
@@ -9632,6 +9674,11 @@ function __SteamUserStatsScoresDownloadedResult_encode(_inst, _buffer, _offset, 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: leaderboard_handle, type: UInt64
         if (!is_numeric(self.leaderboard_handle)) show_error($"{_where} :: self.leaderboard_handle expected number", true);
         buffer_write(_buffer, buffer_u64, self.leaderboard_handle);
@@ -9661,6 +9708,9 @@ function __SteamUserStatsScoresDownloadedResult_decode(_buffer, _offset)
     _inst = new SteamUserStatsScoresDownloadedResult();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: leaderboard_handle, type: UInt64
         self.leaderboard_handle = buffer_read(_buffer, buffer_u64);
 
@@ -9765,6 +9815,11 @@ function __SteamUserStatsNumberOfCurrentPlayersResult_encode(_inst, _buffer, _of
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: success, type: Bool
         if (!is_bool(self.success)) show_error($"{_where} :: self.success expected bool", true);
         buffer_write(_buffer, buffer_bool, self.success);
@@ -9790,6 +9845,9 @@ function __SteamUserStatsNumberOfCurrentPlayersResult_decode(_buffer, _offset)
     _inst = new SteamUserStatsNumberOfCurrentPlayersResult();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: success, type: Bool
         self.success = bool(buffer_read(_buffer, buffer_bool));
 
@@ -10433,6 +10491,11 @@ function __SteamTimelineGamePhaseRecordingExists_encode(_inst, _buffer, _offset,
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: phase_id, type: String
         if (!is_string(self.phase_id)) show_error($"{_where} :: self.phase_id expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.phase_id));
@@ -10471,6 +10534,9 @@ function __SteamTimelineGamePhaseRecordingExists_decode(_buffer, _offset)
     _inst = new SteamTimelineGamePhaseRecordingExists();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: phase_id, type: String
         buffer_read(_buffer, buffer_u32);
         self.phase_id = buffer_read(_buffer, buffer_string);
@@ -10505,6 +10571,11 @@ function __SteamTimelineEventRecordingExists_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: event_id, type: UInt64
         if (!is_numeric(self.event_id)) show_error($"{_where} :: self.event_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.event_id);
@@ -10530,6 +10601,9 @@ function __SteamTimelineEventRecordingExists_decode(_buffer, _offset)
     _inst = new SteamTimelineEventRecordingExists();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: event_id, type: UInt64
         self.event_id = buffer_read(_buffer, buffer_u64);
 
@@ -11631,6 +11705,11 @@ function __SteamMatchmakingLobbyEnter_encode(_inst, _buffer, _offset, _where = _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: lobby_id, type: UInt64
         if (!is_numeric(self.lobby_id)) show_error($"{_where} :: self.lobby_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.lobby_id);
@@ -11665,6 +11744,9 @@ function __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
     _inst = new SteamMatchmakingLobbyEnter();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: lobby_id, type: UInt64
         self.lobby_id = buffer_read(_buffer, buffer_u64);
 
@@ -11695,6 +11777,11 @@ function __SteamMatchmakingLobbyMatchList_encode(_inst, _buffer, _offset, _where
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: lobbies_count, type: UInt32
         if (!is_numeric(self.lobbies_count)) show_error($"{_where} :: self.lobbies_count expected number", true);
         buffer_write(_buffer, buffer_u32, self.lobbies_count);
@@ -11716,6 +11803,9 @@ function __SteamMatchmakingLobbyMatchList_decode(_buffer, _offset)
     _inst = new SteamMatchmakingLobbyMatchList();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: lobbies_count, type: UInt32
         self.lobbies_count = buffer_read(_buffer, buffer_u32);
 

@@ -822,6 +822,7 @@ static inline gm_structs::SteamFriendsEnumerateFollowingListResult friends_fromN
 static inline gm_structs::SteamFriendsRequestClanOfficerListResult friends_fromNative(const ClanOfficerListResponse_t& e)
 {
     gm_structs::SteamFriendsRequestClanOfficerListResult out{};
+    out.result = e.m_bSuccess ? gm_enums::SteamApiResult::Ok : gm_enums::SteamApiResult::Fail;
     out.success = e.m_bSuccess;
     out.clan_id = (std::uint64_t)e.m_steamIDClan.ConvertToUint64();
     out.officers = (int32)e.m_cOfficers;

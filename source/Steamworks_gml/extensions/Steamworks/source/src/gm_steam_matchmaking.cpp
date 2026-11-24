@@ -164,6 +164,7 @@ static inline gm_structs::SteamMatchmakingLobbyCreated mm_fromNative(const Lobby
 static inline gm_structs::SteamMatchmakingLobbyEnter mm_fromNative(const LobbyEnter_t& e)
 {
     gm_structs::SteamMatchmakingLobbyEnter out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
     out.chat_permissions = (std::uint32_t)e.m_rgfChatPermissions;
     out.locked = (e.m_bLocked != 0);
@@ -174,6 +175,7 @@ static inline gm_structs::SteamMatchmakingLobbyEnter mm_fromNative(const LobbyEn
 static inline gm_structs::SteamMatchmakingLobbyMatchList mm_fromNative(const LobbyMatchList_t& e)
 {
     gm_structs::SteamMatchmakingLobbyMatchList out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.lobbies_count = (std::uint32_t)e.m_nLobbiesMatching;
     return out;
 }
