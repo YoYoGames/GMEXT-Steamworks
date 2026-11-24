@@ -150,13 +150,21 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           if (-not $env:SDK_KEY) { Write-Error 'STEAMWORKS_SDK_SSH_KEY is not set' }
-          $key = Join-Path $env:RUNNER_TEMP 'steamworks_sdk_key'
+          # RUNNER_TEMP isn't always emptied between jobs: remove any key file an earlier run left behind. Each run's
+          # files have their own names, and the key file stays deletable by the runner's account
+          Get-ChildItem $env:RUNNER_TEMP -Filter 'steamworks_sdk_key*' -ErrorAction SilentlyContinue | ForEach-Object {
+            icacls $_.FullName /reset | Out-Null
+            Remove-Item -Force $_.FullName
+          }
+          $suffix = "$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $key = Join-Path $env:RUNNER_TEMP "steamworks_sdk_key-$suffix"
+          $known = Join-Path $env:RUNNER_TEMP "steamworks_sdk_known_hosts-$suffix"
           $sdk = Join-Path $env:RUNNER_TEMP 'steamworks-sdk'
           try {
             [IO.File]::WriteAllText($key, ($env:SDK_KEY -replace "`r", '') + "`n")
-            icacls $key /inheritance:r /grant:r "$($env:USERNAME):R" | Out-Null
+            # readable and deletable by the runner's account only (ssh refuses a key file others can read)
+            icacls $key /inheritance:r /grant:r "$($env:USERNAME):(R,D)" | Out-Null
             # github.com's published host keys, fetched over HTTPS, so a spoofed host can't serve a different SDK
-            $known = Join-Path $env:RUNNER_TEMP 'steamworks_sdk_known_hosts'
             $meta = Invoke-RestMethod -Uri 'https://api.github.com/meta'
             [IO.File]::WriteAllLines($known, ($meta.ssh_keys | ForEach-Object { "github.com $_" }))
             $env:GIT_SSH_COMMAND = "ssh -i `"$key`" -o IdentitiesOnly=yes -o UserKnownHostsFile=`"$known`" -o StrictHostKeyChecking=yes"
@@ -165,6 +173,7 @@ jobs:
             if ($LASTEXITCODE -ne 0) { Write-Error 'Cloning the SDK failed' }
           } finally {
             Remove-Item -Force $key, $known -ErrorAction SilentlyContinue
+            if (Test-Path $key) { Write-Error 'The SDK key file could not be removed from RUNNER_TEMP' }
           }
           $root = Get-ChildItem $sdk -Recurse -Filter steam_api.h | Where-Object { $_.Directory.Name -eq 'steam' } | Select-Object -First 1
           if (-not $root) { Write-Error 'public/steam/steam_api.h not found in the SDK' }
