@@ -172,7 +172,15 @@ jobs:
             git clone --quiet --depth 1 --branch 1.65 git@github.com:YoYoGames/steamworks-sdk.git $sdk
             if ($LASTEXITCODE -ne 0) { Write-Error 'Cloning the SDK failed' }
           } finally {
-            Remove-Item -Force $key, $known -ErrorAction SilentlyContinue
+            # Reset the narrowed ACL before deleting: on the runner the file can't be deleted while only this account's
+            # read and delete grant is on it (the cleanup above, which resets first, works). A few tries, in case
+            # antivirus still has the file open
+            foreach ($f in @($key, $known)) {
+              for ($i = 0; ($i -lt 5) -and (Test-Path $f); $i++) {
+                try { icacls $f /reset | Out-Null; Remove-Item -Force $f -ErrorAction Stop }
+                catch { Write-Host "Removing $(Split-Path $f -Leaf) failed (try $($i + 1)): $($_.Exception.Message)"; Start-Sleep -Seconds 1 }
+              }
+            }
             if (Test-Path $key) { Write-Error 'The SDK key file could not be removed from RUNNER_TEMP' }
           }
           $root = Get-ChildItem $sdk -Recurse -Filter steam_api.h | Where-Object { $_.Directory.Name -eq 'steam' } | Select-Object -First 1
