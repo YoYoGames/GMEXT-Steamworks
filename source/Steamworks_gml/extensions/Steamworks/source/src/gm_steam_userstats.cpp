@@ -682,7 +682,7 @@ static inline gm_structs::SteamUserStatsGlobalStatsReceivedResult userstats_from
 
 void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsUserStatsReceived, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -703,7 +703,7 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
                                                 gm_enums::SteamLeaderboardDisplayType display_type,
                                                  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsLeaderboardFindResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -724,7 +724,7 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
 
 void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsLeaderboardFindResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -747,7 +747,7 @@ void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_hand
                                                   std::int32_t range_end,
                                                    const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsScoresDownloadedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -772,7 +772,7 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
                                                             const std::vector<std::uint64_t>& users,
                                                              const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsScoresDownloadedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -871,7 +871,7 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
 
 void steam_userstats_number_of_current_players( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsNumberOfCurrentPlayersResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -889,7 +889,7 @@ void steam_userstats_number_of_current_players( const gm::wire::GMFunction& call
 
 void steam_userstats_request_global_achievement_percentages( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
@@ -907,7 +907,7 @@ void steam_userstats_request_global_achievement_percentages( const gm::wire::GMF
 
 void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsGlobalStatsReceivedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;

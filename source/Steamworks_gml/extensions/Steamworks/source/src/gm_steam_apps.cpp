@@ -484,7 +484,7 @@ static inline gm_structs::SteamAppsFileDetailsResult apps_fromNative(const FileD
 
 void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamAppsFileDetailsResult, callback);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)

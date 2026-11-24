@@ -373,7 +373,7 @@ static inline gm_structs::SteamInventoryEligiblePromoItemDefIdsResult inventory_
 // (below) returns anything real; primes Steam's client-side cache for the local user.
 void steam_inventory_request_eligible_promo_item_definition_ids(const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamInventoryEligiblePromoItemDefIdsResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return;
@@ -1084,7 +1084,7 @@ static inline gm_structs::SteamInventoryStartPurchaseResult inventory_fromNative
 
 void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamInventoryRequestPricesResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return;
@@ -1104,7 +1104,7 @@ void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
 void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventoryItemDefQuantity>& items,
                                    const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamInventoryStartPurchaseResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return;
