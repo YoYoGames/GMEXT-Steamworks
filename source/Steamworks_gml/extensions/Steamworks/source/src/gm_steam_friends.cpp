@@ -913,7 +913,7 @@ bool steam_friends_download_clan_activity_counts(
     const gm::wire::GMFunction& callback
 )
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamFriendsDownloadClanActivityCountsResult, callback, false);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)

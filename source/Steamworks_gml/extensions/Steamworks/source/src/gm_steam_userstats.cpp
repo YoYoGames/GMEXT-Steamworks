@@ -808,7 +808,7 @@ void steam_userstats_upload_leaderboard_score(
     const std::vector<std::int32_t>& score_details,
     const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsScoreUploadedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
@@ -844,7 +844,7 @@ void steam_userstats_upload_leaderboard_score(
 
 void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, std::uint64_t ugc_handle,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsAttachLeaderboardUgcResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;

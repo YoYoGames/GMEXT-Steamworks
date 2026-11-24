@@ -324,7 +324,7 @@ bool steam_parties_change_num_open_slots(
     const GMFunction& callback
 )
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamPartiesChangeNumOpenSlotsResult, callback, false);
 
     ISteamParties* p = steam_parties_iface();
     if (!p)

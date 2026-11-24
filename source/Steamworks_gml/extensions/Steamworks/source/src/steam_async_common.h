@@ -6,6 +6,8 @@
 
 #include <steam/steam_api.h>
 
+#include <type_traits>
+
 namespace steam_async
 {
     // Call back at once with a payload that only reports a failure, for an async call that can't be made (Steam not
@@ -16,7 +18,10 @@ namespace steam_async
         if (callback)
         {
             Payload out{};
-            out.result = result;
+            if constexpr (std::is_same_v<std::decay_t<decltype(out.result)>, bool>)
+                out.result = false; // a payload whose result is a success flag
+            else
+                out.result = result;
             callback.call(out);
         }
     }

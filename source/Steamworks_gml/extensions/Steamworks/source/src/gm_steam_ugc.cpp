@@ -1687,7 +1687,7 @@ void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::ui
 
 void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcGetAppDependenciesResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;

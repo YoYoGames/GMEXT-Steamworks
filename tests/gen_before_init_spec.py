@@ -2,8 +2,10 @@
 """Generate tests/gametest/before_init_all_async.json from spec.gmidl and the native sources.
 
 Every async function (one whose native implementation guards with STEAM_ASYNC_GUARD) is called before
-steam_init with placeholder arguments, and the spec asserts that each one's callback runs with
-result == SteamApiResult.Fail. Run from the repository root; --check exits 1 if the committed file is stale.
+steam_init with placeholder arguments, and the spec asserts that each one's callback runs with a failed result
+(SteamApiResult.Fail, or false for a payload whose result is a success flag). Every spec.gmidl function that takes a
+callback must use the guard or be listed in NOT_GUARDED with a reason. Run from the repository root; --check exits 1
+if the committed file is stale.
 """
 import json, os, re, sys
 
@@ -23,10 +25,40 @@ def async_functions():
         if not f.endswith(".cpp"):
             continue
         text = read(os.path.join(SRC, "src", f))
-        for m in re.finditer(r"STEAM_ASYNC_GUARD(?:_RET)?\(", text):
+        for m in re.finditer(r"STEAM_ASYNC_GUARD(?:_RET)?\(\s*gm_structs::(\w+)", text):
             head = text[: m.start()]
             sig = list(re.finditer(r"\n[\w:<>]+\s+(steam_\w+)\s*\(", head))[-1]
-            names.append(sig.group(1))
+            names.append((sig.group(1), m.group(1)))
+    return names
+
+
+def failed_result(spec, payload):
+    """What result the failed callback carries: SteamApiResult.Fail (2), or false (0) for a bool success flag."""
+    m = re.search(r"class `\[\[" + payload + r"\]\]`[^{]*\{(.*?)\n\}", spec, re.S)
+    r = re.search(r"property\s+result\s*:\s*(\w+)", m.group(1)) if m else None
+    if not r:
+        raise SystemExit("payload has no result field: " + payload)
+    return 0 if r.group(1) == "bool" else 2
+
+
+# Functions that take a callback but report a failure before Steam is initialised by their return value instead (an
+# invalid handle), or whose payload has no failure value. Every other function with a callback parameter must use
+# STEAM_ASYNC_GUARD, or this script fails.
+NOT_GUARDED = {
+    "steam_utils_check_file_signature": "result is a SteamUtilsCheckFileSignature outcome, with no failure value",
+    "steam_user_request_auth_ticket_for_web_api": "returns 0 (no ticket) before init",
+}
+for _name in ("add_promo_item", "add_promo_items", "consume_item", "exchange_items", "generate_items",
+              "get_items_by_id", "submit_update_properties", "transfer_item_quantity", "trigger_item_drop",
+              "grant_promo_items"):
+    NOT_GUARDED["steam_inventory_" + _name] = "returns k_SteamInventoryResultInvalid before init"
+
+
+def functions_with_callback(spec):
+    names = []
+    for m in re.finditer(r"function\s+(steam_\w+)\s*\((.*?)\)\s*:", spec, re.S):
+        if re.search(r"\w+\s*:\s*func\b", m.group(2)) and not re.match(r"steam_\w+_set_callback_", m.group(1)):
+            names.append(m.group(1))
     return names
 
 
@@ -77,8 +109,18 @@ def main():
     setup = [
         "global.__before_init_buffer = buffer_create(16, buffer_grow, 1);",
     ]
-    names = async_functions()
-    for i, name in enumerate(names):
+    guarded = async_functions()
+    names = [n for (n, _) in guarded]
+    missing = [n for n in functions_with_callback(spec) if n not in names and n not in NOT_GUARDED]
+    stale = [n for n in NOT_GUARDED if n in names]
+    if missing or stale:
+        for n in missing:
+            print("takes a callback but doesn't use STEAM_ASYNC_GUARD and isn't in NOT_GUARDED: " + n)
+        for n in stale:
+            print("in NOT_GUARDED but uses STEAM_ASYNC_GUARD: " + n)
+        sys.exit(1)
+    for i, (name, payload) in enumerate(guarded):
+        expect = failed_result(spec, payload)
         args = [placeholder(t, h) for (_, t, h) in parse_params(spec, name)]
         # a chunk can't define a function literal: the callback comes from the demo's scr_gametest_support
         call = (
@@ -90,7 +132,9 @@ def main():
         chunks.append({"id": "check_%d" % i,
                        "src": "var r = gametest_async_result(\"%s\"); return is_undefined(r) ? -1 : r;" % name})
         timeline.append({"frame": 2, "assert": {"id": "call_%d" % i, "name": name + " can be called before steam_init", "expect": 1}})
-        timeline.append({"frame": 5, "assert": {"id": "check_%d" % i, "name": name + " calls back with SteamApiResult.Fail", "expect": 2}})
+        timeline.append({"frame": 5, "assert": {"id": "check_%d" % i,
+                                                "name": name + (" calls back with SteamApiResult.Fail" if expect == 2 else " calls back with result = false"),
+                                                "expect": expect}})
     chunks.insert(0, {"id": "setup", "src": "\n".join(setup) + "\nreturn steam_api_is_initialized() ? 1 : 0;"})
     timeline.insert(0, {"frame": 1, "assert": {"id": "setup", "name": "Steam is not initialised", "expect": 0}})
     result = {
