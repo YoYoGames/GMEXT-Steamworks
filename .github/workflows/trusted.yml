@@ -93,6 +93,9 @@ jobs:
     needs: steam-check
     runs-on: steamworks-steam
     timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: read # to read the pull request's head repository and SHA
     steps:
       - name: Choose the commit to build
         id: target
@@ -105,8 +108,8 @@ jobs:
           $ErrorActionPreference = 'Stop'
           if (-not $env:PR) {
             if ($env:SHA) { Write-Error 'sha is only used with pr' }
-            "ref=$env:GITHUB_SHA" >> $env:GITHUB_OUTPUT
-            "label=main" >> $env:GITHUB_OUTPUT
+            "ref=$env:GITHUB_SHA" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+            "label=main" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
             exit 0
           }
           if ($env:PR -notmatch '^[0-9]+$') { Write-Error 'pr must be a pull request number' }
@@ -119,14 +122,25 @@ jobs:
           if ($pr.head.sha -ne $env:SHA) {
             Write-Error "The pull request's head is now $($pr.head.sha), not the SHA given; review the new commits and dispatch again"
           }
-          "ref=$env:SHA" >> $env:GITHUB_OUTPUT
-          "label=pr-$env:PR" >> $env:GITHUB_OUTPUT
+          "ref=$env:SHA" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "label=pr-$env:PR" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
       - name: Check out
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.target.outputs.ref }}
           persist-credentials: false
+
+      - name: Checked out the commit chosen
+        # actions/checkout falls back to github.sha when ref is empty, so a pull request's artifact could silently be main
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          EXPECTED: ${{ inputs.sha || github.sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $head = (git rev-parse HEAD).Trim()
+          if ($head -ne $env:EXPECTED) { Write-Error "Checked out $head, expected $env:EXPECTED" }
+          Write-Host "Building $head"
 
       - name: Get Steamworks SDK 1.65
         # From the private YoYoGames/steamworks-sdk with its read-only deploy key; the key file is deleted afterwards
@@ -141,17 +155,21 @@ jobs:
           try {
             [IO.File]::WriteAllText($key, ($env:SDK_KEY -replace "`r", '') + "`n")
             icacls $key /inheritance:r /grant:r "$($env:USERNAME):R" | Out-Null
-            $env:GIT_SSH_COMMAND = "ssh -i `"$key`" -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+            # github.com's published host keys, fetched over HTTPS, so a spoofed host can't serve a different SDK
+            $known = Join-Path $env:RUNNER_TEMP 'steamworks_sdk_known_hosts'
+            $meta = Invoke-RestMethod -Uri 'https://api.github.com/meta'
+            [IO.File]::WriteAllLines($known, ($meta.ssh_keys | ForEach-Object { "github.com $_" }))
+            $env:GIT_SSH_COMMAND = "ssh -i `"$key`" -o IdentitiesOnly=yes -o UserKnownHostsFile=`"$known`" -o StrictHostKeyChecking=yes"
             if (Test-Path $sdk) { Remove-Item -Recurse -Force $sdk }
             git clone --quiet --depth 1 --branch 1.65 git@github.com:YoYoGames/steamworks-sdk.git $sdk
             if ($LASTEXITCODE -ne 0) { Write-Error 'Cloning the SDK failed' }
           } finally {
-            Remove-Item -Force $key -ErrorAction SilentlyContinue
+            Remove-Item -Force $key, $known -ErrorAction SilentlyContinue
           }
           $root = Get-ChildItem $sdk -Recurse -Filter steam_api.h | Where-Object { $_.Directory.Name -eq 'steam' } | Select-Object -First 1
           if (-not $root) { Write-Error 'public/steam/steam_api.h not found in the SDK' }
           $sdkRoot = $root.Directory.Parent.Parent.FullName
-          "STEAMWORKS_SDK_ROOT=$sdkRoot" >> $env:GITHUB_ENV
+          "STEAMWORKS_SDK_ROOT=$sdkRoot" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           Write-Host 'SDK ready'
 
       - name: Build Steamworks.dll (win-x64-release)
@@ -159,6 +177,8 @@ jobs:
         working-directory: source/Steamworks_gml/extensions/Steamworks/source
         run: |
           $ErrorActionPreference = 'Stop'
+          # Steamworks.dll is committed; remove it so the checks below can only see the one this build makes
+          Remove-Item -Force ../Steamworks.dll -ErrorAction SilentlyContinue
           cmake --preset win-x64-release "-DSTEAMWORKS_SDK_ROOT=$env:STEAMWORKS_SDK_ROOT"
           if ($LASTEXITCODE -ne 0) { Write-Error 'configure failed' }
           cmake --build --preset win-x64-release
@@ -169,7 +189,11 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $dll = 'source/Steamworks_gml/extensions/Steamworks/Steamworks.dll'
-          if (-not (Test-Path $dll)) { Write-Error "$dll was not built" }
+          $built = Get-ChildItem 'source/Steamworks_gml/extensions/Steamworks/source/out/build/win-x64-release' -Recurse -Filter Steamworks.dll |
+            Where-Object { $_.Directory.Name -eq 'Release' } | Select-Object -First 1
+          if (-not $built) { Write-Error 'No Release/Steamworks.dll in the build directory' }
+          if (-not (Test-Path $dll)) { Write-Error "The build didn't copy Steamworks.dll to the extension folder" }
+          if ((Get-FileHash $dll).Hash -ne (Get-FileHash $built.FullName).Hash) { Write-Error "$dll isn't the DLL this build made" }
           $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
           $dumpbin = & $vswhere -latest -products * -find 'VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe' | Select-Object -First 1
           $exports = (& $dumpbin /nologo /exports $dll | Select-String '__EXT_NATIVE__').Count
