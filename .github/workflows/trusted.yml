@@ -53,6 +53,8 @@ jobs:
           if (-not $active) { Write-Error 'Steam is running but nobody is signed in' }
           Write-Host 'Steam is signed in'
       - name: Build and test tools on the runner
+        # Run even when the Steam check fails: the report doesn't depend on Steam
+        if: ${{ !cancelled() }}
         # Reports what the tier 3 build and GameTest jobs can use: versions and yes/no only, since this log is public.
         # It doesn't fail the job; the jobs that need a tool fail clearly when it's missing
         shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
