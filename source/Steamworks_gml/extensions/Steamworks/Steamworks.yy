@@ -10132,6 +10132,74 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "__steam_networking_messages_receive_message_on_channel",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_networking_messages_receive_message_on_channel",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_networking_messages_receive_message_on_channel",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_networking_messages_discard_held_message",
+          "argCount": 1,
+          "args": [
+            2
+          ],
+          "documentation": "@param {Real} local_channel\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_networking_messages_discard_held_message",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_networking_messages_discard_held_message",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_networking_messages_get_last_message_steam_id",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_networking_messages_get_last_message_steam_id",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_networking_messages_get_last_message_steam_id",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_networking_messages_get_last_message_size",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_networking_messages_get_last_message_size",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_networking_messages_get_last_message_size",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "__steam_networking_messages_accept_session_with_user",
           "argCount": 2,
           "args": [
