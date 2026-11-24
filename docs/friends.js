@@ -1106,6 +1106,7 @@
  *
  * This struct holds the return of a request officer list call.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` if Steam returned the officer list; `SteamApiResult.Fail` if it did not (as `success` reports).
  * @member {Bool} success Whether the call was successful. If it was not, this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
  * @member {Real} clan_id The Steam group that the officer list was retrieved for.
  * @member {Real} officers The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.

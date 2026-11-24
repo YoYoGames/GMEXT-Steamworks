@@ -4399,6 +4399,7 @@
 
 /**
  * @struct_partial SteamFriendsRequestClanOfficerListResult
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} success
  * @member {Real} clan_id
  * @member {Real} officers
@@ -4560,6 +4561,7 @@
 
 /**
  * @struct_partial SteamUserStoreAuthUrlResponse
+ * @member {Enum.SteamApiResult} result
  * @member {String} url
  * @struct_end
  */
@@ -4585,6 +4587,7 @@
 
 /**
  * @struct_partial SteamUserMarketEligibilityResponse
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} allowed
  * @member {Enum.SteamMarketNotAllowedReasonFlags} not_allowed_reason
  * @member {Real} allowed_at_time
@@ -5083,6 +5086,7 @@
 
 /**
  * @struct_partial SteamUserStatsLeaderboardFindResult
+ * @member {Enum.SteamApiResult} result
  * @member {Real} leaderboard_handle
  * @member {Bool} leaderboard_found
  * @struct_end
@@ -5090,6 +5094,7 @@
 
 /**
  * @struct_partial SteamUserStatsScoresDownloadedResult
+ * @member {Enum.SteamApiResult} result
  * @member {Real} leaderboard_handle
  * @member {Real} entries_handle
  * @member {Real} entry_count
@@ -5098,6 +5103,7 @@
 
 /**
  * @struct_partial SteamUserStatsScoreUploadedResult
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} success
  * @member {Real} leaderboard_handle
  * @member {Real} score
@@ -5109,6 +5115,7 @@
 
 /**
  * @struct_partial SteamUserStatsNumberOfCurrentPlayersResult
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} success
  * @member {Real} players
  * @struct_end
@@ -5203,6 +5210,7 @@
 
 /**
  * @struct_partial SteamTimelineGamePhaseRecordingExists
+ * @member {Enum.SteamApiResult} result
  * @member {String} phase_id
  * @member {Real} recording_ms
  * @member {Real} longest_clip_ms
@@ -5213,6 +5221,7 @@
 
 /**
  * @struct_partial SteamTimelineEventRecordingExists
+ * @member {Enum.SteamApiResult} result
  * @member {Real} event_id
  * @member {Bool} recording_exists
  * @struct_end
@@ -5371,6 +5380,7 @@
 
 /**
  * @struct_partial SteamMatchmakingLobbyEnter
+ * @member {Enum.SteamApiResult} result
  * @member {Real} lobby_id
  * @member {Real} chat_permissions
  * @member {Bool} locked
@@ -5380,6 +5390,7 @@
 
 /**
  * @struct_partial SteamMatchmakingLobbyMatchList
+ * @member {Enum.SteamApiResult} result
  * @member {Real} lobbies_count
  * @struct_end
  */

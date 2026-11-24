@@ -428,6 +428,7 @@ class `[[SteamFriendsEnumerateFollowingListResult]]` prototype Object
 [global]
 class `[[SteamFriendsRequestClanOfficerListResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field, type_hint=uint64] property clan_id : gmval { get; set; }
     [field] property officers : int32 { get; set; }
@@ -1307,6 +1308,7 @@ const STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN : int32 = 32;
 [global]
 class `[[SteamUserStoreAuthUrlResponse]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     // StoreAuthURLResponse_t only carries the URL (no EResult in the SDK struct).
     [field] property url : string { get; set; }
 }
@@ -1359,6 +1361,7 @@ enum SteamUserDurationControlNotification
 [global]
 class `[[SteamUserMarketEligibilityResponse]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field] property allowed : bool { get; set; }
     [field, type_hint=`SteamMarketNotAllowedReasonFlags`] property not_allowed_reason : gmval { get; set; }
     [field] property allowed_at_time : uint32 { get; set; }
@@ -4398,6 +4401,7 @@ class `[[SteamUserStatsDownloadedLeaderboardEntry]]` prototype Object
 [global]
 class `[[SteamUserStatsLeaderboardFindResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
     [field] property leaderboard_found : bool { get; set; }
 }
@@ -4405,6 +4409,7 @@ class `[[SteamUserStatsLeaderboardFindResult]]` prototype Object
 [global]
 class `[[SteamUserStatsScoresDownloadedResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
     [field, type_hint=uint64] property entries_handle : gmval { get; set; }
     [field] property entry_count : uint32 { get; set; }
@@ -4413,6 +4418,7 @@ class `[[SteamUserStatsScoresDownloadedResult]]` prototype Object
 [global]
 class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
     [field] property score : int32 { get; set; }
@@ -4424,6 +4430,7 @@ class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
 [global]
 class `[[SteamUserStatsNumberOfCurrentPlayersResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field] property players : int32 { get; set; }
 }
@@ -4964,6 +4971,7 @@ function steam_timeline_open_overlay_to_timeline_event([type_hint=uint64] event_
 [global]
 class `[[SteamTimelineGamePhaseRecordingExists]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field]
     property phase_id : string { get; set; }
 
@@ -4983,6 +4991,7 @@ class `[[SteamTimelineGamePhaseRecordingExists]]` prototype Object
 [global]
 class `[[SteamTimelineEventRecordingExists]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field, type_hint=uint64]
     property event_id : gmval { get; set; }
 
@@ -5669,6 +5678,7 @@ enum SteamMatchmakingChatRoomEnterResponse
 [global]
 class `[[SteamMatchmakingLobbyEnter]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when the join was refused (response says why)
     [field, type_hint=uint64] property lobby_id : gmval { get; set; }
     [field] property chat_permissions : uint32 { get; set; }
     [field] property locked : bool { get; set; }
@@ -5678,6 +5688,7 @@ class `[[SteamMatchmakingLobbyEnter]]` prototype Object
 [global]
 class `[[SteamMatchmakingLobbyMatchList]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field] property lobbies_count : uint32 { get; set; }
 }
 

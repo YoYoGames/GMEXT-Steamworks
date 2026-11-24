@@ -242,6 +242,7 @@
  *
  * This struct holds the result when asking if recordings exist for an event handle.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {String} phase_id The phase ID that this result corresponds with.
  * @member {Real} recording_ms The total length of the recordings in this phase in milliseconds.
  * @member {Real} longest_clip_ms The total length of the longest clip in this phase in milliseconds.
@@ -256,6 +257,7 @@
  *
  * This struct holds the result when asking if recordings exist for an event handle.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {Real} event_id The handle of the event that was asked about.
  * @member {Bool} recording_exists This is `true` if a recording exists for the requested event handle.
  * @struct_end

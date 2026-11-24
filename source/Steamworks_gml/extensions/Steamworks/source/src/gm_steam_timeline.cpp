@@ -38,6 +38,7 @@ static inline TimelineEventHandle_t timeline_handle_from_u64(std::uint64_t v) { 
 static inline SteamTimelineGamePhaseRecordingExists fromNative(const SteamTimelineGamePhaseRecordingExists_t& e)
 {
     SteamTimelineGamePhaseRecordingExists out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     // m_rgchPhaseID is a fixed char buffer; bound the read in case it isn't NUL-terminated.
     out.phase_id = std::string(e.m_rgchPhaseID, strnlen(e.m_rgchPhaseID, sizeof(e.m_rgchPhaseID)));
     out.recording_ms = (std::uint64_t)e.m_ulRecordingMS;
@@ -50,6 +51,7 @@ static inline SteamTimelineGamePhaseRecordingExists fromNative(const SteamTimeli
 static inline SteamTimelineEventRecordingExists fromNative(const SteamTimelineEventRecordingExists_t& e)
 {
     SteamTimelineEventRecordingExists out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.event_id = (std::uint64_t)e.m_ulEventID;
     out.recording_exists = (e.m_bRecordingExists != 0);
     return out;

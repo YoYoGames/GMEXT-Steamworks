@@ -768,6 +768,7 @@ gm_enums::SteamApiUserHasLicenseForAppResult steam_user_user_has_license_for_app
 static inline gm_structs::SteamUserStoreAuthUrlResponse user_fromNative(const StoreAuthURLResponse_t& e)
 {
     gm_structs::SteamUserStoreAuthUrlResponse out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     // StoreAuthURLResponse_t carries no EResult in the SDK struct; only the URL.
     out.url = e.m_szURL;
     return out;
@@ -797,6 +798,7 @@ static inline gm_structs::SteamUserDurationControl user_fromNative(const Duratio
 static inline gm_structs::SteamUserMarketEligibilityResponse user_fromNative(const MarketEligibilityResponse_t& e)
 {
     gm_structs::SteamUserMarketEligibilityResponse out{};
+    out.result = gm_enums::SteamApiResult::Ok;
     out.allowed = (e.m_bAllowed != 0);
     out.not_allowed_reason = (gm_enums::SteamMarketNotAllowedReasonFlags)e.m_eNotAllowedReason;
     out.allowed_at_time = (std::uint32_t)e.m_rtAllowedAtTime;

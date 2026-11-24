@@ -881,6 +881,7 @@
  *
  * This struct holds the result of a leaderboard find request.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
  * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
  * @struct_end 
@@ -892,6 +893,7 @@
  *
  * This struct holds the result when scores for a leaderboard have been downloaded and are ready to be retrieved.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
  * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
  * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
  * @member {Real} entry_count The number of entries downloaded.
@@ -904,6 +906,7 @@
  *
  * This struct holds the result indicating that a leaderboard score has been uploaded.
  * 
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` if Steam uploaded the score; `SteamApiResult.Fail` if it did not (as `success` reports).
  * @member {Bool} success Was the call successful? `true` if the call was successful, `false` on failure.
  * @member {Real} leaderboard_handle Handle to the leaderboard that this score was uploaded to.
  * @member {Real} score The score that was attempted to set.
@@ -919,6 +922,7 @@
  *
  * This struct holds information on the current number of players for the current app if it has been received.
  *
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` if Steam returned the player count; `SteamApiResult.Fail` if it did not (as `success` reports).
  * @member {Bool} success Whether the call was successful; `true` if the player count was retrieved.
  * @member {Real} players The number of players currently playing the game.
  * @struct_end
