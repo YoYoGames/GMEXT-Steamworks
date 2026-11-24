@@ -544,7 +544,7 @@
    "assert": {
     "id": "check_5",
     "name": "steam_friends_download_clan_activity_counts calls back with result = false",
-    "expect": 0
+    "expect": false
    }
   },
   {

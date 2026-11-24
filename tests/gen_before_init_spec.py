@@ -33,12 +33,12 @@ def async_functions():
 
 
 def failed_result(spec, payload):
-    """What result the failed callback carries: SteamApiResult.Fail (2), or false (0) for a bool success flag."""
+    """What result the failed callback carries: SteamApiResult.Fail (2), or false for a bool success flag."""
     m = re.search(r"class `\[\[" + payload + r"\]\]`[^{]*\{(.*?)\n\}", spec, re.S)
     r = re.search(r"property\s+result\s*:\s*(\w+)", m.group(1)) if m else None
     if not r:
         raise SystemExit("payload has no result field: " + payload)
-    return 0 if r.group(1) == "bool" else 2
+    return False if r.group(1) == "bool" else 2
 
 
 # Functions that take a callback but report a failure before Steam is initialised by their return value instead (an
@@ -133,7 +133,7 @@ def main():
                        "src": "var r = gametest_async_result(\"%s\"); return is_undefined(r) ? -1 : r;" % name})
         timeline.append({"frame": 2, "assert": {"id": "call_%d" % i, "name": name + " can be called before steam_init", "expect": 1}})
         timeline.append({"frame": 5, "assert": {"id": "check_%d" % i,
-                                                "name": name + (" calls back with SteamApiResult.Fail" if expect == 2 else " calls back with result = false"),
+                                                "name": name + (" calls back with SteamApiResult.Fail" if expect is not False else " calls back with result = false"),
                                                 "expect": expect}})
     chunks.insert(0, {"id": "setup", "src": "\n".join(setup) + "\nreturn steam_api_is_initialized() ? 1 : 0;"})
     timeline.insert(0, {"frame": 1, "assert": {"id": "setup", "name": "Steam is not initialised", "expect": 0}})
