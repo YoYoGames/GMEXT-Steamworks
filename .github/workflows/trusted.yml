@@ -1,7 +1,7 @@
 # Builds and tests with the Steamworks SDK and a signed-in Steam client: on main, nightly, and for a pull request
 # after a maintainer has reviewed it (dispatched on main with the PR number and the head SHA they reviewed).
 #
-# For now this only checks the tier 3 runner and reports its build tools. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
+# For now this checks the tier 3 runner, reports its build tools and builds Steamworks.dll. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
 # file on main, and GitHub only accepts a workflow for that list once the file is on main, so it lands first. The
 # builds, tier 2 and tier 3 jobs follow.
 name: trusted
@@ -84,4 +84,103 @@ jobs:
             Report 'GMRT_ROOT has gmrt.exe' ([bool](Get-ChildItem $env:GMRT_ROOT -Recurse -Filter gmrt.exe -ErrorAction SilentlyContinue | Select-Object -First 1))
           }
           Report 'gmrt on PATH' ([bool](Get-Command gmrt -ErrorAction SilentlyContinue))
+
+  windows-build:
+    # Builds Steamworks.dll from main, or from a reviewed pull request at the SHA given. Runs on the tier 3 runner
+    # because that's the trusted Windows machine with Visual Studio; GameTest specs that need Steam follow once the
+    # runner has a GMRT build. Only same-repository pull requests: this machine is signed in to Steam
+    if: github.ref == 'refs/heads/main'
+    needs: steam-check
+    runs-on: steamworks-steam
+    timeout-minutes: 30
+    steps:
+      - name: Choose the commit to build
+        id: target
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ inputs.pr }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:PR) {
+            if ($env:SHA) { Write-Error 'sha is only used with pr' }
+            "ref=$env:GITHUB_SHA" >> $env:GITHUB_OUTPUT
+            "label=main" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          if ($env:PR -notmatch '^[0-9]+$') { Write-Error 'pr must be a pull request number' }
+          if ($env:SHA -notmatch '^[0-9a-f]{40}$') { Write-Error 'sha must be the full 40-character head SHA you reviewed' }
+          $pr = Invoke-RestMethod -Headers @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = 'application/vnd.github+json' } `
+            -Uri "https://api.github.com/repos/$env:GITHUB_REPOSITORY/pulls/$env:PR"
+          if ($pr.head.repo.full_name -ne $env:GITHUB_REPOSITORY) {
+            Write-Error 'Only pull requests from this repository can run on the tier 3 runner'
+          }
+          if ($pr.head.sha -ne $env:SHA) {
+            Write-Error "The pull request's head is now $($pr.head.sha), not the SHA given; review the new commits and dispatch again"
+          }
+          "ref=$env:SHA" >> $env:GITHUB_OUTPUT
+          "label=pr-$env:PR" >> $env:GITHUB_OUTPUT
+
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.target.outputs.ref }}
+          persist-credentials: false
+
+      - name: Get Steamworks SDK 1.65
+        # From the private YoYoGames/steamworks-sdk with its read-only deploy key; the key file is deleted afterwards
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          SDK_KEY: ${{ secrets.STEAMWORKS_SDK_SSH_KEY }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:SDK_KEY) { Write-Error 'STEAMWORKS_SDK_SSH_KEY is not set' }
+          $key = Join-Path $env:RUNNER_TEMP 'steamworks_sdk_key'
+          $sdk = Join-Path $env:RUNNER_TEMP 'steamworks-sdk'
+          try {
+            [IO.File]::WriteAllText($key, ($env:SDK_KEY -replace "`r", '') + "`n")
+            icacls $key /inheritance:r /grant:r "$($env:USERNAME):R" | Out-Null
+            $env:GIT_SSH_COMMAND = "ssh -i `"$key`" -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+            if (Test-Path $sdk) { Remove-Item -Recurse -Force $sdk }
+            git clone --quiet --depth 1 --branch 1.65 git@github.com:YoYoGames/steamworks-sdk.git $sdk
+            if ($LASTEXITCODE -ne 0) { Write-Error 'Cloning the SDK failed' }
+          } finally {
+            Remove-Item -Force $key -ErrorAction SilentlyContinue
+          }
+          $root = Get-ChildItem $sdk -Recurse -Filter steam_api.h | Where-Object { $_.Directory.Name -eq 'steam' } | Select-Object -First 1
+          if (-not $root) { Write-Error 'public/steam/steam_api.h not found in the SDK' }
+          $sdkRoot = $root.Directory.Parent.Parent.FullName
+          "STEAMWORKS_SDK_ROOT=$sdkRoot" >> $env:GITHUB_ENV
+          Write-Host 'SDK ready'
+
+      - name: Build Steamworks.dll (win-x64-release)
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        working-directory: source/Steamworks_gml/extensions/Steamworks/source
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cmake --preset win-x64-release "-DSTEAMWORKS_SDK_ROOT=$env:STEAMWORKS_SDK_ROOT"
+          if ($LASTEXITCODE -ne 0) { Write-Error 'configure failed' }
+          cmake --build --preset win-x64-release
+          if ($LASTEXITCODE -ne 0) { Write-Error 'build failed' }
+
+      - name: Check the exports
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $dll = 'source/Steamworks_gml/extensions/Steamworks/Steamworks.dll'
+          if (-not (Test-Path $dll)) { Write-Error "$dll was not built" }
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $dumpbin = & $vswhere -latest -products * -find 'VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe' | Select-Object -First 1
+          $exports = (& $dumpbin /nologo /exports $dll | Select-String '__EXT_NATIVE__').Count
+          $declared = (Select-String -Path 'source/Steamworks_gml/extensions/Steamworks/Steamworks.yy' -Pattern '"externalName": "__EXT_NATIVE__').Count
+          Write-Host "Steamworks.dll exports $exports __EXT_NATIVE__ functions; Steamworks.yy declares $declared"
+          if ($exports -ne $declared) { Write-Error 'The export count does not match the functions Steamworks.yy declares' }
+
+      - name: Upload Steamworks.dll
+        uses: actions/upload-artifact@v4
+        with:
+          name: Steamworks-windows-${{ steps.target.outputs.label }}
+          path: source/Steamworks_gml/extensions/Steamworks/Steamworks.dll
+          if-no-files-found: error
 
