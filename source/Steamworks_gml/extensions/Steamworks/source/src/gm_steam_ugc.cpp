@@ -1769,7 +1769,16 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
         g_ugc_app_dependencies_pending[published_file_id] = UgcAppDependenciesPending{ callback, {}, false };
     }
 
-    ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
+    SteamAPICall_t call = ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        {
+            std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+            g_ugc_app_dependencies_pending.erase(published_file_id);
+        }
+        steam_set_last_error("Steam UGC: GetAppDependencies returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcGetAppDependenciesResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
 }
 
 void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,
