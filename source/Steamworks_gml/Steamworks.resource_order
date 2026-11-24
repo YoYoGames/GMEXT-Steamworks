@@ -16,6 +16,7 @@
     {"name":"Messages","order":1,"path":"folders/Steamworks Demo/Networking/Messages.yy",},
     {"name":"Local Test","order":1,"path":"folders/Steamworks Demo/Networking/Sockets/Local Test.yy",},
     {"name":"ServerClient","order":2,"path":"folders/Steamworks Demo/Networking/Sockets/ServerClient.yy",},
+    {"name":"Voice","order":6,"path":"folders/Steamworks Demo/Networking/Voice.yy",},
     {"name":"Overlay","order":1,"path":"folders/Steamworks Demo/Overlay.yy",},
     {"name":"Parties","order":13,"path":"folders/Steamworks Demo/Parties.yy",},
     {"name":"Client","order":1,"path":"folders/Steamworks Demo/Parties/Client.yy",},
