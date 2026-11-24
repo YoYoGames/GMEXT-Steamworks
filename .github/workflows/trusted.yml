@@ -1,7 +1,7 @@
 # Builds and tests with the Steamworks SDK and a signed-in Steam client: on main, nightly, and for a pull request
 # after a maintainer has reviewed it (dispatched on main with the PR number and the head SHA they reviewed).
 #
-# For now this only checks the tier 3 runner. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
+# For now this only checks the tier 3 runner and reports its build tools. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
 # file on main, and GitHub only accepts a workflow for that list once the file is on main, so it lands first. The
 # builds, tier 2 and tier 3 jobs follow.
 name: trusted
@@ -52,3 +52,36 @@ jobs:
           $active = (Get-ItemProperty 'HKCU:\Software\Valve\Steam\ActiveProcess' -ErrorAction SilentlyContinue).ActiveUser
           if (-not $active) { Write-Error 'Steam is running but nobody is signed in' }
           Write-Host 'Steam is signed in'
+      - name: Build and test tools on the runner
+        # Run even when the Steam check fails: the report doesn't depend on Steam
+        if: ${{ !cancelled() }}
+        # Reports what the tier 3 build and GameTest jobs can use: versions and yes/no only, since this log is public.
+        # It doesn't fail the job; the jobs that need a tool fail clearly when it's missing
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        run: |
+          function Report($name, $value) { Write-Host ('{0,-34} {1}' -f $name, $value) }
+          function Version($cmd, $arg) {
+            $c = Get-Command $cmd -ErrorAction SilentlyContinue
+            if (-not $c) { return 'not found' }
+            try { return ((& $c.Source $arg 2>&1 | Select-Object -First 1) -as [string]).Trim() } catch { return 'found' }
+          }
+          Report 'git' (Version git --version)
+          Report 'cmake' (Version cmake --version)
+          Report 'ninja' (Version ninja --version)
+          Report 'python' (Version python --version)
+          Report 'dotnet' (Version dotnet --version)
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          if (Test-Path $vswhere) {
+            $vs = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property catalog_productDisplayVersion
+            Report 'Visual Studio C++ tools' ($(if ($vs) { $vs } else { 'not found' }))
+          } else { Report 'Visual Studio C++ tools' 'vswhere not found' }
+          Report 'STEAMWORKS_SDK_ROOT set' ([bool]$env:STEAMWORKS_SDK_ROOT)
+          if ($env:STEAMWORKS_SDK_ROOT) {
+            Report 'STEAMWORKS_SDK_ROOT has steam_api.h' (Test-Path (Join-Path $env:STEAMWORKS_SDK_ROOT 'public\steam\steam_api.h'))
+          }
+          Report 'GMRT_ROOT set' ([bool]$env:GMRT_ROOT)
+          if ($env:GMRT_ROOT) {
+            Report 'GMRT_ROOT has gmrt.exe' ([bool](Get-ChildItem $env:GMRT_ROOT -Recurse -Filter gmrt.exe -ErrorAction SilentlyContinue | Select-Object -First 1))
+          }
+          Report 'gmrt on PATH' ([bool](Get-Command gmrt -ErrorAction SilentlyContinue))
+
