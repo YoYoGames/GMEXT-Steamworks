@@ -428,7 +428,7 @@ class `[[SteamFriendsEnumerateFollowingListResult]]` prototype Object
 [global]
 class `[[SteamFriendsRequestClanOfficerListResult]]` prototype Object
 {
-    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field, type_hint=uint64] property clan_id : gmval { get; set; }
     [field] property officers : int32 { get; set; }
@@ -4418,7 +4418,7 @@ class `[[SteamUserStatsScoresDownloadedResult]]` prototype Object
 [global]
 class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
 {
-    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
     [field] property score : int32 { get; set; }
@@ -4430,7 +4430,7 @@ class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
 [global]
 class `[[SteamUserStatsNumberOfCurrentPlayersResult]]` prototype Object
 {
-    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when m_bSuccess is false
     [field] property success : bool { get; set; }
     [field] property players : int32 { get; set; }
 }
@@ -5678,7 +5678,7 @@ enum SteamMatchmakingChatRoomEnterResponse
 [global]
 class `[[SteamMatchmakingLobbyEnter]]` prototype Object
 {
-    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok, or Fail when the join was refused (response says why)
     [field, type_hint=uint64] property lobby_id : gmval { get; set; }
     [field] property chat_permissions : uint32 { get; set; }
     [field] property locked : bool { get; set; }

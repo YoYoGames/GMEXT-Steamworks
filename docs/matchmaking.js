@@ -676,7 +676,7 @@
  *
  * This struct holds the result received upon attempting to enter a lobby.
  *
- * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` when Steam delivered the result.
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` if you entered the lobby; `SteamApiResult.Fail` if the join was refused, in which case `response` says why.
  * @member {Real} lobby_id The Steam ID of the lobby you have entered.
  * @member {Real} chat_permissions Unused - always 0.
  * @member {Bool} locked If `true`, then only invited users may join.
