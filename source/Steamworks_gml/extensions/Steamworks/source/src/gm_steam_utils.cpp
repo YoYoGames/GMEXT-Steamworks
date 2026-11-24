@@ -127,7 +127,7 @@ static inline gm_structs::SteamUtilsCheckFileSignatureResult utils_fromNative(co
 
 void steam_utils_check_file_signature(std::string_view file_name,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_GUARD(); // result is a signature-check outcome with no failure value, so there is no failed callback to send
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)

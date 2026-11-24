@@ -811,7 +811,7 @@ static inline gm_structs::SteamUserMarketEligibilityResponse user_fromNative(con
 
 void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserStoreAuthUrlResponse, callback);
 
     ISteamUser* u = steam_user_iface();
     if (!u) return;
@@ -830,7 +830,7 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm:
 
 void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include, const gm::wire::GMFunction& callback, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserEncryptedAppTicketResponse, callback);
 
     ISteamUser* u = steam_user_iface();
     if (!u) return;
@@ -880,7 +880,7 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
 
 void steam_user_get_duration_control( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserDurationControl, callback);
 
     ISteamUser* u = steam_user_iface();
     if (!u) return;
@@ -898,7 +898,7 @@ void steam_user_get_duration_control( const gm::wire::GMFunction& callback)
 
 void steam_user_get_market_eligibility( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUserMarketEligibilityResponse, callback);
 
     ISteamUser* u = steam_user_iface();
     if (!u) return;

@@ -838,7 +838,7 @@ static inline gm_structs::SteamFriendsDownloadClanActivityCountsResult friends_f
 
 void steam_friends_get_follower_count(std::uint64_t steam_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamFriendsGetFollowerCountResult, callback);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
@@ -856,7 +856,7 @@ void steam_friends_get_follower_count(std::uint64_t steam_id,  const gm::wire::G
 
 void steam_friends_is_following(std::uint64_t steam_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamFriendsIsFollowingResult, callback);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
@@ -874,7 +874,7 @@ void steam_friends_is_following(std::uint64_t steam_id,  const gm::wire::GMFunct
 
 void steam_friends_enumerate_following_list(std::uint32_t start_index,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamFriendsEnumerateFollowingListResult, callback);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
@@ -892,7 +892,7 @@ void steam_friends_enumerate_following_list(std::uint32_t start_index,  const gm
 
 void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamFriendsRequestClanOfficerListResult, callback);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
@@ -913,7 +913,7 @@ bool steam_friends_download_clan_activity_counts(
     const gm::wire::GMFunction& callback
 )
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamFriendsDownloadClanActivityCountsResult, callback, false);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)

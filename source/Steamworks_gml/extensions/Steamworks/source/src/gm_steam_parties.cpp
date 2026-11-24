@@ -265,7 +265,7 @@ bool steam_parties_create_beacon(
     const GMFunction& callback
 )
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamPartiesCreateBeaconResult, callback, false);
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
@@ -324,7 +324,7 @@ bool steam_parties_change_num_open_slots(
     const GMFunction& callback
 )
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamPartiesChangeNumOpenSlotsResult, callback, false);
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
@@ -413,7 +413,7 @@ std::optional<gm_structs::SteamPartiesBeaconDetails> steam_parties_get_beacon_de
 
 bool steam_parties_join_party(std::uint64_t beacon_id, const GMFunction& callback)
 {
-    STEAM_GUARD_RET(false);
+    STEAM_ASYNC_GUARD_RET(gm_structs::SteamPartiesJoinPartyResult, callback, false);
 
     ISteamParties* p = steam_parties_iface();
     if (!p)

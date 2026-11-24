@@ -1473,7 +1473,7 @@ static inline gm_structs::SteamUgcWorkshopEULAStatusResult ugc_fromNative(const 
 
 void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcQueryCompleted, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1485,7 +1485,7 @@ void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wir
 
 void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteStorageWorkshopFileType workshop_file_type,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcCreateItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1497,7 +1497,7 @@ void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteS
 
 void steam_ugc_submit_item_update(std::uint64_t update_handle, std::string_view change_note,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcSubmitItemUpdateResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1512,7 +1512,7 @@ void steam_ugc_submit_item_update(std::uint64_t update_handle, std::string_view 
 
 void steam_ugc_subscribe_item(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcSubscribeItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1525,7 +1525,7 @@ void steam_ugc_subscribe_item(std::uint64_t published_file_id,  const gm::wire::
 
 void steam_ugc_unsubscribe_item(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcUnsubscribeItemResult, callback);
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
 
@@ -1579,7 +1579,7 @@ void steam_ugc_clear_callback_user_subscribed_items_list_changed()
 
 void steam_ugc_add_item_to_favorites(std::uint32_t app_id, std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcFavoriteItemsListChanged, callback);
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
 
@@ -1590,7 +1590,7 @@ void steam_ugc_add_item_to_favorites(std::uint32_t app_id, std::uint64_t publish
 
 void steam_ugc_remove_item_from_favorites(std::uint32_t app_id, std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcFavoriteItemsListChanged, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1602,7 +1602,7 @@ void steam_ugc_remove_item_from_favorites(std::uint32_t app_id, std::uint64_t pu
 
 void steam_ugc_set_user_item_vote(std::uint64_t published_file_id, bool vote_up,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcSetUserItemVoteResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1614,7 +1614,7 @@ void steam_ugc_set_user_item_vote(std::uint64_t published_file_id, bool vote_up,
 
 void steam_ugc_get_user_item_vote(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcGetUserItemVoteResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1627,7 +1627,7 @@ void steam_ugc_get_user_item_vote(std::uint64_t published_file_id,  const gm::wi
 
 void steam_ugc_delete_item(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcDeleteItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1639,7 +1639,7 @@ void steam_ugc_delete_item(std::uint64_t published_file_id,  const gm::wire::GMF
 
 void steam_ugc_add_app_dependency(std::uint64_t published_file_id, std::uint32_t app_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcAddAppDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1651,7 +1651,7 @@ void steam_ugc_add_app_dependency(std::uint64_t published_file_id, std::uint32_t
 
 void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint32_t app_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcRemoveAppDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1663,7 +1663,7 @@ void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint3
 
 void steam_ugc_add_dependency(std::uint64_t parent_published_file_id, std::uint64_t child_published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcAddUGCDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1675,7 +1675,7 @@ void steam_ugc_add_dependency(std::uint64_t parent_published_file_id, std::uint6
 
 void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::uint64_t child_published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcRemoveUGCDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1687,7 +1687,7 @@ void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::ui
 
 void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcGetAppDependenciesResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1706,7 +1706,7 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
 void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,
                                         const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcStartPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1732,7 +1732,7 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
 
 void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcStopPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1758,7 +1758,7 @@ void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& publishe
 
 void steam_ugc_stop_playtime_tracking_for_all_items( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcStopPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
@@ -1770,7 +1770,7 @@ void steam_ugc_stop_playtime_tracking_for_all_items( const gm::wire::GMFunction&
 
 void steam_ugc_get_workshop_eula_status( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamUgcWorkshopEULAStatusResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;

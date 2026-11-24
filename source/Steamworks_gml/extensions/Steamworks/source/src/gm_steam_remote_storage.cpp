@@ -494,7 +494,7 @@ static inline gm_structs::SteamRemoteStorageDownloadUgcResult rs_fromNative(cons
 
 void steam_remote_storage_file_share(std::string_view file_name,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageFileShareResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 
@@ -519,7 +519,7 @@ static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(c
 
 void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, const gm::wire::GMFunction& callback, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageFileWriteAsyncResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 
@@ -563,7 +563,7 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
 
 void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t priority,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageDownloadUgcResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 
@@ -580,7 +580,7 @@ void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t p
 
 void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std::string_view location, std::uint32_t priority,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageDownloadUgcResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 

@@ -185,7 +185,7 @@ void steam_timeline_remove_timeline_event(std::uint64_t event_handle)
 
 void steam_timeline_does_event_recording_exist(std::uint64_t event_handle, const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamTimelineEventRecordingExists, callback);
     ISteamTimeline* t = steam_timeline_iface();
     if (!t) return;
 
@@ -229,7 +229,7 @@ void steam_timeline_set_game_phase_id(std::string_view phase_id)
 
 void steam_timeline_does_game_phase_recording_exist(std::string_view phase_id, const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamTimelineGamePhaseRecordingExists, callback);
     ISteamTimeline* t = steam_timeline_iface();
     if (!t) return;
 

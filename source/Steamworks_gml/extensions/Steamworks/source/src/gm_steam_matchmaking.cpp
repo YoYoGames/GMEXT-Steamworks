@@ -184,7 +184,7 @@ static inline gm_structs::SteamMatchmakingLobbyMatchList mm_fromNative(const Lob
 
 void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_type, std::int32_t max_members,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyCreated, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return;
@@ -202,7 +202,7 @@ void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_ty
 
 void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyEnter, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return;
@@ -220,7 +220,7 @@ void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFun
 
 void steam_matchmaking_request_lobby_list( const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD();
+    STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyMatchList, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return;
