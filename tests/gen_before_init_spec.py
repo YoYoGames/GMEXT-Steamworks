@@ -75,27 +75,26 @@ def main():
     spec = read(os.path.join(SRC, "spec.gmidl"))
     chunks, timeline = [], []
     setup = [
-        "global.__before_init_results = {};",
         "global.__before_init_buffer = buffer_create(16, buffer_grow, 1);",
     ]
     names = async_functions()
     for i, name in enumerate(names):
         args = [placeholder(t, h) for (_, t, h) in parse_params(spec, name)]
+        # a chunk can't define a function literal: the callback comes from the demo's scr_gametest_support
         call = (
             "var __buf = global.__before_init_buffer;\n"
-            "var __cb = method({ name: \"%s\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\n"
+            "var __cb = gametest_async_recorder(\"%s\");\n"
             "%s(%s);\nreturn 1;" % (name, name, ", ".join(args))
         )
         chunks.append({"id": "call_%d" % i, "src": call})
         chunks.append({"id": "check_%d" % i,
-                       "src": "var r = global.__before_init_results[$ \"%s\"]; return is_undefined(r) ? -1 : r;" % name})
+                       "src": "var r = gametest_async_result(\"%s\"); return is_undefined(r) ? -1 : r;" % name})
         timeline.append({"frame": 2, "assert": {"id": "call_%d" % i, "name": name + " can be called before steam_init", "expect": 1}})
         timeline.append({"frame": 5, "assert": {"id": "check_%d" % i, "name": name + " calls back with SteamApiResult.Fail", "expect": 2}})
     chunks.insert(0, {"id": "setup", "src": "\n".join(setup) + "\nreturn steam_api_is_initialized() ? 1 : 0;"})
     timeline.insert(0, {"frame": 1, "assert": {"id": "setup", "name": "Steam is not initialised", "expect": 0}})
     result = {
         "version": 1, "seed": 1, "total_frames": 8, "fps": 60, "stop_on_error": False,
-        "_generated_by": "tests/gen_before_init_spec.py from spec.gmidl - do not edit",
         "chunks": chunks, "timeline": timeline,
     }
     text = json.dumps(result, indent=1) + "\n"

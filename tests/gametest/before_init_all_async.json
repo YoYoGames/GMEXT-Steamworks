@@ -4,403 +4,402 @@
  "total_frames": 8,
  "fps": 60,
  "stop_on_error": false,
- "_generated_by": "tests/gen_before_init_spec.py from spec.gmidl - do not edit",
  "chunks": [
   {
    "id": "setup",
-   "src": "global.__before_init_results = {};\nglobal.__before_init_buffer = buffer_create(16, buffer_grow, 1);\nreturn steam_api_is_initialized() ? 1 : 0;"
+   "src": "global.__before_init_buffer = buffer_create(16, buffer_grow, 1);\nreturn steam_api_is_initialized() ? 1 : 0;"
   },
   {
    "id": "call_0",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_apps_get_file_details\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_apps_get_file_details(\"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_apps_get_file_details\");\nsteam_apps_get_file_details(\"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_0",
-   "src": "var r = global.__before_init_results[$ \"steam_apps_get_file_details\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_apps_get_file_details\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_1",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_friends_get_follower_count\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_friends_get_follower_count(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_friends_get_follower_count\");\nsteam_friends_get_follower_count(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_1",
-   "src": "var r = global.__before_init_results[$ \"steam_friends_get_follower_count\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_friends_get_follower_count\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_2",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_friends_is_following\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_friends_is_following(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_friends_is_following\");\nsteam_friends_is_following(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_2",
-   "src": "var r = global.__before_init_results[$ \"steam_friends_is_following\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_friends_is_following\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_3",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_friends_enumerate_following_list\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_friends_enumerate_following_list(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_friends_enumerate_following_list\");\nsteam_friends_enumerate_following_list(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_3",
-   "src": "var r = global.__before_init_results[$ \"steam_friends_enumerate_following_list\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_friends_enumerate_following_list\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_4",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_friends_request_clan_officer_list\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_friends_request_clan_officer_list(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_friends_request_clan_officer_list\");\nsteam_friends_request_clan_officer_list(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_4",
-   "src": "var r = global.__before_init_results[$ \"steam_friends_request_clan_officer_list\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_friends_request_clan_officer_list\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_5",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_inventory_request_eligible_promo_item_definition_ids\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_inventory_request_eligible_promo_item_definition_ids(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_inventory_request_eligible_promo_item_definition_ids\");\nsteam_inventory_request_eligible_promo_item_definition_ids(__cb);\nreturn 1;"
   },
   {
    "id": "check_5",
-   "src": "var r = global.__before_init_results[$ \"steam_inventory_request_eligible_promo_item_definition_ids\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_inventory_request_eligible_promo_item_definition_ids\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_6",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_inventory_request_prices\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_inventory_request_prices(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_inventory_request_prices\");\nsteam_inventory_request_prices(__cb);\nreturn 1;"
   },
   {
    "id": "check_6",
-   "src": "var r = global.__before_init_results[$ \"steam_inventory_request_prices\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_inventory_request_prices\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_7",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_inventory_start_purchase\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_inventory_start_purchase([], __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_inventory_start_purchase\");\nsteam_inventory_start_purchase([], __cb);\nreturn 1;"
   },
   {
    "id": "check_7",
-   "src": "var r = global.__before_init_results[$ \"steam_inventory_start_purchase\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_inventory_start_purchase\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_8",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_matchmaking_create_lobby\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_matchmaking_create_lobby(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_matchmaking_create_lobby\");\nsteam_matchmaking_create_lobby(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_8",
-   "src": "var r = global.__before_init_results[$ \"steam_matchmaking_create_lobby\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_matchmaking_create_lobby\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_9",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_matchmaking_join_lobby\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_matchmaking_join_lobby(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_matchmaking_join_lobby\");\nsteam_matchmaking_join_lobby(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_9",
-   "src": "var r = global.__before_init_results[$ \"steam_matchmaking_join_lobby\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_matchmaking_join_lobby\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_10",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_matchmaking_request_lobby_list\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_matchmaking_request_lobby_list(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_matchmaking_request_lobby_list\");\nsteam_matchmaking_request_lobby_list(__cb);\nreturn 1;"
   },
   {
    "id": "check_10",
-   "src": "var r = global.__before_init_results[$ \"steam_matchmaking_request_lobby_list\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_matchmaking_request_lobby_list\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_11",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_parties_create_beacon\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_parties_create_beacon(0, 0, 0, \"\", \"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_parties_create_beacon\");\nsteam_parties_create_beacon(0, 0, 0, \"\", \"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_11",
-   "src": "var r = global.__before_init_results[$ \"steam_parties_create_beacon\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_parties_create_beacon\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_12",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_parties_join_party\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_parties_join_party(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_parties_join_party\");\nsteam_parties_join_party(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_12",
-   "src": "var r = global.__before_init_results[$ \"steam_parties_join_party\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_parties_join_party\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_13",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_remote_storage_file_share\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_remote_storage_file_share(\"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_remote_storage_file_share\");\nsteam_remote_storage_file_share(\"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_13",
-   "src": "var r = global.__before_init_results[$ \"steam_remote_storage_file_share\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_remote_storage_file_share\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_14",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_remote_storage_file_write_async\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_remote_storage_file_write_async(\"\", __buf, __cb, undefined, undefined);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_remote_storage_file_write_async\");\nsteam_remote_storage_file_write_async(\"\", __buf, __cb, undefined, undefined);\nreturn 1;"
   },
   {
    "id": "check_14",
-   "src": "var r = global.__before_init_results[$ \"steam_remote_storage_file_write_async\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_remote_storage_file_write_async\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_15",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_remote_storage_ugc_download\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_remote_storage_ugc_download(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_remote_storage_ugc_download\");\nsteam_remote_storage_ugc_download(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_15",
-   "src": "var r = global.__before_init_results[$ \"steam_remote_storage_ugc_download\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_remote_storage_ugc_download\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_16",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_remote_storage_ugc_download_to_location\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_remote_storage_ugc_download_to_location(0, \"\", 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_remote_storage_ugc_download_to_location\");\nsteam_remote_storage_ugc_download_to_location(0, \"\", 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_16",
-   "src": "var r = global.__before_init_results[$ \"steam_remote_storage_ugc_download_to_location\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_remote_storage_ugc_download_to_location\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_17",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_timeline_does_event_recording_exist\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_timeline_does_event_recording_exist(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_timeline_does_event_recording_exist\");\nsteam_timeline_does_event_recording_exist(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_17",
-   "src": "var r = global.__before_init_results[$ \"steam_timeline_does_event_recording_exist\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_timeline_does_event_recording_exist\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_18",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_timeline_does_game_phase_recording_exist\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_timeline_does_game_phase_recording_exist(\"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_timeline_does_game_phase_recording_exist\");\nsteam_timeline_does_game_phase_recording_exist(\"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_18",
-   "src": "var r = global.__before_init_results[$ \"steam_timeline_does_game_phase_recording_exist\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_timeline_does_game_phase_recording_exist\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_19",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_send_query_ugc_request\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_send_query_ugc_request(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_send_query_ugc_request\");\nsteam_ugc_send_query_ugc_request(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_19",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_send_query_ugc_request\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_send_query_ugc_request\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_20",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_create_item\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_create_item(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_create_item\");\nsteam_ugc_create_item(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_20",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_create_item\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_create_item\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_21",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_submit_item_update\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_submit_item_update(0, \"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_submit_item_update\");\nsteam_ugc_submit_item_update(0, \"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_21",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_submit_item_update\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_submit_item_update\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_22",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_subscribe_item\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_subscribe_item(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_subscribe_item\");\nsteam_ugc_subscribe_item(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_22",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_subscribe_item\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_subscribe_item\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_23",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_unsubscribe_item\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_unsubscribe_item(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_unsubscribe_item\");\nsteam_ugc_unsubscribe_item(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_23",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_unsubscribe_item\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_unsubscribe_item\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_24",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_add_item_to_favorites\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_add_item_to_favorites(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_add_item_to_favorites\");\nsteam_ugc_add_item_to_favorites(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_24",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_add_item_to_favorites\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_add_item_to_favorites\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_25",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_remove_item_from_favorites\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_remove_item_from_favorites(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_remove_item_from_favorites\");\nsteam_ugc_remove_item_from_favorites(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_25",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_remove_item_from_favorites\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_remove_item_from_favorites\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_26",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_set_user_item_vote\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_set_user_item_vote(0, false, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_set_user_item_vote\");\nsteam_ugc_set_user_item_vote(0, false, __cb);\nreturn 1;"
   },
   {
    "id": "check_26",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_set_user_item_vote\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_set_user_item_vote\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_27",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_get_user_item_vote\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_get_user_item_vote(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_get_user_item_vote\");\nsteam_ugc_get_user_item_vote(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_27",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_get_user_item_vote\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_get_user_item_vote\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_28",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_delete_item\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_delete_item(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_delete_item\");\nsteam_ugc_delete_item(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_28",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_delete_item\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_delete_item\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_29",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_add_app_dependency\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_add_app_dependency(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_add_app_dependency\");\nsteam_ugc_add_app_dependency(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_29",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_add_app_dependency\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_add_app_dependency\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_30",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_remove_app_dependency\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_remove_app_dependency(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_remove_app_dependency\");\nsteam_ugc_remove_app_dependency(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_30",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_remove_app_dependency\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_remove_app_dependency\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_31",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_add_dependency\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_add_dependency(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_add_dependency\");\nsteam_ugc_add_dependency(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_31",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_add_dependency\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_add_dependency\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_32",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_remove_dependency\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_remove_dependency(0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_remove_dependency\");\nsteam_ugc_remove_dependency(0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_32",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_remove_dependency\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_remove_dependency\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_33",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_start_playtime_tracking\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_start_playtime_tracking([], __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_start_playtime_tracking\");\nsteam_ugc_start_playtime_tracking([], __cb);\nreturn 1;"
   },
   {
    "id": "check_33",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_start_playtime_tracking\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_start_playtime_tracking\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_34",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_stop_playtime_tracking\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_stop_playtime_tracking([], __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_stop_playtime_tracking\");\nsteam_ugc_stop_playtime_tracking([], __cb);\nreturn 1;"
   },
   {
    "id": "check_34",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_stop_playtime_tracking\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_stop_playtime_tracking\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_35",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_stop_playtime_tracking_for_all_items\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_stop_playtime_tracking_for_all_items(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_stop_playtime_tracking_for_all_items\");\nsteam_ugc_stop_playtime_tracking_for_all_items(__cb);\nreturn 1;"
   },
   {
    "id": "check_35",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_stop_playtime_tracking_for_all_items\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_stop_playtime_tracking_for_all_items\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_36",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_ugc_get_workshop_eula_status\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_ugc_get_workshop_eula_status(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_ugc_get_workshop_eula_status\");\nsteam_ugc_get_workshop_eula_status(__cb);\nreturn 1;"
   },
   {
    "id": "check_36",
-   "src": "var r = global.__before_init_results[$ \"steam_ugc_get_workshop_eula_status\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_ugc_get_workshop_eula_status\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_37",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_user_request_store_auth_url\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_user_request_store_auth_url(\"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_user_request_store_auth_url\");\nsteam_user_request_store_auth_url(\"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_37",
-   "src": "var r = global.__before_init_results[$ \"steam_user_request_store_auth_url\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_user_request_store_auth_url\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_38",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_user_request_encrypted_app_ticket\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_user_request_encrypted_app_ticket(__buf, __cb, undefined, undefined);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_user_request_encrypted_app_ticket\");\nsteam_user_request_encrypted_app_ticket(__buf, __cb, undefined, undefined);\nreturn 1;"
   },
   {
    "id": "check_38",
-   "src": "var r = global.__before_init_results[$ \"steam_user_request_encrypted_app_ticket\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_user_request_encrypted_app_ticket\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_39",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_user_get_duration_control\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_user_get_duration_control(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_user_get_duration_control\");\nsteam_user_get_duration_control(__cb);\nreturn 1;"
   },
   {
    "id": "check_39",
-   "src": "var r = global.__before_init_results[$ \"steam_user_get_duration_control\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_user_get_duration_control\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_40",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_user_get_market_eligibility\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_user_get_market_eligibility(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_user_get_market_eligibility\");\nsteam_user_get_market_eligibility(__cb);\nreturn 1;"
   },
   {
    "id": "check_40",
-   "src": "var r = global.__before_init_results[$ \"steam_user_get_market_eligibility\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_user_get_market_eligibility\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_41",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_request_user_stats\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_request_user_stats(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_request_user_stats\");\nsteam_userstats_request_user_stats(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_41",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_request_user_stats\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_request_user_stats\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_42",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_find_or_create_leaderboard\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_find_or_create_leaderboard(\"\", 0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_find_or_create_leaderboard\");\nsteam_userstats_find_or_create_leaderboard(\"\", 0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_42",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_find_or_create_leaderboard\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_find_or_create_leaderboard\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_43",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_find_leaderboard\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_find_leaderboard(\"\", __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_find_leaderboard\");\nsteam_userstats_find_leaderboard(\"\", __cb);\nreturn 1;"
   },
   {
    "id": "check_43",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_find_leaderboard\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_find_leaderboard\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_44",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_download_leaderboard_entries\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_download_leaderboard_entries(0, 0, 0, 0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_download_leaderboard_entries\");\nsteam_userstats_download_leaderboard_entries(0, 0, 0, 0, __cb);\nreturn 1;"
   },
   {
    "id": "check_44",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_download_leaderboard_entries\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_download_leaderboard_entries\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_45",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_download_leaderboard_entries_for_users\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_download_leaderboard_entries_for_users(0, [], __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_download_leaderboard_entries_for_users\");\nsteam_userstats_download_leaderboard_entries_for_users(0, [], __cb);\nreturn 1;"
   },
   {
    "id": "check_45",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_download_leaderboard_entries_for_users\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_download_leaderboard_entries_for_users\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_46",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_number_of_current_players\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_number_of_current_players(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_number_of_current_players\");\nsteam_userstats_number_of_current_players(__cb);\nreturn 1;"
   },
   {
    "id": "check_46",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_number_of_current_players\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_number_of_current_players\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_47",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_request_global_achievement_percentages\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_request_global_achievement_percentages(__cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_request_global_achievement_percentages\");\nsteam_userstats_request_global_achievement_percentages(__cb);\nreturn 1;"
   },
   {
    "id": "check_47",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_request_global_achievement_percentages\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_request_global_achievement_percentages\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "call_48",
-   "src": "var __buf = global.__before_init_buffer;\nvar __cb = method({ name: \"steam_userstats_request_global_stats\" }, function(_payload) { global.__before_init_results[$ name] = _payload.result; });\nsteam_userstats_request_global_stats(0, __cb);\nreturn 1;"
+   "src": "var __buf = global.__before_init_buffer;\nvar __cb = gametest_async_recorder(\"steam_userstats_request_global_stats\");\nsteam_userstats_request_global_stats(0, __cb);\nreturn 1;"
   },
   {
    "id": "check_48",
-   "src": "var r = global.__before_init_results[$ \"steam_userstats_request_global_stats\"]; return is_undefined(r) ? -1 : r;"
+   "src": "var r = gametest_async_result(\"steam_userstats_request_global_stats\"); return is_undefined(r) ? -1 : r;"
   }
  ],
  "timeline": [
