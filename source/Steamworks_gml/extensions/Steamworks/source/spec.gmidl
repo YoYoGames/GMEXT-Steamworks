@@ -4418,6 +4418,7 @@ class `[[SteamUserStatsScoresDownloadedResult]]` prototype Object
 [global]
 class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
 {
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // Ok when Steam delivered the result
     [field] property success : bool { get; set; }
     [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
     [field] property score : int32 { get; set; }

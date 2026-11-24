@@ -906,6 +906,7 @@
  *
  * This struct holds the result indicating that a leaderboard score has been uploaded.
  * 
+ * @member {Enum.SteamApiResult} result `SteamApiResult.Ok` if Steam uploaded the score; `SteamApiResult.Fail` if it did not (as `success` reports).
  * @member {Bool} success Was the call successful? `true` if the call was successful, `false` on failure.
  * @member {Real} leaderboard_handle Handle to the leaderboard that this score was uploaded to.
  * @member {Real} score The score that was attempted to set.

@@ -2427,6 +2427,7 @@ namespace gm_structs
 
     struct SteamUserStatsScoreUploadedResult
     {
+        gm_enums::SteamApiResult result;
         bool success;
         std::uint64_t leaderboard_handle;
         std::int32_t score;
@@ -4536,6 +4537,7 @@ namespace gm::wire::codec
     template<>
     inline void writeValue<gm_structs::SteamUserStatsScoreUploadedResult>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsScoreUploadedResult& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.success);
         gm::wire::codec::writeValue(_buf, obj.leaderboard_handle);
         gm::wire::codec::writeValue(_buf, obj.score);
@@ -4548,6 +4550,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserStatsScoreUploadedResult readValue<gm_structs::SteamUserStatsScoreUploadedResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserStatsScoreUploadedResult obj;
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.success = gm::wire::codec::readValue<bool>(_buf);
         obj.leaderboard_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.score = gm::wire::codec::readValue<std::int32_t>(_buf);

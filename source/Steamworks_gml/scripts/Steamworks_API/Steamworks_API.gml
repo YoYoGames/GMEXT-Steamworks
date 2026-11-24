@@ -3284,6 +3284,7 @@ function SteamUserStatsScoreUploadedResult() constructor
      */
     static __uid = 286504762;
 
+    self.result = undefined;
     self.success = undefined;
     self.leaderboard_handle = undefined;
     self.score = undefined;
@@ -9738,6 +9739,11 @@ function __SteamUserStatsScoreUploadedResult_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
         // field: success, type: Bool
         if (!is_bool(self.success)) show_error($"{_where} :: self.success expected bool", true);
         buffer_write(_buffer, buffer_bool, self.success);
@@ -9779,6 +9785,9 @@ function __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
     _inst = new SteamUserStatsScoreUploadedResult();
     with (_inst)
     {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
         // field: success, type: Bool
         self.success = bool(buffer_read(_buffer, buffer_bool));
 

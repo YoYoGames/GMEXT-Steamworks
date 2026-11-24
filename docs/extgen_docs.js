@@ -5103,6 +5103,7 @@
 
 /**
  * @struct_partial SteamUserStatsScoreUploadedResult
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} success
  * @member {Real} leaderboard_handle
  * @member {Real} score

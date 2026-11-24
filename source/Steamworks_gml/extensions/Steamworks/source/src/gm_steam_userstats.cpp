@@ -636,6 +636,7 @@ static inline gm_structs::SteamUserStatsScoresDownloadedResult userstats_fromNat
 static inline gm_structs::SteamUserStatsScoreUploadedResult userstats_fromNative(const LeaderboardScoreUploaded_t& e)
 {
     gm_structs::SteamUserStatsScoreUploadedResult out{};
+    out.result = e.m_bSuccess ? gm_enums::SteamApiResult::Ok : gm_enums::SteamApiResult::Fail;
     out.success = (e.m_bSuccess != 0);
     out.leaderboard_handle = (std::uint64_t)e.m_hSteamLeaderboard;
     out.score = (int32)e.m_nScore;
