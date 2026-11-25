@@ -175,7 +175,10 @@ bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuf
         actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
     }
 
-    if (actual_count == 0) return false;
+    if (actual_count == 0) {
+        steam_set_last_error("FileWrite: nothing to write (buffer_count is 0).");
+        return false;
+    }
 
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
         steam_set_last_error("FileWrite: buffer_offset + buffer_count exceeds buffer length.");
@@ -371,7 +374,10 @@ bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm
         actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
     }
 
-    if (actual_count == 0) return false;
+    if (actual_count == 0) {
+        steam_set_last_error("FileWriteStreamWriteChunk: nothing to write (buffer_count is 0).");
+        return false;
+    }
 
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
         steam_set_last_error("FileWriteStreamWriteChunk: buffer_offset + buffer_count exceeds buffer length.");
@@ -531,13 +537,19 @@ static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(c
 void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, const gm::wire::GMFunction& callback, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count)
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageFileWriteAsyncResult, callback);
+    // Every early return below calls back with Fail, so a game waiting on the callback isn't left waiting
+    using Payload = gm_structs::SteamRemoteStorageFileWriteAsyncResult;
+    auto fail = [&](const char* why) {
+        if (why) steam_set_last_error(why);
+        steam_async::call_back_failed<Payload>(callback, gm_enums::SteamApiResult::Fail);
+    };
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return;
+    if (!rs) { fail(nullptr); return; }
 
     std::uint32_t offset = buffer_offset.value_or(0);
 
     if (static_cast<std::uint64_t>(offset) >= data.length()) {
-        steam_set_last_error("FileWriteAsync: buffer_offset exceeds buffer length.");
+        fail("FileWriteAsync: buffer_offset exceeds buffer length.");
         return;
     }
 
@@ -549,10 +561,13 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
         actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
     }
 
-    if (actual_count == 0) return;
+    if (actual_count == 0) {
+        fail("FileWriteAsync: nothing to write (buffer_count is 0).");
+        return;
+    }
 
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
-        steam_set_last_error("FileWriteAsync: buffer_offset + buffer_count exceeds buffer length.");
+        fail("FileWriteAsync: buffer_offset + buffer_count exceeds buffer length.");
         return;
     }
 
@@ -564,7 +579,7 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
     SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)tmp.data(), (uint32)actual_count);
 
     if (call == k_uAPICallInvalid) {
-        steam_set_last_error("steam_remote_storage_file_write_async: Steam API call failed to dispatch.");
+        fail("steam_remote_storage_file_write_async: Steam API call failed to dispatch.");
         return;
     }
 

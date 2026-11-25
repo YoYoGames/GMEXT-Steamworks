@@ -22990,7 +22990,7 @@ function steam_remote_storage_file_write(_file_name, _data, _buffer_offset, _buf
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)?max(0,buffer_tell(_data)-(_buffer_offset??0)):undefined;
+    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined;
 
     var __args_buffer__ = __ext_core_get_args_buffer();
 
@@ -23046,7 +23046,7 @@ function steam_remote_storage_file_write_async(_file_name, _data, _callback, _bu
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)?max(0,buffer_tell(_data)-(_buffer_offset??0)):undefined;
+    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined;
 
     var __args_buffer__ = __ext_core_get_args_buffer();
 
@@ -23279,7 +23279,7 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _buf
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)?max(0,buffer_tell(_data)-(_buffer_offset??0)):undefined;
+    if (is_undefined(_buffer_count)) _buffer_count = buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined;
 
     var __args_buffer__ = __ext_core_get_args_buffer();
 

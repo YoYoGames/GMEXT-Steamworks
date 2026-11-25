@@ -1,8 +1,9 @@
 {
  "version": 1,
  "seed": 1,
- "total_frames": 120,
+ "total_frames": 325,
  "fps": 60,
+ "pacing": "realtime",
  "stop_on_error": false,
  "chunks": [
   {
@@ -11,23 +12,59 @@
   },
   {
    "id": "write",
-   "src": "// A grow buffer with 5 bytes written: its allocated size is larger, and only the 5 bytes should reach Steam Cloud\nvar b = buffer_create(64, buffer_grow, 1);\nbuffer_write(b, buffer_u8, 1); buffer_write(b, buffer_u8, 2); buffer_write(b, buffer_u8, 3); buffer_write(b, buffer_u8, 4); buffer_write(b, buffer_u8, 5);\nvar ok = steam_remote_storage_file_write(\"gametest_write_default.bin\", b);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
-  },
-  {
-   "id": "size",
-   "src": "var n = steam_remote_storage_get_file_size(\"gametest_write_default.bin\");\nshow_debug_message(\"gametest: cloud file size without a count: \" + string(n));\nreturn n;"
+   "src": "// A grow buffer (64 bytes allocated) with 5 bytes written: only the 5 bytes should reach Steam Cloud\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nvar ok = steam_remote_storage_file_write(\"gametest_cw_sync.bin\", b);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
   },
   {
    "id": "write_offset",
-   "src": "// With an offset of 2 and no count, the bytes written after the offset: 3\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nvar ok = steam_remote_storage_file_write(\"gametest_write_offset.bin\", b, 2);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
+   "src": "var b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nvar ok = steam_remote_storage_file_write(\"gametest_cw_offset.bin\", b, 2);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "write_pos0",
+   "src": "// Position not past the offset (as after buffer_load): falls back to the buffer size minus the offset\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nbuffer_seek(b, buffer_seek_start, 0);\nvar ok = steam_remote_storage_file_write(\"gametest_cw_pos0.bin\", b);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "write_async",
+   "src": "var b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nsteam_remote_storage_file_write_async(\"gametest_cw_async.bin\", b, gametest_async_recorder(\"cw_async\"));\nbuffer_delete(b);\nreturn 1;"
+  },
+  {
+   "id": "write_async_zero",
+   "src": "// An explicit count of 0 now calls back with Fail instead of never calling back\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nsteam_remote_storage_file_write_async(\"gametest_cw_zero.bin\", b, gametest_async_recorder(\"cw_zero\"), 0, 0);\nbuffer_delete(b);\nreturn 1;"
+  },
+  {
+   "id": "write_stream",
+   "src": "var s = steam_remote_storage_file_write_stream_open(\"gametest_cw_stream.bin\");\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nvar ok = steam_remote_storage_file_write_stream_write_chunk(s, b);\nbuffer_delete(b);\nreturn (ok && steam_remote_storage_file_write_stream_close(s)) ? 1 : 0;"
+  },
+  {
+   "id": "size_sync",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_cw_sync.bin\");\nshow_debug_message(\"gametest: sync file size \" + string(n));\nreturn n;"
   },
   {
    "id": "size_offset",
-   "src": "var n = steam_remote_storage_get_file_size(\"gametest_write_offset.bin\");\nshow_debug_message(\"gametest: cloud file size with offset 2: \" + string(n));\nreturn n;"
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_cw_offset.bin\");\nshow_debug_message(\"gametest: offset file size \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "size_pos0",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_cw_pos0.bin\");\nshow_debug_message(\"gametest: pos0 file size \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "size_async",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_cw_async.bin\");\nshow_debug_message(\"gametest: async file size \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "size_stream",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_cw_stream.bin\");\nshow_debug_message(\"gametest: stream file size \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "async_result",
+   "src": "// 1 = SteamApiResult.Ok\nvar r = gametest_async_result(\"cw_async\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "zero_result",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"cw_zero\"); return is_undefined(r) ? -1 : r;"
   },
   {
    "id": "cleanup",
-   "src": "var a = steam_remote_storage_file_delete(\"gametest_write_default.bin\");\nvar c = steam_remote_storage_file_delete(\"gametest_write_offset.bin\");\nreturn (a && c) ? 1 : 0;"
+   "src": "var ok = true;\nvar names = [\"gametest_cw_sync.bin\", \"gametest_cw_offset.bin\", \"gametest_cw_pos0.bin\", \"gametest_cw_async.bin\", \"gametest_cw_stream.bin\"];\nfor (var i = 0; i < array_length(names); i++) ok = steam_remote_storage_file_delete(names[i]) && ok;\nreturn ok ? 1 : 0;"
   }
  ],
  "timeline": [
@@ -50,32 +87,104 @@
   {
    "frame": 62,
    "assert": {
-    "id": "size",
-    "name": "the cloud file is the 5 bytes written, not the buffer's allocated size",
-    "expect": 5
-   }
-  },
-  {
-   "frame": 63,
-   "assert": {
     "id": "write_offset",
     "name": "file_write with offset 2 and no count",
     "expect": 1
    }
   },
   {
+   "frame": 63,
+   "assert": {
+    "id": "write_pos0",
+    "name": "file_write of a buffer at position 0, no count",
+    "expect": 1
+   }
+  },
+  {
    "frame": 64,
    "assert": {
-    "id": "size_offset",
-    "name": "the cloud file is the 3 bytes after the offset",
-    "expect": 3
+    "id": "write_async",
+    "name": "file_write_async of a grow buffer with 5 bytes written, no count",
+    "expect": 1
    }
   },
   {
    "frame": 65,
    "assert": {
+    "id": "write_async_zero",
+    "name": "file_write_async with an explicit count of 0",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 66,
+   "assert": {
+    "id": "write_stream",
+    "name": "a stream write_chunk of a grow buffer with 5 bytes written, no count",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 300,
+   "assert": {
+    "id": "size_sync",
+    "name": "the sync write is the 5 bytes written, not the buffer's allocated size",
+    "expect": 5
+   }
+  },
+  {
+   "frame": 301,
+   "assert": {
+    "id": "size_offset",
+    "name": "with offset 2 it's the 3 bytes after the offset",
+    "expect": 3
+   }
+  },
+  {
+   "frame": 302,
+   "assert": {
+    "id": "size_pos0",
+    "name": "a buffer whose position is 0 writes its whole size (64)",
+    "expect": 64
+   }
+  },
+  {
+   "frame": 303,
+   "assert": {
+    "id": "size_async",
+    "name": "the async write is the 5 bytes written",
+    "expect": 5
+   }
+  },
+  {
+   "frame": 304,
+   "assert": {
+    "id": "size_stream",
+    "name": "the stream chunk is the 5 bytes written",
+    "expect": 5
+   }
+  },
+  {
+   "frame": 305,
+   "assert": {
+    "id": "async_result",
+    "name": "file_write_async calls back with SteamApiResult.Ok",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 306,
+   "assert": {
+    "id": "zero_result",
+    "name": "file_write_async with a count of 0 calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 307,
+   "assert": {
     "id": "cleanup",
-    "name": "both cloud files are deleted",
+    "name": "the cloud files are deleted",
     "expect": 1
    }
   }
