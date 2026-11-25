@@ -62,7 +62,7 @@ namespace steam_receive
         {
             std::lock_guard<std::mutex> lock(mutex_);
             std::vector<Held> pending = take_connection(conn);
-            return receive(std::move(pending), count, capacity, fetch, write, 0, false);
+            return receive(std::move(pending), count, capacity, fetch, write, 0, false, conn);
         }
 
         Result receive_on_poll_group(Group group, std::uint32_t count, std::uint64_t capacity, const Fetch& fetch,
@@ -80,7 +80,7 @@ namespace steam_receive
                 }
             }
             std::sort(pending.begin(), pending.end(), [](const Held& a, const Held& b) { return a.seq < b.seq; });
-            return receive(std::move(pending), count, capacity, fetch, write, group, true);
+            return receive(std::move(pending), count, capacity, fetch, write, group, true, 0);
         }
 
         // SetConnectionPollGroup: later poll group receives cover the connection's held messages
@@ -130,6 +130,46 @@ namespace steam_receive
             return out;
         }
 
+        // One message at a time, for a receive that must not allocate in the common case (nothing held): take the
+        // oldest held message for a key, or {0, nullptr}
+        Held pop_front(Conn conn)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            auto it = held_.find(conn);
+            if (it == held_.end() || it->second.empty())
+                return Held{0, nullptr};
+            Held h = it->second.front();
+            it->second.pop_front();
+            if (it->second.empty())
+                held_.erase(it);
+            return h;
+        }
+
+        // Stamp a message just taken from Steam, so it can be held in order
+        Held stamp(Msg* msg)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            return Held{next_seq_++, msg};
+        }
+
+        // Put a message that didn't fit back in front of the key's other held messages (it's the oldest of them). The
+        // key is the one the caller reads with, not one taken from the message, so it can't end up somewhere unread
+        void push_front(Conn conn, const Held& h)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            held_[conn].push_front(h);
+        }
+
+        // Release the oldest held message for a key; false if nothing was held
+        bool discard_front(Conn conn)
+        {
+            Held h = pop_front(conn);
+            if (!h.msg)
+                return false;
+            Traits::release(h.msg);
+            return true;
+        }
+
         std::size_t held_count(Conn conn) const
         {
             std::lock_guard<std::mutex> lock(mutex_);
@@ -154,20 +194,23 @@ namespace steam_receive
             return out;
         }
 
-        void put_back(const Held& h)
+        void put_back(Conn conn, const Held& h)
         {
             // Everything put back is older than anything still in Steam, and pending is in seq order, so appending
             // keeps each connection's queue in order
-            held_[Traits::conn(h.msg)].push_back(h);
+            held_[conn].push_back(h);
         }
 
+        // key: where a connection (or channel) receive holds what's left, the key it reads with. A poll group receive
+        // holds each message under its own connection, since that's how both kinds of receive find it
         Result receive(std::vector<Held> pending, std::uint32_t count, std::uint64_t capacity, const Fetch& fetch,
-                       const Write& write, Group group, bool from_group)
+                       const Write& write, Group group, bool from_group, Conn key)
         {
+            auto key_of = [&](const Held& h) { return from_group ? Traits::conn(h.msg) : key; };
             Result result;
             if (count == 0) {
                 for (const Held& h : pending)
-                    put_back(h);
+                    put_back(key_of(h), h);
                 return result;
             }
 
@@ -239,14 +282,14 @@ namespace steam_receive
                         largest_oversized = std::max(largest_oversized, size);
                     blocked.push_back(c);
                 }
-                put_back(h);
+                put_back(key_of(h), h);
                 if (!from_group)
                     break;
             }
             if (!from_group && i < pending.size() && !blocked.empty())
                 ++i; // the message that didn't fit is already held
             for (; i < pending.size(); ++i)
-                put_back(pending[i]);
+                put_back(key_of(pending[i]), pending[i]);
             // Report a connection whose next message is bigger than the whole buffer, even when other connections'
             // messages were written: only a bigger buffer lets that connection carry on. Stuck connections the loop
             // didn't reach (count ran out) are included

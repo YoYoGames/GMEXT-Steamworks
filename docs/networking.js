@@ -85,7 +85,7 @@
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  *
- * [[Warning: Don't use this function on a channel where ${function.steam_networking_messages_receive_message_on_channel} is holding a message (after it returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`). This function doesn't return the held message, so the messages after it arrive first. Read the held message with ${function.steam_networking_messages_receive_message_on_channel}, or release it with ${function.steam_networking_messages_discard_held_message}, before switching back.]]
+ * The messages are written one after another from the start of the buffer, up to `count` of them. A message that doesn't fit in what's left of the buffer isn't lost: it's kept, with any after it, and the next receive on this channel returns it first, whether that's this function or ${function.steam_networking_messages_receive_message_on_channel}. If a message is bigger than the whole buffer, ${function.steam_api_last_error} gives the size needed and the message stays kept, with any after it; when it's the next message, the function returns an empty array and takes nothing more from Steam. The message stays kept, until a receive with a big enough buffer or ${function.steam_networking_messages_discard_held_message} releases it.
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
@@ -110,7 +110,7 @@
  *
  * [[Note: Size the buffer to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` and read at offset 0 to make sure every message fits.]]
  *
- * [[Warning: A held message is only returned by this function. Don't read the same channel with ${function.steam_networking_messages_receive_messages_on_channel} while a message is held, or the messages after it arrive first.]]
+ * A held message is returned first by the next receive on the channel, whether that's this function or ${function.steam_networking_messages_receive_messages_on_channel}, so the two can be mixed on a channel without changing the order.
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
@@ -135,7 +135,7 @@
  * @function steam_networking_messages_discard_held_message
  * @description > **Steamworks Function**: N / A
  *
- * This function releases the message held on a channel after ${function.steam_networking_messages_receive_message_on_channel} returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`, for a message too big for any buffer you're willing to give it. It returns whether a message was held.
+ * This function releases the oldest message held on a channel: one that didn't fit an earlier receive on that channel, by ${function.steam_networking_messages_receive_message_on_channel} (after it returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`) or ${function.steam_networking_messages_receive_messages_on_channel}. Use it for a message too big for any buffer you're willing to give it. There can be more than one held message on a channel; this releases only the oldest. It returns whether a message was held.
  *
  * @param {Real} local_channel The channel whose held message to release.
  * @returns {Bool}
