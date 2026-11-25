@@ -283,6 +283,7 @@ bool steam_parties_create_beacon(
     SteamAPICall_t call = p->CreateBeacon(open_slots, &loc, join.c_str(), meta.c_str());
     if (!call) {
         steam_set_last_error("Steam Parties: CreateBeacon returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamPartiesCreateBeaconResult>(callback, gm_enums::SteamApiResult::Fail);
         return false;
     }
 
@@ -333,6 +334,7 @@ bool steam_parties_change_num_open_slots(
     SteamAPICall_t call = p->ChangeNumOpenSlots((PartyBeaconID_t)beacon_id, open_slots);
     if (!call) {
         steam_set_last_error("Steam Parties: ChangeNumOpenSlots returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamPartiesChangeNumOpenSlotsResult>(callback, gm_enums::SteamApiResult::Fail);
         return false;
     }
 
@@ -422,6 +424,7 @@ bool steam_parties_join_party(std::uint64_t beacon_id, const GMFunction& callbac
     SteamAPICall_t call = p->JoinParty((PartyBeaconID_t)beacon_id);
     if (!call) {
         steam_set_last_error("Steam Parties: JoinParty returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamPartiesJoinPartyResult>(callback, gm_enums::SteamApiResult::Fail);
         return false;
     }
 

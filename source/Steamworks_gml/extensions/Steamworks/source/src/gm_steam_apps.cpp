@@ -495,6 +495,7 @@ void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMF
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_apps_get_file_details: Steam API call failed to dispatch.");
+        steam_async::call_back_failed<gm_structs::SteamAppsFileDetailsResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
