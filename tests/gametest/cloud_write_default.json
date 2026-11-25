@@ -1,0 +1,83 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 120,
+ "fps": 60,
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "write",
+   "src": "// A grow buffer with 5 bytes written: its allocated size is larger, and only the 5 bytes should reach Steam Cloud\nvar b = buffer_create(64, buffer_grow, 1);\nbuffer_write(b, buffer_u8, 1); buffer_write(b, buffer_u8, 2); buffer_write(b, buffer_u8, 3); buffer_write(b, buffer_u8, 4); buffer_write(b, buffer_u8, 5);\nvar ok = steam_remote_storage_file_write(\"gametest_write_default.bin\", b);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "size",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_write_default.bin\");\nshow_debug_message(\"gametest: cloud file size without a count: \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "write_offset",
+   "src": "// With an offset of 2 and no count, the bytes written after the offset: 3\nvar b = buffer_create(64, buffer_grow, 1);\nrepeat (5) buffer_write(b, buffer_u8, 7);\nvar ok = steam_remote_storage_file_write(\"gametest_write_offset.bin\", b, 2);\nbuffer_delete(b);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "size_offset",
+   "src": "var n = steam_remote_storage_get_file_size(\"gametest_write_offset.bin\");\nshow_debug_message(\"gametest: cloud file size with offset 2: \" + string(n));\nreturn n;"
+  },
+  {
+   "id": "cleanup",
+   "src": "var a = steam_remote_storage_file_delete(\"gametest_write_default.bin\");\nvar c = steam_remote_storage_file_delete(\"gametest_write_offset.bin\");\nreturn (a && c) ? 1 : 0;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "write",
+    "name": "file_write of a grow buffer with 5 bytes written, no count",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "size",
+    "name": "the cloud file is the 5 bytes written, not the buffer's allocated size",
+    "expect": 5
+   }
+  },
+  {
+   "frame": 63,
+   "assert": {
+    "id": "write_offset",
+    "name": "file_write with offset 2 and no count",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 64,
+   "assert": {
+    "id": "size_offset",
+    "name": "the cloud file is the 3 bytes after the offset",
+    "expect": 3
+   }
+  },
+  {
+   "frame": 65,
+   "assert": {
+    "id": "cleanup",
+    "name": "both cloud files are deleted",
+    "expect": 1
+   }
+  }
+ ]
+}
