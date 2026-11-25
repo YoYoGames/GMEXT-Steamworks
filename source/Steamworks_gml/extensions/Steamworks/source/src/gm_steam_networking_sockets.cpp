@@ -55,8 +55,10 @@ namespace
         };
         auto res = receive((std::uint64_t)out_data.length(), write);
         if (res.oversized) {
-            steam_set_last_error(std::string(fn) + ": the next message is " + std::to_string(res.needed)
-                                 + " bytes, more than the buffer holds; it's kept until a receive with a buffer that big.");
+            steam_set_last_error(std::string(fn) + ": a message of " + std::to_string(res.needed)
+                                 + " bytes is bigger than the buffer; it and its connection's later messages are kept until a receive with a buffer that big"
+                                 + (res.held_limit ? " (that connection's held messages reached the limit, so no more are taken from Steam until then)."
+                                                   : "."));
         }
         return out;
     }
@@ -176,19 +178,12 @@ bool steam_networking_sockets_close_listen_socket(std::uint32_t listen_socket)
     if (!s) return false;
 
     // Closing a listen socket closes the connections accepted on it without steam_networking_sockets_close_connection,
-
     // so release what's held for them here (before the close, while their info still names the socket)
-
     for (std::uint32_t conn : g_sockets_held.held_connections()) {
-
         SteamNetConnectionInfo_t info{};
-
         if (s->GetConnectionInfo((HSteamNetConnection)conn, &info) && info.m_hListenSocket == (HSteamListenSocket)listen_socket)
-
             g_sockets_held.release_connection(conn);
-
     }
-
 
     return s->CloseListenSocket((HSteamListenSocket)listen_socket);
 }

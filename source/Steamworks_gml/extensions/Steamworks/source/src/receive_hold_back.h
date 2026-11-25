@@ -39,10 +39,17 @@ namespace steam_receive
 
         struct Result
         {
-            std::size_t written = 0;  // messages written to the buffer and released
-            bool oversized = false;   // the first message alone doesn't fit the buffer; it stays held
-            std::uint32_t needed = 0; // its size, when oversized
+            std::size_t written = 0;       // messages written to the buffer and released
+            bool oversized = false;        // a connection's next message is bigger than the whole buffer; it stays held
+            std::uint32_t needed = 0;      // that message's size, when oversized
+            bool held_limit = false;       // a stuck connection has kMaxHeldPerConnection messages held, so Steam
+                                           // wasn't asked for more (only a buffer of at least `needed` frees it)
         };
+
+        // A connection stuck behind a message bigger than the buffer keeps having its later messages taken from
+        // Steam (a poll group can't skip one connection), so its held queue is capped: once it reaches this, the
+        // receive stops taking more from Steam until the game gives a buffer big enough, and reports it
+        static constexpr std::size_t kMaxHeldPerConnection = 256;
 
         // Fetch(max, out) takes up to max messages from Steam into out and returns how many.
         // Write(msg, offset) copies the message into the game's buffer at offset and reports it.
@@ -163,9 +170,37 @@ namespace steam_receive
                 return result;
             }
 
-            // Only ask Steam for more when the held messages don't already fill the request
-            if (pending.size() < count) {
-                std::vector<Msg*> fresh(count - pending.size(), nullptr);
+            // A connection is stuck when its next message is bigger than the whole buffer: nothing of it can be
+            // written by this receive, so its held messages mustn't use up the request, or a peer that keeps sending
+            // would stop the others being fetched
+            std::map<Conn, std::size_t> stuck; // connection -> how many of its messages are pending
+            {
+                std::map<Conn, bool> first_seen;
+                for (const Held& h : pending) {
+                    const Conn c = Traits::conn(h.msg);
+                    if (!first_seen.count(c)) {
+                        first_seen[c] = true;
+                        if (Traits::size(h.msg) > capacity)
+                            stuck[c] = 0;
+                    }
+                    auto s = stuck.find(c);
+                    if (s != stuck.end())
+                        ++s->second;
+                }
+            }
+            std::size_t writable = 0;
+            for (const Held& h : pending)
+                if (!stuck.count(Traits::conn(h.msg)))
+                    ++writable;
+            for (const auto& [c, n] : stuck)
+                if (n >= kMaxHeldPerConnection)
+                    result.held_limit = true;
+
+            // Only ask Steam for more when the messages that could be written don't already fill the request. A
+            // connection receive whose next message is stuck asks for nothing: there's nothing it could write
+            const bool connection_stuck = !from_group && !stuck.empty();
+            if (writable < count && !result.held_limit && !connection_stuck) {
+                std::vector<Msg*> fresh(count - writable, nullptr);
                 int n = fetch((int)fresh.size(), fresh.data());
                 n = std::max(0, std::min(n, (int)fresh.size()));
                 for (int i = 0; i < n; ++i) {
@@ -185,6 +220,7 @@ namespace steam_receive
             std::vector<Conn> blocked;
             std::uint32_t first_blocked_size = 0;
             std::size_t i = 0;
+            std::uint32_t first_oversized = 0;
             for (; i < pending.size() && result.written < count; ++i) {
                 const Held& h = pending[i];
                 const Conn c = Traits::conn(h.msg);
@@ -200,6 +236,8 @@ namespace steam_receive
                 if (!is_blocked) {
                     if (blocked.empty())
                         first_blocked_size = size;
+                    if (size > capacity && first_oversized == 0)
+                        first_oversized = size;
                     blocked.push_back(c);
                 }
                 put_back(h);
@@ -210,10 +248,19 @@ namespace steam_receive
                 ++i; // the message that didn't fit is already held
             for (; i < pending.size(); ++i)
                 put_back(pending[i]);
-            // Nothing could be written because the first message in the way is bigger than the whole buffer
-            if (result.written == 0 && !blocked.empty() && first_blocked_size > capacity) {
+            // Report a connection whose next message is bigger than the whole buffer, even when other connections'
+            // messages were written: only a bigger buffer lets that connection carry on
+            (void)first_blocked_size;
+            if (first_oversized == 0)
+                for (const auto& [c, n] : stuck)
+                    for (const Held& h : pending)
+                        if (Traits::conn(h.msg) == c) {
+                            first_oversized = std::max(first_oversized, Traits::size(h.msg));
+                            break;
+                        }
+            if (first_oversized != 0) {
                 result.oversized = true;
-                result.needed = first_blocked_size;
+                result.needed = first_oversized;
             }
             return result;
         }

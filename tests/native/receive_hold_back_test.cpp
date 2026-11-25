@@ -171,7 +171,7 @@ int main()
         auto res = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2}), r.write());
         check(r.ids == std::vector<int>({3, 4}), "other connections' messages are still written");
         check(q.held_count(1) == 2 && !big.released && !a2.released, "the big message and its connection's later ones are held, in order");
-        check(!res.oversized, "not reported as oversized while something was written");
+        check(res.oversized && res.needed == 500, "reported as oversized even though other connections' messages were written");
         Received r2;
         auto res2 = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2}), r2.write());
         check(r2.ids.empty() && res2.oversized && res2.needed == 500, "with only the big message left, it's reported with its size");
@@ -199,6 +199,72 @@ int main()
         q.receive_on_poll_group(7, 10, 10, steam.on_group({1, 4}), r.write());
         auto conns = q.held_connections();
         check(conns.size() == 2, "held_connections lists both connections");
+        q.release_all();
+    }
+    {
+        // A peer stuck behind a big message that keeps sending doesn't stop the others over several receives
+        Queue q; FakeSteam steam;
+        std::vector<FakeMsg*> all;
+        auto msg = [&](std::uint32_t conn, std::uint32_t size, int id) { all.push_back(new FakeMsg{conn, size, id}); return all.back(); };
+        steam.pending = {msg(1, 500, 0)};
+        int id = 1;
+        std::size_t conn2_written = 0;
+        bool always_reported = true;
+        for (int frame = 0; frame < 6; ++frame) {
+            for (int k = 0; k < 3; ++k) {
+                steam.pending.push_back(msg(1, 10, id++));
+                steam.pending.push_back(msg(2, 10, id++));
+            }
+            Received r;
+            auto res = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2}), r.write());
+            conn2_written += r.ids.size();
+            always_reported = always_reported && res.oversized && res.needed == 500;
+        }
+        check(conn2_written == 18, "connection 2's 18 messages are all written across 6 receives");
+        check(always_reported, "every receive reports connection 1's 500-byte message");
+        check(q.held_count(1) == 19, "connection 1's messages are held in order behind the big one");
+        Received r;
+        q.receive_on_connection(1, 100, 1000, steam.on_connection(1), r.write());
+        bool in_order = r.ids.size() == 19 && r.ids[0] == 0;
+        for (std::size_t k = 1; k < r.ids.size(); ++k) in_order = in_order && r.ids[k] > r.ids[k - 1];
+        check(in_order, "a big enough buffer returns them all in order");
+        for (FakeMsg* m : all) delete m;
+    }
+    {
+        // A stuck connection's held messages are capped; at the cap, nothing more is taken from Steam and it's reported
+        Queue q; FakeSteam steam;
+        std::vector<FakeMsg*> all;
+        all.push_back(new FakeMsg{1, 500, 0});
+        steam.pending = {all.back()};
+        for (std::size_t k = 0; k < Queue::kMaxHeldPerConnection + 50; ++k) {
+            all.push_back(new FakeMsg{1, 10, (int)k + 1});
+            steam.pending.push_back(all.back());
+        }
+        Queue::Result last;
+        for (int frame = 0; frame < 100 && !last.held_limit; ++frame) {
+            Received r;
+            last = q.receive_on_poll_group(7, 10, 100, steam.on_group({1}), r.write());
+        }
+        check(last.held_limit && last.oversized, "the cap is reached and reported");
+        std::size_t held = q.held_count(1);
+        Received r;
+        auto again = q.receive_on_poll_group(7, 10, 100, steam.on_group({1}), r.write());
+        check(again.held_limit && q.held_count(1) == held, "at the cap nothing more is taken from Steam");
+        q.release_all();
+        for (FakeMsg* m : all) delete m;
+    }
+    {
+        // A connection receive whose next message is too big asks Steam for nothing
+        Queue q; FakeSteam steam;
+        FakeMsg big{1, 500, 1}, s{1, 10, 2};
+        steam.pending = {&big, &s};
+        Received r;
+        q.receive_on_connection(1, 1, 100, steam.on_connection(1), r.write());
+        int fetched = 0;
+        auto counting = [&](int max, FakeMsg** out) { fetched++; return steam.on_connection(1)(max, out); };
+        auto res = q.receive_on_connection(1, 10, 100, counting, r.write());
+        check(fetched == 0 && res.oversized && q.held_count(1) == 1 && steam.pending.size() == 1,
+              "a stuck connection receive doesn't take more from Steam");
         q.release_all();
     }
     std::printf("%s\n", failures ? "FAILED" : "all passed");
