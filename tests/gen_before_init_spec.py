@@ -54,21 +54,13 @@ for _name in ("add_promo_item", "add_promo_items", "consume_item", "exchange_ite
     NOT_GUARDED["steam_inventory_" + _name] = "returns k_SteamInventoryResultInvalid before init"
 
 
-def functions_with_callback(spec):
-    names = []
-    for m in re.finditer(r"function\s+(steam_\w+)\s*\((.*?)\)\s*:", spec, re.S):
-        if re.search(r"\w+\s*:\s*func\b", m.group(2)) and not re.match(r"steam_\w+_set_callback_", m.group(1)):
-            names.append(m.group(1))
-    return names
-
-
-def parse_params(spec, name):
-    m = re.search(r"function\s+" + name + r"\s*\(", spec)
-    if not m:
-        raise SystemExit("not in spec.gmidl: " + name)
-    # The parameter list runs to the matching ")"; a backtick value (type_hint, gml_default) can hold "(", ")" and ":"
-    i, depth, tick = m.end(), 1, False
+def param_list(spec, start, name):
+    """The text of a function's parameter list, from just after its "(" to the matching ")". A backtick value
+    (type_hint, gml_default) can hold "(", ")" and ":", so it's skipped."""
+    i, depth, tick = start, 1, False
     while depth:
+        if i >= len(spec):
+            raise SystemExit("unbalanced parameter list in spec.gmidl: " + name)
         ch = spec[i]
         if ch == "`":
             tick = not tick
@@ -77,7 +69,23 @@ def parse_params(spec, name):
         elif not tick and ch == ")":
             depth -= 1
         i += 1
-    plist = spec[m.end():i - 1]
+    return spec[start:i - 1]
+
+
+def functions_with_callback(spec):
+    names = []
+    for m in re.finditer(r"function\s+(steam_\w+)\s*\(", spec):
+        params = param_list(spec, m.end(), m.group(1))
+        if re.search(r"\w+\s*:\s*func\b", params) and not re.match(r"steam_\w+_set_callback_", m.group(1)):
+            names.append(m.group(1))
+    return names
+
+
+def parse_params(spec, name):
+    m = re.search(r"function\s+" + name + r"\s*\(", spec)
+    if not m:
+        raise SystemExit("not in spec.gmidl: " + name)
+    plist = param_list(spec, m.end(), name)
     params, depth, cur = [], 0, ""
     in_tick = False
     for ch in plist:
