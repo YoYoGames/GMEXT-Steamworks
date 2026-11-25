@@ -86,10 +86,13 @@ if ($code -ne 0) {
 $exe = Get-ChildItem $build -Recurse -Filter *.exe | Where-Object { $_.Name -notmatch '^(crashpad|ProjectTool)' } | Select-Object -First 1
 if (-not $exe) { Write-Error "The build made no .exe in $build" }
 Write-Host "Built $($exe.FullName)"
-# Without it Steamworks.dll can't load, and every extension call returns garbage rather than failing
-if (-not (Test-Path (Join-Path $exe.DirectoryName 'steam_api64.dll'))) {
-    Write-Error "steam_api64.dll isn't next to the game: the extension's post-build step didn't find the SDK (sdkPath)"
+# Without it Steamworks.dll can't load, and every extension call returns garbage rather than failing. Under GMRT the
+# post-build step copies it into the game's assets folder (assets or build/assets), so look anywhere in the output
+$steamApi = Get-ChildItem $build -Recurse -Filter steam_api64.dll -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $steamApi) {
+    Write-Error "steam_api64.dll isn't in the build output: the extension's post-build step didn't find the SDK (sdkPath)"
 }
+Write-Host "steam_api64.dll: $($steamApi.FullName.Substring($build.Length).TrimStart('\'))"
 
 $failed = 0
 foreach ($s in $Specs) {

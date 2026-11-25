@@ -7,7 +7,7 @@
  "chunks": [
   {
    "id": "init",
-   "src": "if (!steam_api_is_initialized()) show_debug_message(\"gametest: Steam not initialised: \" + steam_api_last_error());\nreturn steam_api_is_initialized() ? 1 : 0;"
+   "src": "if (!steam_api_is_initialized()) show_debug_message(\"gametest: Steam not initialised: \" + string(steam_api_last_error()));\nreturn steam_api_is_initialized() ? 1 : 0;"
   },
   {
    "id": "setup",
