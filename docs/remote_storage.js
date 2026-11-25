@@ -166,7 +166,7 @@
  *
  * @param {String} file_name The name of the file to read from.
  * @param {Buffer} out_data The buffer that the file will be read into. The size can be generally obtained from ${function.steam_remote_storage_get_file_size}.
- * @returns {Real} The number of bytes read. It's 0 for an empty file, and also 0, with ${function.steam_api_last_error} saying why, if the buffer is empty or too small, the file doesn't exist, or the read fails.
+ * @returns {Real} The number of bytes read, or 0 if the file doesn't exist or the read fails.
  * @function_end 
  */
 

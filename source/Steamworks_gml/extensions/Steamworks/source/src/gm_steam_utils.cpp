@@ -379,10 +379,13 @@ std::optional<bool> steam_utils_is_api_call_completed(std::uint64_t steam_api_ca
     if (!u)
         return std::nullopt;
 
-    // IsAPICallCompleted returns whether the call has completed; its out parameter says whether it failed, which
-    // steam_utils_get_api_call_failure_reason reports. This used to return that failed flag instead
     bool failed = false;
-    return u->IsAPICallCompleted((SteamAPICall_t)steam_api_call, &failed);
+    const bool ok = u->IsAPICallCompleted((SteamAPICall_t)steam_api_call, &failed);
+
+    if (!ok)
+        return std::nullopt;
+
+    return failed;
 }
 
 bool steam_utils_init_filter_text()

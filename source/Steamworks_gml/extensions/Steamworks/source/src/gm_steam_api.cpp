@@ -206,13 +206,8 @@ static void steam_api_clear_all_callbacks()
 void steamworks_pregraphics_init_func()
 {
     auto app_id = gm::ExtUtils::GetExtensionOption("Steamworks", "appID");
-    if (app_id.empty()) {
-        // Say why Steam isn't initialised: this used to return without an error
-        TRACE("The Steamworks appID extension option is empty, so Steam isn't initialised");
-        steam_set_last_error("Steam API: the Steamworks appID extension option is empty, so Steam isn't initialised.");
-        steam_set_initialized(false);
+    if (app_id.empty())
         return;
-    }
 
     try {
         steam_api_init(static_cast<uint32_t>(std::stoul(app_id)));
@@ -285,7 +280,6 @@ bool steam_api_init(uint32_t own_app_id)
 
     TRACE("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
     steam_set_initialized(true);
-    steam_networking_sockets_register_status_callback();
     return true;
 }
 

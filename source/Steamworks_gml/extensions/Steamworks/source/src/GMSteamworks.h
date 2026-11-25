@@ -59,9 +59,6 @@ void steam_networking_messages_release_held_messages();
 // Internal: release the messages held by the Networking Sockets receives (before SteamAPI_Shutdown).
 void steam_networking_sockets_release_held_messages();
 
-// Internal: register a connection status callback set before Steam was initialised (after SteamAPI_InitEx).
-void steam_networking_sockets_register_status_callback();
-
 // ------------------------------------------------------------
 // Small shared conversion helpers (optional)
 // ------------------------------------------------------------

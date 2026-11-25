@@ -406,8 +406,6 @@
  *
  * This function checks if an API Call is completed. Provides the backend of the CallResult wrapper.
  *
- * It returns `true` once the call has completed, whether it succeeded or failed (${function.steam_utils_get_api_call_failure_reason} says why it failed), and `false` while it's still running or if the handle isn't a valid call.
- *
  * @param {Real} steam_api_call The API Call handle to check.
  * @returns {Bool}
  * @function_end 

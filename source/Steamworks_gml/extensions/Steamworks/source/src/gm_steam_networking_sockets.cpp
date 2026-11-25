@@ -138,19 +138,6 @@ void steam_networking_sockets_set_callback_connection_status_changed(const gm::w
     if (u) u->SetGlobalCallback_SteamNetConnectionStatusChanged(SN_OnConnectionStatusChanged);
 }
 
-// Called once Steam is initialised: a callback set while it wasn't (SteamNetworkingUtils() was null then) is
-// registered with Steam now, so it isn't silently never called
-void steam_networking_sockets_register_status_callback()
-{
-    bool has_cb;
-    {
-        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-        has_cb = static_cast<bool>(g_cb_conn_status_changed);
-    }
-    ISteamNetworkingUtils* u = SteamNetworkingUtils();
-    if (u && has_cb) u->SetGlobalCallback_SteamNetConnectionStatusChanged(SN_OnConnectionStatusChanged);
-}
-
 void steam_networking_sockets_clear_callback_connection_status_changed()
 {
     steam_clear_last_error();
