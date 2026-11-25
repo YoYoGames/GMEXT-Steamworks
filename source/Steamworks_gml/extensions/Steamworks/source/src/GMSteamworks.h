@@ -56,6 +56,9 @@ void steam_set_initialized(bool v);
 // since a message can't be released once Steam is shut down).
 void steam_networking_messages_release_held_messages();
 
+// Internal: release the messages held by the Networking Sockets receives (before SteamAPI_Shutdown).
+void steam_networking_sockets_release_held_messages();
+
 // ------------------------------------------------------------
 // Small shared conversion helpers (optional)
 // ------------------------------------------------------------

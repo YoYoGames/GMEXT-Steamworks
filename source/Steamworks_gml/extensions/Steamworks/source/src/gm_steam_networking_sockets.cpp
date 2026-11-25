@@ -1,4 +1,5 @@
 ﻿#include "GMSteamworks.h"
+#include "receive_hold_back.h"
 
 #include <steam/steam_api.h>
 #include <steam/isteamnetworkingsockets.h>
@@ -13,6 +14,56 @@
 #include <mutex>
 
 // ----------------------------------------------------------------------------
+namespace
+{
+    struct SteamMessageTraits
+    {
+        static std::uint32_t conn(SteamNetworkingMessage_t* m) { return (std::uint32_t)m->m_conn; }
+        static std::uint32_t size(SteamNetworkingMessage_t* m) { return (std::uint32_t)m->m_cbSize; }
+        static void release(SteamNetworkingMessage_t* m) { m->Release(); }
+    };
+
+    // Messages a receive couldn't fit in the game's buffer, returned first by the next receive (receive_hold_back.h)
+    steam_receive::HoldBack<SteamNetworkingMessage_t, SteamMessageTraits> g_sockets_held;
+
+    gm_structs::SteamNetworkingMessage sockets_message_out(SteamNetworkingMessage_t* m, std::uint32_t offset)
+    {
+        gm_structs::SteamNetworkingMessage msg_out{};
+        msg_out.offset = offset;
+        msg_out.size = (std::uint32_t)m->m_cbSize;
+        msg_out.steam_id_remote = m->m_identityPeer.GetSteamID64();
+        msg_out.conn = (std::uint32_t)m->m_conn;
+        msg_out.channel = -1;
+        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)m->m_nFlags);
+        msg_out.usec_time_received = (std::uint64_t)m->m_usecTimeReceived;
+        msg_out.message_number = (std::uint64_t)m->m_nMessageNumber;
+        msg_out.conn_user_data = (std::uint64_t)m->m_nConnUserData;
+        return msg_out;
+    }
+
+    // Receive through the hold-back queue into out_data, from offset 0
+    template <typename Receive>
+    std::vector<gm_structs::SteamNetworkingMessage> sockets_receive(const char* fn, std::uint32_t count, gm::wire::GMBuffer& out_data,
+                                                                    Receive&& receive)
+    {
+        std::vector<gm_structs::SteamNetworkingMessage> out;
+        auto write = [&](SteamNetworkingMessage_t* m, std::uint32_t offset) {
+            auto w = out_data.getWriter();
+            w.skip(offset);
+            w.writeBytes((const char*)m->m_pData, (int)m->m_cbSize);
+            out.push_back(sockets_message_out(m, offset));
+        };
+        auto res = receive((std::uint64_t)out_data.length(), write);
+        if (res.oversized) {
+            steam_set_last_error(std::string(fn) + ": the next message is " + std::to_string(res.needed)
+                                 + " bytes, more than the buffer holds; it's kept until a receive with a buffer that big.");
+        }
+        return out;
+    }
+}
+
+void steam_networking_sockets_release_held_messages() { g_sockets_held.release_all(); }
+
 static inline ISteamNetworkingSockets* steam_networking_sockets_iface()
 {
     if (!steam_api_is_initialized()) {
@@ -173,6 +224,7 @@ bool steam_networking_sockets_close_connection(std::uint32_t conn, gm_enums::Ste
     if (!s) return false;
 
     std::string d(debug);
+    g_sockets_held.release_connection(conn);
     return s->CloseConnection((HSteamNetConnection)conn, (int)reason, d.c_str(), linger);
 }
 
@@ -279,68 +331,22 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
 {
     STEAM_GUARD_RET({});
 
-    std::vector<gm_structs::SteamNetworkingMessage> out;
-
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return out;
-
-    if (count == 0) return out;
+    if (!s || count == 0) return {};
 
     constexpr std::uint32_t kMaxReceiveCount = 65536;
     if (count > kMaxReceiveCount) {
         steam_set_last_error("steam_networking_sockets_receive_messages_on_connection: count exceeds sanity limit.");
-        return out;
+        return {};
     }
 
-    std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
-    int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs.data(), (int)count);
-    if (n <= 0) return out;
-
-    n = std::min((int)count, n);
-
-    std::uint32_t current_offset = 0;
-    std::uint64_t buffer_size = out_data.length();
-
-    for (int i = 0; i < n; ++i) {
-        if (!msgs[i]) break;
-
-        const uint32 cb = (uint32)msgs[i]->m_cbSize;
-
-        // Ensure message fits in remaining buffer
-        if (current_offset + cb > buffer_size) {
-            steam_set_last_error("steam_networking_sockets_receive_messages_on_connection: output buffer exhausted.");
-            for (int j = i; j < n; ++j) {
-                if (msgs[j]) msgs[j]->Release();
-            }
-            break;
-        }
-
-        // Write message data to buffer
-        {
-            auto w = out_data.getWriter();
-            w.skip(current_offset);
-            w.writeBytes((const char*)msgs[i]->m_pData, (int)cb);
-        }
-
-        // Create and add message metadata
-        gm_structs::SteamNetworkingMessage msg_out{};
-        msg_out.offset = current_offset;
-        msg_out.size = cb;
-        msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
-        msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
-        msg_out.channel = -1;
-        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)msgs[i]->m_nFlags);
-        msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
-        msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
-        msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;
-
-        out.push_back(msg_out);
-
-        current_offset += cb;
-        msgs[i]->Release();
-    }
-
-    return out;
+    return sockets_receive("steam_networking_sockets_receive_messages_on_connection", count, out_data,
+        [&](std::uint64_t capacity, auto& write) {
+            return g_sockets_held.receive_on_connection(conn, count, capacity,
+                [&](int max, SteamNetworkingMessage_t** msgs) {
+                    return s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs, max);
+                }, write);
+        });
 }
 
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn)
@@ -465,6 +471,7 @@ bool steam_networking_sockets_destroy_poll_group(std::uint32_t poll_group)
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return false;
 
+    g_sockets_held.destroy_poll_group(poll_group);
     return s->DestroyPollGroup((HSteamNetPollGroup)poll_group);
 }
 
@@ -475,7 +482,10 @@ bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std:
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return false;
     
-    return s->SetConnectionPollGroup((HSteamNetConnection)conn, (HSteamNetPollGroup)poll_group);
+    if (!s->SetConnectionPollGroup((HSteamNetConnection)conn, (HSteamNetPollGroup)poll_group))
+        return false;
+    g_sockets_held.set_poll_group(conn, poll_group);
+    return true;
 }
 
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group,
@@ -484,67 +494,21 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
 {
     STEAM_GUARD_RET({});
 
-    std::vector<gm_structs::SteamNetworkingMessage> out;
-
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return out;
-
-    if (count == 0) return out;
+    if (!s || count == 0) return {};
 
     constexpr std::uint32_t kMaxReceiveCount = 65536;
     if (count > kMaxReceiveCount) {
         steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: count exceeds sanity limit.");
-        return out;
+        return {};
     }
 
-    std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
-    int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, msgs.data(), (int)count);
-    if (n <= 0) return out;
-
-    n = std::min((int)count, n);
-
-    std::uint32_t current_offset = 0;
-    std::uint64_t buffer_size = out_data.length();
-
-    for (int i = 0; i < n; ++i) {
-        if (!msgs[i]) break;
-
-        const uint32 cb = (uint32)msgs[i]->m_cbSize;
-
-        // Ensure message fits in remaining buffer
-        if (current_offset + cb > buffer_size) {
-            steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: output buffer exhausted.");
-            for (int j = i; j < n; ++j) {
-                if (msgs[j]) msgs[j]->Release();
-            }
-            break;
-        }
-
-        // Write message data to buffer
-        {
-            auto w = out_data.getWriter();
-            w.skip(current_offset);
-            w.writeBytes((const char*)msgs[i]->m_pData, (int)cb);
-        }
-
-        // Create and add message metadata
-        gm_structs::SteamNetworkingMessage msg_out{};
-        msg_out.offset = current_offset;
-        msg_out.size = cb;
-        msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
-        msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
-        msg_out.channel = -1;
-        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)msgs[i]->m_nFlags);
-        msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
-        msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
-        msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;
-
-        out.push_back(msg_out);
-
-        current_offset += cb;
-        msgs[i]->Release();
-    }
-
-    return out;
+    return sockets_receive("steam_networking_sockets_receive_messages_on_poll_group", count, out_data,
+        [&](std::uint64_t capacity, auto& write) {
+            return g_sockets_held.receive_on_poll_group(poll_group, count, capacity,
+                [&](int max, SteamNetworkingMessage_t** msgs) {
+                    return s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, msgs, max);
+                }, write);
+        });
 }
 

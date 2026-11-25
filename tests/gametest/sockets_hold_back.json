@@ -1,0 +1,131 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 100,
+ "fps": 60,
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "setup",
+   "src": "var p = steam_networking_sockets_create_socket_pair(false);\nglobal.hb_a = p[0]; global.hb_b = p[1];\nglobal.hb_send = buffer_create(600, buffer_fixed, 1);\nglobal.hb_small = buffer_create(100, buffer_fixed, 1);\nglobal.hb_big = buffer_create(600, buffer_fixed, 1);\nfor (var i = 0; i < 3; i++) steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 40);\nreturn array_length(p);"
+  },
+  {
+   "id": "first",
+   "src": "return array_length(steam_networking_sockets_receive_messages_on_connection(global.hb_b, global.hb_small, 10));"
+  },
+  {
+   "id": "second",
+   "src": "return array_length(steam_networking_sockets_receive_messages_on_connection(global.hb_b, global.hb_small, 10));"
+  },
+  {
+   "id": "send_big",
+   "src": "steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 500); return 1;"
+  },
+  {
+   "id": "big_small",
+   "src": "var r = steam_networking_sockets_receive_messages_on_connection(global.hb_b, global.hb_small, 10);\nreturn (array_length(r) == 0 && string_pos(\"500 bytes\", steam_api_last_error()) > 0) ? 1 : 0;"
+  },
+  {
+   "id": "big_big",
+   "src": "var r = steam_networking_sockets_receive_messages_on_connection(global.hb_b, global.hb_big, 10);\nreturn (array_length(r) == 1 && r[0].size == 500) ? 1 : 0;"
+  },
+  {
+   "id": "group_setup",
+   "src": "global.hb_group = steam_networking_sockets_create_poll_group();\nsteam_networking_sockets_set_connection_poll_group(global.hb_b, global.hb_group);\nfor (var i = 0; i < 3; i++) { buffer_poke(global.hb_send, 0, buffer_u8, i + 1); steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 40); }\nreturn 1;"
+  },
+  {
+   "id": "group_read",
+   "src": "var r = steam_networking_sockets_receive_messages_on_poll_group(global.hb_group, global.hb_small, 10);\nreturn (array_length(r) == 2 && buffer_peek(global.hb_small, r[1].offset, buffer_u8) == 2) ? 1 : 0;"
+  },
+  {
+   "id": "conn_after_group",
+   "src": "var r = steam_networking_sockets_receive_messages_on_connection(global.hb_b, global.hb_small, 10);\nreturn (array_length(r) == 1 && buffer_peek(global.hb_small, r[0].offset, buffer_u8) == 3) ? 1 : 0;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "setup",
+    "name": "a loopback socket pair is created and three 40-byte messages sent",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 70,
+   "assert": {
+    "id": "first",
+    "name": "a 100-byte buffer takes the first two messages",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 71,
+   "assert": {
+    "id": "second",
+    "name": "the third isn't lost: the next receive returns it",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 72,
+   "assert": {
+    "id": "send_big",
+    "name": "a 500-byte message is sent",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 80,
+   "assert": {
+    "id": "big_small",
+    "name": "a buffer too small for it returns nothing and says it needs 500 bytes",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 81,
+   "assert": {
+    "id": "big_big",
+    "name": "with a big enough buffer the 500-byte message is returned",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 82,
+   "assert": {
+    "id": "group_setup",
+    "name": "the receiving connection joins a poll group and three numbered messages are sent",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 90,
+   "assert": {
+    "id": "group_read",
+    "name": "the poll group receive returns messages 1 and 2",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 91,
+   "assert": {
+    "id": "conn_after_group",
+    "name": "reading the connection directly returns message 3, held by the poll group receive",
+    "expect": 1
+   }
+  }
+ ]
+}
