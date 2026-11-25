@@ -506,7 +506,7 @@ void steam_remote_storage_file_share(std::string_view file_name,  const gm::wire
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t, true>(callback, &rs_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -557,7 +557,7 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t, true>(callback, &rs_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -574,7 +574,7 @@ void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t p
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t, true>(callback, &rs_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -592,7 +592,7 @@ void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t, true>(callback, &rs_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
     h->set(call);
 }
 

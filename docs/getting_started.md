@@ -75,6 +75,8 @@ steam_userstats_find_leaderboard("HighScores", function(_result)
 
 The above code asks Steam for the handle of the leaderboard named "HighScores" with ${function.steam_userstats_find_leaderboard}. The callback runs once, with a ${struct.SteamUserStatsLeaderboardFindResult} struct: when `leaderboard_found` is `true` the handle is stored in an instance variable for later use, otherwise a message is printed. Each function's page lists the struct its callback receives.
 
+The callback runs even when the call fails, so a game waiting for it is never left waiting. If Steam isn't initialised, it runs on the next frame with `result` set to `SteamApiResult.Fail`. If Steam couldn't deliver the result, it runs with `result` set to `SteamApiResult.IoFailure`. In both cases the struct's other fields are empty, and a struct whose `result` is a success flag gets `false` instead. The one exception is ${function.steam_utils_check_file_signature}: its result is a signature-check outcome with no failure value, so its callback doesn't run when the check can't be made.
+
 # Handling Steam events
 
 Events that Steam raises on its own - the overlay opening, a friend's status changing, a lobby invite arriving - are delivered to a callback you register once with the matching `steam_*_set_callback_*` function, and stop when you call the matching `steam_*_clear_callback_*` function:

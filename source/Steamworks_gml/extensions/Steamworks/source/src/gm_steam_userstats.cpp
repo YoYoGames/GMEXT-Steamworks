@@ -694,7 +694,7 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsUserStatsReceived, UserStatsReceived_t, true>(callback, &userstats_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsUserStatsReceived, UserStatsReceived_t>(callback, &userstats_fromNative);
     h->set(call);
 }
 
@@ -861,9 +861,7 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
 
     auto* h = new steam_async::CallResult<
         gm_structs::SteamUserStatsAttachLeaderboardUgcResult,
-        LeaderboardUGCSet_t,
-        true
-    >(callback, &userstats_fromNative);
+        LeaderboardUGCSet_t>(callback, &userstats_fromNative);
 
     h->set(call);
 }
@@ -901,7 +899,7 @@ void steam_userstats_request_global_achievement_percentages( const gm::wire::GMF
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, GlobalAchievementPercentagesReady_t, true>(callback, &userstats_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, GlobalAchievementPercentagesReady_t>(callback, &userstats_fromNative);
     h->set(call);
 }
 
@@ -919,7 +917,7 @@ void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalStatsReceivedResult, GlobalStatsReceived_t, true>(callback, &userstats_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalStatsReceivedResult, GlobalStatsReceived_t>(callback, &userstats_fromNative);
     h->set(call);
 }
 

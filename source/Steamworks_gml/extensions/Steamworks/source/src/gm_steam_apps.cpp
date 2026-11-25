@@ -498,7 +498,7 @@ void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMF
         return;
     }
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t, true>(callback, &apps_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t>(callback, &apps_fromNative);
     h->set(call);
 }
 
