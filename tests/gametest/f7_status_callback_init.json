@@ -1,0 +1,72 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 600,
+ "fps": 60,
+ "pacing": "realtime",
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "reinit",
+   "src": "// Set the callback while Steam isn't initialised, then initialise it: the callback must still be registered\nsteam_api_shutdown();\nsteam_networking_sockets_set_callback_connection_status_changed(gametest_event_counter(\"status\"));\nreturn steam_api_init(480) ? 1 : 0;"
+  },
+  {
+   "id": "connect",
+   "src": "global.gt_listen = steam_networking_sockets_create_listen_socket_ip(27901);\nglobal.gt_conn = steam_networking_sockets_connect_by_ip_address(\"127.0.0.1\", 27901);\nreturn (global.gt_listen != 0 && global.gt_conn != 0) ? 1 : 0;"
+  },
+  {
+   "id": "status",
+   "src": "show_debug_message(\"gametest: connection status callbacks: \" + string(gametest_event_count(\"status\")));\nreturn gametest_event_count(\"status\") > 0 ? 1 : 0;"
+  },
+  {
+   "id": "cleanup",
+   "src": "steam_networking_sockets_close_connection(global.gt_conn, 0, \"\", false);\nsteam_networking_sockets_close_listen_socket(global.gt_listen);\nsteam_networking_sockets_clear_callback_connection_status_changed();\nreturn 1;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "reinit",
+    "name": "Steam shuts down, the status callback is set, and Steam initialises again",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "connect",
+    "name": "a listen socket and a connection to it over 127.0.0.1 are created",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 420,
+   "assert": {
+    "id": "status",
+    "name": "the connection status callback set before init is called",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 421,
+   "assert": {
+    "id": "cleanup",
+    "name": "the connection and listen socket are closed",
+    "expect": 1
+   }
+  }
+ ]
+}
