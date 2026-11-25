@@ -63,16 +63,32 @@ def functions_with_callback(spec):
 
 
 def parse_params(spec, name):
-    m = re.search(r"function\s+" + name + r"\s*\((.*?)\)\s*:", spec, re.S)
+    m = re.search(r"function\s+" + name + r"\s*\(", spec)
     if not m:
         raise SystemExit("not in spec.gmidl: " + name)
-    params, depth, cur = [], 0, ""
-    for ch in m.group(1):
-        if ch in "[(<":
+    # The parameter list runs to the matching ")"; a backtick value (type_hint, gml_default) can hold "(", ")" and ":"
+    i, depth, tick = m.end(), 1, False
+    while depth:
+        ch = spec[i]
+        if ch == "`":
+            tick = not tick
+        elif not tick and ch == "(":
             depth += 1
-        elif ch in "])>":
+        elif not tick and ch == ")":
             depth -= 1
-        if ch == "," and depth == 0:
+        i += 1
+    plist = spec[m.end():i - 1]
+    params, depth, cur = [], 0, ""
+    in_tick = False
+    for ch in plist:
+        # A backtick value (type_hint, gml_default) is opaque: its brackets and commas aren't the parameter list's
+        if ch == "`":
+            in_tick = not in_tick
+        elif not in_tick and ch in "[(<":
+            depth += 1
+        elif not in_tick and ch in "])>":
+            depth -= 1
+        if ch == "," and depth == 0 and not in_tick:
             params.append(cur.strip())
             cur = ""
         else:
