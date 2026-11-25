@@ -1479,6 +1479,11 @@ void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wir
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->SendQueryUGCRequest((UGCQueryHandle_t)query_handle);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: SendQueryUGCRequest returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcQueryCompleted>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcQueryCompleted, SteamUGCQueryCompleted_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1491,6 +1496,11 @@ void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteS
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->CreateItem((AppId_t)consumer_app_id, static_cast<EWorkshopFileType>((int)workshop_file_type));
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: CreateItem returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcCreateItemResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcCreateItemResult, CreateItemResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1506,6 +1516,11 @@ void steam_ugc_submit_item_update(std::uint64_t update_handle, std::string_view 
     const char* p = note.empty() ? nullptr : note.c_str();
 
     SteamAPICall_t call = ugc->SubmitItemUpdate((UGCUpdateHandle_t)update_handle, p);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: SubmitItemUpdate returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcSubmitItemUpdateResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcSubmitItemUpdateResult, SubmitItemUpdateResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1518,7 +1533,11 @@ void steam_ugc_subscribe_item(std::uint64_t published_file_id,  const gm::wire::
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->SubscribeItem((PublishedFileId_t)published_file_id);
-
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: SubscribeItem returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcSubscribeItemResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcSubscribeItemResult, RemoteStorageSubscribePublishedFileResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1530,6 +1549,11 @@ void steam_ugc_unsubscribe_item(std::uint64_t published_file_id,  const gm::wire
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->UnsubscribeItem((PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: UnsubscribeItem returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcUnsubscribeItemResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcUnsubscribeItemResult, RemoteStorageUnsubscribePublishedFileResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1584,6 +1608,11 @@ void steam_ugc_add_item_to_favorites(std::uint32_t app_id, std::uint64_t publish
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->AddItemToFavorites((AppId_t)app_id, (PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: AddItemToFavorites returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcFavoriteItemsListChanged>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcFavoriteItemsListChanged, UserFavoriteItemsListChanged_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1596,6 +1625,11 @@ void steam_ugc_remove_item_from_favorites(std::uint32_t app_id, std::uint64_t pu
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->RemoveItemFromFavorites((AppId_t)app_id, (PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: RemoveItemFromFavorites returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcFavoriteItemsListChanged>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcFavoriteItemsListChanged, UserFavoriteItemsListChanged_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1608,6 +1642,11 @@ void steam_ugc_set_user_item_vote(std::uint64_t published_file_id, bool vote_up,
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->SetUserItemVote((PublishedFileId_t)published_file_id, vote_up);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: SetUserItemVote returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcSetUserItemVoteResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcSetUserItemVoteResult, SetUserItemVoteResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1620,6 +1659,11 @@ void steam_ugc_get_user_item_vote(std::uint64_t published_file_id,  const gm::wi
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->GetUserItemVote((PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: GetUserItemVote returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcGetUserItemVoteResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcGetUserItemVoteResult, GetUserItemVoteResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1633,6 +1677,11 @@ void steam_ugc_delete_item(std::uint64_t published_file_id,  const gm::wire::GMF
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->DeleteItem((PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: DeleteItem returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcDeleteItemResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcDeleteItemResult, DeleteItemResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1645,6 +1694,11 @@ void steam_ugc_add_app_dependency(std::uint64_t published_file_id, std::uint32_t
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->AddAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: AddAppDependency returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcAddAppDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcAddAppDependencyResult, AddAppDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1657,6 +1711,11 @@ void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint3
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->RemoveAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: RemoveAppDependency returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcRemoveAppDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcRemoveAppDependencyResult, RemoveAppDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1669,6 +1728,11 @@ void steam_ugc_add_dependency(std::uint64_t parent_published_file_id, std::uint6
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->AddDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: AddDependency returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcAddUGCDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcAddUGCDependencyResult, AddUGCDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1681,6 +1745,11 @@ void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::ui
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->RemoveDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: RemoveDependency returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcRemoveUGCDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcRemoveUGCDependencyResult, RemoveUGCDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1700,7 +1769,16 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
         g_ugc_app_dependencies_pending[published_file_id] = UgcAppDependenciesPending{ callback, {}, false };
     }
 
-    ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
+    SteamAPICall_t call = ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
+    if (call == k_uAPICallInvalid) {
+        {
+            std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+            g_ugc_app_dependencies_pending.erase(published_file_id);
+        }
+        steam_set_last_error("Steam UGC: GetAppDependencies returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcGetAppDependenciesResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
 }
 
 void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,
@@ -1726,6 +1804,11 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
         ids.push_back((PublishedFileId_t)published_file_ids[(size_t)i]);
 
     SteamAPICall_t call = ugc->StartPlaytimeTracking(ids.data(), n);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: StartPlaytimeTracking returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcStartPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcStartPlaytimeTrackingResult, StartPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1752,6 +1835,11 @@ void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& publishe
         ids.push_back((PublishedFileId_t)published_file_ids[(size_t)i]);
 
     SteamAPICall_t call = ugc->StopPlaytimeTracking(ids.data(), n);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: StopPlaytimeTracking returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcStopPlaytimeTrackingResult, StopPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1764,6 +1852,11 @@ void steam_ugc_stop_playtime_tracking_for_all_items( const gm::wire::GMFunction&
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->StopPlaytimeTrackingForAllItems();
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: StopPlaytimeTrackingForAllItems returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcStopPlaytimeTrackingResult, StopPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
@@ -1776,6 +1869,11 @@ void steam_ugc_get_workshop_eula_status( const gm::wire::GMFunction& callback)
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->GetWorkshopEULAStatus();
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("Steam UGC: GetWorkshopEULAStatus returned k_uAPICallInvalid.");
+        steam_async::call_back_failed<gm_structs::SteamUgcWorkshopEULAStatusResult>(callback, gm_enums::SteamApiResult::Fail);
+        return;
+    }
     auto* h = new steam_async::CallResult<gm_structs::SteamUgcWorkshopEULAStatusResult, WorkshopEULAStatus_t>(callback, &ugc_fromNative);
     h->set(call);
 }
