@@ -1,0 +1,95 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 90,
+ "fps": 60,
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "send_lb_users",
+   "src": "// No users: rejected before Steam is asked\nsteam_userstats_download_leaderboard_entries_for_users(0, [], gametest_async_recorder(\"lb_users\"));\nreturn 1;"
+  },
+  {
+   "id": "send_lb_details",
+   "src": "// 65 score details: more than Steam's 64\nvar d = array_create(65, 1);\nsteam_userstats_upload_leaderboard_score(0, 1, 100, d, gametest_async_recorder(\"lb_details\"));\nreturn 1;"
+  },
+  {
+   "id": "send_ugc_playtime",
+   "src": "// No item IDs\nsteam_ugc_start_playtime_tracking([], gametest_async_recorder(\"ugc_playtime\"));\nreturn 1;"
+  },
+  {
+   "id": "res_lb_users",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"lb_users\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "res_lb_details",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"lb_details\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "res_ugc_playtime",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"ugc_playtime\"); return is_undefined(r) ? -1 : r;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "send_lb_users",
+    "name": "steam_userstats_download_leaderboard_entries_for_users is sent with arguments it rejects",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "send_lb_details",
+    "name": "steam_userstats_upload_leaderboard_score is sent with arguments it rejects",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 63,
+   "assert": {
+    "id": "send_ugc_playtime",
+    "name": "steam_ugc_start_playtime_tracking is sent with arguments it rejects",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 70,
+   "assert": {
+    "id": "res_lb_users",
+    "name": "steam_userstats_download_leaderboard_entries_for_users calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 71,
+   "assert": {
+    "id": "res_lb_details",
+    "name": "steam_userstats_upload_leaderboard_score calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 72,
+   "assert": {
+    "id": "res_ugc_playtime",
+    "name": "steam_ugc_start_playtime_tracking calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  }
+ ]
+}

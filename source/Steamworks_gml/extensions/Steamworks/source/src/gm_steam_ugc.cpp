@@ -1476,7 +1476,7 @@ void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wir
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcQueryCompleted, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcQueryCompleted>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->SendQueryUGCRequest((UGCQueryHandle_t)query_handle);
     if (call == k_uAPICallInvalid) {
@@ -1493,7 +1493,7 @@ void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteS
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcCreateItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcCreateItemResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->CreateItem((AppId_t)consumer_app_id, static_cast<EWorkshopFileType>((int)workshop_file_type));
     if (call == k_uAPICallInvalid) {
@@ -1510,7 +1510,7 @@ void steam_ugc_submit_item_update(std::uint64_t update_handle, std::string_view 
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcSubmitItemUpdateResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcSubmitItemUpdateResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string note(change_note);
     const char* p = note.empty() ? nullptr : note.c_str();
@@ -1530,7 +1530,7 @@ void steam_ugc_subscribe_item(std::uint64_t published_file_id,  const gm::wire::
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcSubscribeItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcSubscribeItemResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->SubscribeItem((PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1546,7 +1546,7 @@ void steam_ugc_unsubscribe_item(std::uint64_t published_file_id,  const gm::wire
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcUnsubscribeItemResult, callback);
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcUnsubscribeItemResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->UnsubscribeItem((PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1605,7 +1605,7 @@ void steam_ugc_add_item_to_favorites(std::uint32_t app_id, std::uint64_t publish
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcFavoriteItemsListChanged, callback);
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcFavoriteItemsListChanged>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->AddItemToFavorites((AppId_t)app_id, (PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1622,7 +1622,7 @@ void steam_ugc_remove_item_from_favorites(std::uint32_t app_id, std::uint64_t pu
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcFavoriteItemsListChanged, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcFavoriteItemsListChanged>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->RemoveItemFromFavorites((AppId_t)app_id, (PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1639,7 +1639,7 @@ void steam_ugc_set_user_item_vote(std::uint64_t published_file_id, bool vote_up,
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcSetUserItemVoteResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcSetUserItemVoteResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->SetUserItemVote((PublishedFileId_t)published_file_id, vote_up);
     if (call == k_uAPICallInvalid) {
@@ -1656,7 +1656,7 @@ void steam_ugc_get_user_item_vote(std::uint64_t published_file_id,  const gm::wi
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcGetUserItemVoteResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcGetUserItemVoteResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->GetUserItemVote((PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1674,7 +1674,7 @@ void steam_ugc_delete_item(std::uint64_t published_file_id,  const gm::wire::GMF
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcDeleteItemResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcDeleteItemResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->DeleteItem((PublishedFileId_t)published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1691,7 +1691,7 @@ void steam_ugc_add_app_dependency(std::uint64_t published_file_id, std::uint32_t
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcAddAppDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcAddAppDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->AddAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
     if (call == k_uAPICallInvalid) {
@@ -1708,7 +1708,7 @@ void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint3
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcRemoveAppDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcRemoveAppDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->RemoveAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
     if (call == k_uAPICallInvalid) {
@@ -1725,7 +1725,7 @@ void steam_ugc_add_dependency(std::uint64_t parent_published_file_id, std::uint6
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcAddUGCDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcAddUGCDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->AddDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1742,7 +1742,7 @@ void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::ui
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcRemoveUGCDependencyResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcRemoveUGCDependencyResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->RemoveDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
     if (call == k_uAPICallInvalid) {
@@ -1787,14 +1787,14 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcStartPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcStartPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
 
-    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_start_playtime_tracking: empty ids"); return; }
+    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_start_playtime_tracking: empty ids"); return steam_async::call_back_failed<gm_structs::SteamUgcStartPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail); }
 
     constexpr size_t kMaxStartPlaytimeTracking = 65536;
     if (published_file_ids.size() > kMaxStartPlaytimeTracking) {
         steam_set_last_error("steam_ugc_start_playtime_tracking: published_file_ids exceeds sanity limit.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUgcStartPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
     }
     const uint32 n = (uint32)published_file_ids.size();
 
@@ -1818,14 +1818,14 @@ void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& publishe
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcStopPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
 
-    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_stop_playtime_tracking: empty ids"); return; }
+    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_stop_playtime_tracking: empty ids"); return steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail); }
 
     constexpr size_t kMaxStopPlaytimeTracking = 65536;
     if (published_file_ids.size() > kMaxStopPlaytimeTracking) {
         steam_set_last_error("steam_ugc_stop_playtime_tracking: published_file_ids exceeds sanity limit.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
     }
     const uint32 n = (uint32)published_file_ids.size();
 
@@ -1849,7 +1849,7 @@ void steam_ugc_stop_playtime_tracking_for_all_items( const gm::wire::GMFunction&
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcStopPlaytimeTrackingResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcStopPlaytimeTrackingResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->StopPlaytimeTrackingForAllItems();
     if (call == k_uAPICallInvalid) {
@@ -1866,7 +1866,7 @@ void steam_ugc_get_workshop_eula_status( const gm::wire::GMFunction& callback)
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcWorkshopEULAStatusResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcWorkshopEULAStatusResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = ugc->GetWorkshopEULAStatus();
     if (call == k_uAPICallInvalid) {

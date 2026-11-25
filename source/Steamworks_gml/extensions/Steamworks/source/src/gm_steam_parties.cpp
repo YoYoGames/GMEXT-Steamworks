@@ -269,7 +269,7 @@ bool steam_parties_create_beacon(
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamPartiesCreateBeaconResult>(callback, gm_enums::SteamApiResult::Fail), false);
 
     SteamPartyBeaconLocation_t loc = steam_party_location(beacon_location_type, beacon_location_id);
     std::string join(connect_string);
@@ -277,7 +277,7 @@ bool steam_parties_create_beacon(
 
     if (meta.size() >= kPartyBeaconMetadataMax) {
         steam_set_last_error("Steam Parties: CreateBeacon metadata exceeds the maximum length GetBeaconDetails can read back.");
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamPartiesCreateBeaconResult>(callback, gm_enums::SteamApiResult::Fail), false);
     }
 
     SteamAPICall_t call = p->CreateBeacon(open_slots, &loc, join.c_str(), meta.c_str());
@@ -329,7 +329,7 @@ bool steam_parties_change_num_open_slots(
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamPartiesChangeNumOpenSlotsResult>(callback, gm_enums::SteamApiResult::Fail), false);
 
     SteamAPICall_t call = p->ChangeNumOpenSlots((PartyBeaconID_t)beacon_id, open_slots);
     if (!call) {
@@ -419,7 +419,7 @@ bool steam_parties_join_party(std::uint64_t beacon_id, const GMFunction& callbac
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamPartiesJoinPartyResult>(callback, gm_enums::SteamApiResult::Fail), false);
 
     SteamAPICall_t call = p->JoinParty((PartyBeaconID_t)beacon_id);
     if (!call) {

@@ -187,7 +187,7 @@ void steam_timeline_does_event_recording_exist(std::uint64_t event_handle, const
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamTimelineEventRecordingExists, callback);
     ISteamTimeline* t = steam_timeline_iface();
-    if (!t) return;
+    if (!t) return steam_async::call_back_failed<gm_structs::SteamTimelineEventRecordingExists>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = t->DoesEventRecordingExist(timeline_handle_from_u64(event_handle));
     if (call == k_uAPICallInvalid) {
@@ -232,7 +232,7 @@ void steam_timeline_does_game_phase_recording_exist(std::string_view phase_id, c
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamTimelineGamePhaseRecordingExists, callback);
     ISteamTimeline* t = steam_timeline_iface();
-    if (!t) return;
+    if (!t) return steam_async::call_back_failed<gm_structs::SteamTimelineGamePhaseRecordingExists>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string s(phase_id);
     SteamAPICall_t call = t->DoesGamePhaseRecordingExist(s.c_str());
