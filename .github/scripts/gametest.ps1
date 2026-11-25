@@ -25,6 +25,12 @@ function Need($path, $what) {
 }
 
 $GmrtRoot = Need $GmrtRoot 'GMRT_ROOT'
+
+# Specs named *.hooks.json need a test build of the extension (STEAMWORKS_TEST_HOOKS, which forces the I/O failure path
+# of every call result), so the run rebuilds Steamworks.dll that way. A run can't mix them with ordinary specs, which
+# test the release build
+$hooks = @($Specs | Where-Object { $_ -like '*.hooks.json' })
+if ($hooks.Count -and $hooks.Count -ne $Specs.Count) { Write-Error 'Run *.hooks.json specs on their own: they need a test build of Steamworks.dll' }
 # GMRT and cctl find their toolchains and libraries through YYC_WORKSPACE
 $env:YYC_WORKSPACE = $GmrtRoot
 $gmrt = Need (Join-Path $GmrtRoot 'build/libs_x86_64-pc-windows-msvc/Release/bin/gmrt.exe') 'gmrt.exe (build GMRT with: cctl build -p x86_64-pc-windows-msvc -b Release)'
@@ -59,6 +65,23 @@ $gmrtHash = & {
     try { (git -c "safe.directory=$($GmrtRoot -replace '\\', '/')" -C $GmrtRoot rev-parse --short=9 HEAD 2>$null) -join '' } catch { '' }
 }
 Write-Host "GMRT: $(if ($gmrtHash) { $gmrtHash } else { 'unknown' })"
+
+if ($hooks.Count) {
+    if (-not $env:STEAMWORKS_SDK_ROOT) { Write-Error 'STEAMWORKS_SDK_ROOT is not set: the test build of Steamworks.dll needs the SDK' }
+    Write-Host 'Rebuilding Steamworks.dll with STEAMWORKS_TEST_HOOKS for the *.hooks.json specs'
+    $extDir = Join-Path $repo 'source/Steamworks_gml/extensions/Steamworks'
+    Remove-Item -Force (Join-Path $extDir 'Steamworks.dll') -ErrorAction SilentlyContinue
+    Push-Location (Join-Path $extDir 'source')
+    try {
+        $hooksLog = Join-Path ([IO.Path]::GetTempPath()) 'steamworks-hooks-build.log'
+        cmake --preset win-x64-release "-DSTEAMWORKS_SDK_ROOT=$env:STEAMWORKS_SDK_ROOT" -DSTEAMWORKS_TEST_HOOKS=ON *> $hooksLog
+        if ($LASTEXITCODE -ne 0) { Get-Content $hooksLog -Tail 30 | Write-Host; Write-Error 'configuring the test build failed' }
+        cmake --build --preset win-x64-release *>> $hooksLog
+        if ($LASTEXITCODE -ne 0) { Select-String -Path $hooksLog -Pattern '(?i)\berror\b' | Select-Object -First 30 | ForEach-Object { Write-Host $_.Line }; Write-Error 'the test build failed' }
+        if (-not (Select-String -Path $hooksLog -Pattern 'STEAMWORKS_TEST_HOOKS is on' -Quiet)) { Write-Error "The build didn't report STEAMWORKS_TEST_HOOKS as on" }
+    } finally { Pop-Location }
+    if (-not (Test-Path (Join-Path $extDir 'Steamworks.dll'))) { Write-Error "The test build didn't copy Steamworks.dll to the extension folder" }
+}
 
 # Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
 # checkout only

@@ -1,0 +1,144 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 1560,
+ "fps": 60,
+ "pacing": "realtime",
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "send",
+   "src": "// Every call below is answered by Steam, and this test build (STEAMWORKS_TEST_HOOKS) turns each answer into an I/O failure\nsteam_apps_get_file_details(\"steam_appid.txt\", gametest_async_recorder(\"apps\"));\nsteam_userstats_number_of_current_players(gametest_async_recorder(\"userstats\"));\nsteam_friends_get_follower_count(steam_user_get_steam_id(), gametest_async_recorder(\"friends\"));\nsteam_user_get_market_eligibility(gametest_async_recorder(\"user\"));\nsteam_matchmaking_request_lobby_list(gametest_async_recorder(\"matchmaking\"));\nsteam_inventory_request_eligible_promo_item_definition_ids(gametest_async_recorder(\"inventory\"));\nsteam_timeline_does_game_phase_recording_exist(\"gametest\", gametest_async_recorder(\"timeline\"));\n// 0 = SteamUgcQuery.RankedByVote, 0 = SteamUgcMatchingUgcType.Items\nvar q = steam_ugc_create_query_all_ugc_request(0, 0, 480, 480, 1);\nsteam_ugc_send_query_ugc_request(q, gametest_async_recorder(\"ugc\"));\nsteam_utils_check_file_signature(\"steam_appid.txt\", gametest_async_recorder(\"utils\"));\nreturn 1;"
+  },
+  {
+   "id": "apps",
+   "src": "var r = gametest_async_result(\"apps\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "userstats",
+   "src": "var r = gametest_async_result(\"userstats\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "friends",
+   "src": "var r = gametest_async_result(\"friends\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "user",
+   "src": "var r = gametest_async_result(\"user\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "matchmaking",
+   "src": "var r = gametest_async_result(\"matchmaking\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "inventory",
+   "src": "var r = gametest_async_result(\"inventory\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "timeline",
+   "src": "var r = gametest_async_result(\"timeline\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "ugc",
+   "src": "var r = gametest_async_result(\"ugc\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "utils",
+   "src": "var r = gametest_async_result(\"utils\"); return is_undefined(r) ? -1 : r;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "send",
+    "name": "one async call per module is sent",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 1500,
+   "assert": {
+    "id": "apps",
+    "name": "steam_apps_get_file_details calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1501,
+   "assert": {
+    "id": "userstats",
+    "name": "steam_userstats_number_of_current_players calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1502,
+   "assert": {
+    "id": "friends",
+    "name": "steam_friends_get_follower_count calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1503,
+   "assert": {
+    "id": "user",
+    "name": "steam_user_get_market_eligibility calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1504,
+   "assert": {
+    "id": "matchmaking",
+    "name": "steam_matchmaking_request_lobby_list calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1505,
+   "assert": {
+    "id": "inventory",
+    "name": "steam_inventory_request_eligible_promo_item_definition_ids calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1506,
+   "assert": {
+    "id": "timeline",
+    "name": "steam_timeline_does_game_phase_recording_exist calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1507,
+   "assert": {
+    "id": "ugc",
+    "name": "steam_ugc_send_query_ugc_request calls back with SteamApiResult.IoFailure (37)",
+    "expect": 37
+   }
+  },
+  {
+   "frame": 1508,
+   "assert": {
+    "id": "utils",
+    "name": "steam_utils_check_file_signature sends no callback (its result has no failure value)",
+    "expect": -1
+   }
+  }
+ ]
+}

@@ -10,23 +10,38 @@
 
 namespace steam_async
 {
-    // Call back at once with a payload that only reports a failure, for an async call that can't be made (Steam not
-    // initialised). The callback is queued like any other, so the game sees it on the next frame.
+    // Whether a payload can report a failure: its result is a SteamApiResult, or a success flag (bool). The one payload
+    // that can't is steam_utils_check_file_signature's, whose result is a signature-check outcome with no failure value
+    template <typename Payload>
+    constexpr bool can_report_failure()
+    {
+        using R = std::decay_t<decltype(Payload{}.result)>;
+        return std::is_same_v<R, bool> || std::is_same_v<R, gm_enums::SteamApiResult>;
+    }
+
+    // Call back at once with a payload that only reports a failure: for an async call that can't be made (Steam not
+    // initialised), or whose result Steam couldn't deliver (I/O failure). The callback is queued like any other, so the
+    // game sees it on the next frame. A payload that can't report a failure gets no callback
     template <typename Payload>
     void call_back_failed(const gm::wire::GMFunction& callback, gm_enums::SteamApiResult result)
     {
-        if (callback)
+        if constexpr (can_report_failure<Payload>())
         {
-            Payload out{};
-            if constexpr (std::is_same_v<std::decay_t<decltype(out.result)>, bool>)
-                out.result = false; // a payload whose result is a success flag
-            else
-                out.result = result;
-            callback.call(out);
+            if (callback)
+            {
+                Payload out{};
+                if constexpr (std::is_same_v<std::decay_t<decltype(out.result)>, bool>)
+                    out.result = false; // a payload whose result is a success flag
+                else
+                    out.result = result;
+                callback.call(out);
+            }
         }
     }
 
-    template <typename Payload, typename SteamStruct, bool ReportIoFailure = false>
+    // A Steam call result that calls the game back with the converted payload, or, when Steam couldn't deliver the
+    // result, with a payload reporting IoFailure (false for a success flag), so a game waiting on it isn't left waiting
+    template <typename Payload, typename SteamStruct>
     class CallResult
     {
     public:
@@ -48,23 +63,14 @@ namespace steam_async
 
         void on_result(SteamStruct* p, bool io_failure)
         {
-            if (io_failure)
+#if defined(STEAMWORKS_TEST_HOOKS)
+            // Test builds take the I/O failure path for every call result, so GameTest specs can check that each kind
+            // of payload reports it. Never defined in a release build
+            io_failure = true;
+#endif
+            if (io_failure || !p)
             {
-                if constexpr (ReportIoFailure)
-                {
-                    if (cb)
-                    {
-                        Payload out{};
-                        out.result = gm_enums::SteamApiResult::IoFailure;
-                        cb.call(out);
-                    }
-                }
-                delete this;
-                return;
-            }
-
-            if (!p)
-            {
+                call_back_failed<Payload>(cb, io_failure ? gm_enums::SteamApiResult::IoFailure : gm_enums::SteamApiResult::Fail);
                 delete this;
                 return;
             }
