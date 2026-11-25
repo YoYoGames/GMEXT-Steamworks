@@ -1759,7 +1759,7 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
     STEAM_ASYNC_GUARD(gm_structs::SteamUgcGetAppDependenciesResult, callback);
 
     ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
+    if (!ugc) return steam_async::call_back_failed<gm_structs::SteamUgcGetAppDependenciesResult>(callback, gm_enums::SteamApiResult::Fail);
 
     {
         // A second call for the same published_file_id before the first completes replaces the pending

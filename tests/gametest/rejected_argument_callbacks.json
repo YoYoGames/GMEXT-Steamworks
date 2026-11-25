@@ -11,15 +11,15 @@
   },
   {
    "id": "send_lb_users",
-   "src": "// No users: rejected before Steam is asked\nsteam_userstats_download_leaderboard_entries_for_users(0, [], gametest_async_recorder(\"lb_users\"));\nreturn 1;"
+   "src": "// No users: rejected before Steam is asked\nsteam_userstats_download_leaderboard_entries_for_users(0, [], gametest_async_recorder(\"lb_users\"));\n// The function's own argument check must be what rejected it, not Steam refusing the call\nshow_debug_message(\"gametest: \" + string(steam_api_last_error()));\nreturn string_pos(\"users must not be empty\", steam_api_last_error()) > 0 ? 1 : 0;"
   },
   {
    "id": "send_lb_details",
-   "src": "// 65 score details: more than Steam's 64\nvar d = array_create(65, 1);\nsteam_userstats_upload_leaderboard_score(0, 1, 100, d, gametest_async_recorder(\"lb_details\"));\nreturn 1;"
+   "src": "// 65 score details: more than Steam's 64\nvar d = array_create(65, 1);\nsteam_userstats_upload_leaderboard_score(0, 1, 100, d, gametest_async_recorder(\"lb_details\"));\n// The function's own argument check must be what rejected it, not Steam refusing the call\nshow_debug_message(\"gametest: \" + string(steam_api_last_error()));\nreturn string_pos(\"exceeds k_cLeaderboardDetailsMax\", steam_api_last_error()) > 0 ? 1 : 0;"
   },
   {
    "id": "send_ugc_playtime",
-   "src": "// No item IDs\nsteam_ugc_start_playtime_tracking([], gametest_async_recorder(\"ugc_playtime\"));\nreturn 1;"
+   "src": "// No item IDs\nsteam_ugc_start_playtime_tracking([], gametest_async_recorder(\"ugc_playtime\"));\n// The function's own argument check must be what rejected it, not Steam refusing the call\nshow_debug_message(\"gametest: \" + string(steam_api_last_error()));\nreturn string_pos(\"empty ids\", steam_api_last_error()) > 0 ? 1 : 0;"
   },
   {
    "id": "res_lb_users",
@@ -47,7 +47,7 @@
    "frame": 61,
    "assert": {
     "id": "send_lb_users",
-    "name": "steam_userstats_download_leaderboard_entries_for_users is sent with arguments it rejects",
+    "name": "steam_userstats_download_leaderboard_entries_for_users rejects its arguments itself (its own last error)",
     "expect": 1
    }
   },
@@ -55,7 +55,7 @@
    "frame": 62,
    "assert": {
     "id": "send_lb_details",
-    "name": "steam_userstats_upload_leaderboard_score is sent with arguments it rejects",
+    "name": "steam_userstats_upload_leaderboard_score rejects its arguments itself (its own last error)",
     "expect": 1
    }
   },
@@ -63,7 +63,7 @@
    "frame": 63,
    "assert": {
     "id": "send_ugc_playtime",
-    "name": "steam_ugc_start_playtime_tracking is sent with arguments it rejects",
+    "name": "steam_ugc_start_playtime_tracking rejects its arguments itself (its own last error)",
     "expect": 1
    }
   },
