@@ -390,6 +390,10 @@
  * 
  * Unreliable messages may be dropped, or delivered out of order with respect to each other or with respect to reliable messages.
  *
+ * The messages are written one after another from the start of the buffer, up to `count` of them. A message that doesn't fit in what's left of the buffer isn't lost: it's kept, with any after it, and the next receive on this connection (or on its poll group) returns it first. If a message is bigger than the whole buffer, ${function.steam_api_last_error} gives the size needed and the message stays kept, with any after it; when it's the next message, the function returns an empty array and takes nothing more from Steam.
+ *
+ * [[Note: Size the buffer to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` to make sure any single message fits.]]
+ *
  * @param {Real} conn The connection to read messages from.
  * @param {Buffer} out_data The buffer into which the received message data will be written.
  * @param {Real} count The number of messages to receive.
@@ -522,7 +526,7 @@
  * @function steam_networking_sockets_receive_messages_on_poll_group
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup)
  *
- * This function works like ${function.steam_networking_sockets_receive_messages_on_connection}, but it returns messages from any connection in the poll group.
+ * This function works like ${function.steam_networking_sockets_receive_messages_on_connection}, but it returns messages from any connection in the poll group. Messages that didn't fit an earlier receive are returned first, whether that receive was on the poll group or on one of its connections, in the order they arrived. A message that doesn't fit stops only its own connection: that connection's later messages stay behind it, and messages from the group's other connections are still returned. If a connection's next message is bigger than the whole buffer, every receive sets ${function.steam_api_last_error} with the size needed (the largest, if several connections are stuck) until you receive with a buffer that big. Once such a connection has 256 or more messages held, no more messages are taken from Steam for the group until a big enough buffer frees it (the check is made before each fetch, so the held count can go over 256 by up to `count`). Size the buffer to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` if peers can send messages that large.
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  * 
