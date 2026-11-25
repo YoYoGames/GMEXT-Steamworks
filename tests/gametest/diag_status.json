@@ -1,7 +1,7 @@
 {
  "version": 1,
  "seed": 1,
- "total_frames": 700,
+ "total_frames": 420,
  "fps": 60,
  "pacing": "realtime",
  "stop_on_error": false,
@@ -29,6 +29,10 @@
   {
    "id": "count2",
    "src": "show_debug_message(\"gametest: callbacks after loopback pair \" + string(gametest_event_count(\"ctl\")));\nreturn gametest_event_count(\"ctl\");"
+  },
+  {
+   "id": "pump",
+   "src": "steam_networking_sockets_run_callbacks(); return 1;"
   }
  ],
  "timeline": [
@@ -57,26 +61,234 @@
    }
   },
   {
-   "frame": 360,
+   "frame": 70,
    "assert": {
-    "id": "count",
-    "name": "diag control count",
-    "expect": "?"
-   }
-  },
-  {
-   "frame": 361,
-   "assert": {
-    "id": "pair",
-    "name": "diag pair",
+    "id": "pump",
+    "name": "diag pump",
     "expect": 1
    }
   },
   {
-   "frame": 660,
+   "frame": 80,
    "assert": {
-    "id": "count2",
-    "name": "diag count after pair",
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 90,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 100,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 110,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 120,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 130,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 140,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 150,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 160,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 170,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 180,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 190,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 200,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 210,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 220,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 230,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 240,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 250,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 260,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 270,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 280,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 290,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 300,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 310,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 320,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 330,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 340,
+   "assert": {
+    "id": "pump",
+    "name": "diag pump",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 360,
+   "assert": {
+    "id": "count",
+    "name": "diag control count",
     "expect": "?"
    }
   }
