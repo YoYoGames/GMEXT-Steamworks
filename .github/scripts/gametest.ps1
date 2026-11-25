@@ -50,7 +50,8 @@ $prefabs = Need $prefabs 'gm_prefabs'
 foreach ($s in $Specs) { $null = Need (Join-Path $repo $s) 'GameTest spec' }
 
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-Write-Host "GMRT: $((git -C $GmrtRoot log -1 --format='%h %ad %s' --date=short) -join '')"
+# The hash only: GMRT is private, and this log is public
+Write-Host "GMRT: $((git -C $GmrtRoot rev-parse --short=9 HEAD) -join '')"
 
 # Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
 # checkout only
@@ -71,8 +72,9 @@ $buildLog = Join-Path $Out 'gmrt-build.log'
     --cache-dir $cache --user-email ci@localhost "--projecttool=$projectTool" "--prefab-dir=$prefabs" *> $buildLog
 $code = $LASTEXITCODE
 if ($code -ne 0) {
-    Get-Content $buildLog -Tail 40 | Write-Host
-    Write-Error "gmrt build failed ($code); the full log is in the results"
+    # Error lines only, not the whole log: GMRT is private, and this output is public
+    Select-String -Path $buildLog -Pattern '(?i)\berror\b' | Select-Object -First 30 | ForEach-Object { Write-Host $_.Line }
+    Write-Error "gmrt build failed ($code); the full log stays on the runner ($buildLog)"
 }
 $exe = Get-ChildItem $build -Recurse -Filter *.exe | Where-Object { $_.Name -notmatch '^(crashpad|ProjectTool)' } | Select-Object -First 1
 if (-not $exe) { Write-Error "The build made no .exe in $build" }
@@ -90,13 +92,20 @@ foreach ($s in $Specs) {
         -RedirectStandardOutput $log -RedirectStandardError "$log.err"
     # Keep the process handle open, or ExitCode is empty once it exits
     $null = $p.Handle
-    if (-not $p.WaitForExit($TimeoutSeconds * 1000)) {
-        $p.Kill()
+    $exit = $null
+    if ($p.WaitForExit($TimeoutSeconds * 1000)) {
+        $exit = $p.ExitCode
+    } else {
         Write-Host "Timed out after $TimeoutSeconds s"
+        # Kill is asynchronous, and the process can exit on its own just after the timed wait: wait for it, and
+        # don't let either case stop the remaining specs
+        try { $p.Kill() } catch { }
+        try { $null = $p.WaitForExit(10000) } catch { }
+        $exit = 'timed out'
     }
     $json = Join-Path $res 'results.json'
     if (-not (Test-Path $json)) {
-        Write-Host "No results.json (game exit $($p.ExitCode))"
+        Write-Host "No results.json (game exit $exit)"
         # Not the whole log: the demo logs Steam friends' data, and this output is public
         Select-String -Path $log, "$log.err" -Pattern '(?i)^(error|fatal|exception|unhandled|startup:)' -ErrorAction SilentlyContinue |
             Select-Object -First 20 | ForEach-Object { Write-Host $_.Line }
@@ -113,7 +122,7 @@ foreach ($s in $Specs) {
     Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
     Write-Host '::endgroup::'
     $pass = @($r.asserts | Where-Object pass).Count
-    Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $($p.ExitCode))"
+    Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $exit)"
     if (-not $r.passed) { $failed++ }
 }
 if ($failed) { Write-Error "$failed of $($Specs.Count) specs failed" }

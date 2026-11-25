@@ -274,19 +274,18 @@ jobs:
           if (-not $env:GMRT_ROOT) { Write-Error 'GMRT_ROOT is not set on the runner (a GMRT checkout built with cctl)' }
           # Only spec files under tests/gametest, so the input can't point the game anywhere else
           $specs = @($env:SPECS -split '\s+' | Where-Object { $_ })
+          if ($specs.Count -eq 0) { Write-Error 'specs has no spec paths (it was only whitespace)' }
           foreach ($s in $specs) {
             if ($s -notmatch '^tests/gametest/[A-Za-z0-9_.-]+\.json$') { Write-Error "Not a spec under tests/gametest: $s" }
           }
           & ./.github/scripts/gametest.ps1 -GmrtRoot $env:GMRT_ROOT -Specs $specs -Out (Join-Path $env:RUNNER_TEMP 'gametest')
 
       - name: Upload the results
-        # results.json and the GMRT build log only: the game's own log can hold Steam account and friends' data, and
-        # artifacts of this public repository can be downloaded by anyone
+        # results.json only: artifacts of this public repository can be downloaded by anyone, the game's own log can
+        # hold Steam account and friends' data, and the GMRT build log details the private GMRT. Both stay on the runner
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: gametest-${{ needs.windows-build.outputs.label }}
-          path: |
-            ${{ runner.temp }}/gametest/*/results.json
-            ${{ runner.temp }}/gametest/gmrt-build.log
+          path: ${{ runner.temp }}/gametest/*/results.json
           if-no-files-found: warn
