@@ -1,7 +1,7 @@
 {
  "version": 1,
  "seed": 1,
- "total_frames": 3000,
+ "total_frames": 7500,
  "fps": 60,
  "pacing": "realtime",
  "stop_on_error": false,
@@ -61,6 +61,14 @@
   {
    "id": "unsubscribe_result",
    "src": "// 1 = SteamApiResult.Ok\nif (global.ugc_was_subscribed) return 1;\nvar r = gametest_async_result(\"unsubscribe\"); return r == 1 ? 1 : 0;"
+  },
+  {
+   "id": "download",
+   "src": "// Ask Steam to download it now, at high priority, rather than waiting for its own scheduling\nif (global.ugc_item <= 0) return 0;\nreturn steam_ugc_download_item(global.ugc_item, true) ? 1 : 0;"
+  },
+  {
+   "id": "progress",
+   "src": "// Logs the item's state bits and download progress for the job log; always passes\nif (global.ugc_item <= 0) return 1;\nvar dl = steam_ugc_get_item_download_info(global.ugc_item);\nshow_debug_message(\"allow_steam_paths: state \" + string(steam_ugc_get_item_state(global.ugc_item)) + \", downloaded \" + (is_struct(dl) ? string(dl.bytes_downloaded) + \"/\" + string(dl.bytes_total) : \"no info\"));\nreturn 1;"
   }
  ],
  "timeline": [
@@ -129,15 +137,71 @@
    }
   },
   {
-   "frame": 2700,
+   "frame": 601,
    "assert": {
-    "id": "installed",
-    "name": "the item is installed within 45 seconds",
+    "id": "download",
+    "name": "download_item is accepted (high priority)",
     "expect": 1
    }
   },
   {
-   "frame": 2701,
+   "frame": 1200,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (20 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2400,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (40 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 3600,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (60 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 4800,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (80 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 6000,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (100 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7199,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (119 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7200,
+   "assert": {
+    "id": "installed",
+    "name": "the item is installed within 2 minutes",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7201,
    "assert": {
     "id": "folder",
     "name": "directory_exists on the item's install folder (a legacy item: file_exists on its file and directory_exists on its folder)",
@@ -145,7 +209,7 @@
    }
   },
   {
-   "frame": 2702,
+   "frame": 7202,
    "assert": {
     "id": "find",
     "name": "a file in the item's folder is found (file_find_first, or a legacy item's own file)",
@@ -153,7 +217,7 @@
    }
   },
   {
-   "frame": 2703,
+   "frame": 7203,
    "assert": {
     "id": "file",
     "name": "file_exists on a file in the item's folder",
@@ -161,7 +225,7 @@
    }
   },
   {
-   "frame": 2704,
+   "frame": 7204,
    "assert": {
     "id": "unsubscribe",
     "name": "unsubscribe is sent if this run subscribed it",
@@ -169,7 +233,7 @@
    }
   },
   {
-   "frame": 2940,
+   "frame": 7440,
    "assert": {
     "id": "unsubscribe_result",
     "name": "unsubscribe calls back with SteamApiResult.Ok (or wasn't needed)",
