@@ -85,10 +85,80 @@
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  *
+ * [[Warning: Don't use this function on a channel where ${function.steam_networking_messages_receive_message_on_channel} is holding a message (after it returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`). This function doesn't return the held message, so the messages after it arrive first. Read the held message with ${function.steam_networking_messages_receive_message_on_channel}, or release it with ${function.steam_networking_messages_discard_held_message}, before switching back.]]
+ *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
  * @param {Real} count The number of messages to receive.
  * @returns {Array[Struct.SteamNetworkingMessage]}
+ * @function_end
+ */
+
+/**
+ * @function steam_networking_messages_receive_message_on_channel
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::ReceiveMessagesOnChannel](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel)
+ *
+ * This function reads the next message sent to you on the given channel via ${function.steam_networking_messages_send_message_to_user}, and writes its data into a buffer at the given offset. Unlike ${function.steam_networking_messages_receive_messages_on_channel}, it creates no array or struct, so it suits games that receive every frame: call it in a loop until it returns 0.
+ *
+ * The function returns one of the following:
+ *
+ * * greater than 0 - The message's size in bytes, written to the buffer at `buffer_offset`.
+ * * 0 - No message is waiting on that channel (or the Steam API isn't initialised; see ${function.steam_api_last_error}).
+ * * `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT` - The message doesn't fit in the buffer from `buffer_offset`. Nothing is written and the message isn't lost: it's held, and the next call on this channel returns it. Make room (handle what you've already read and read again at offset 0, or resize the buffer) or release it with ${function.steam_networking_messages_discard_held_message}.
+ *
+ * In either of the last two cases, the sender and full size of the message are available from ${function.steam_networking_messages_get_last_message_steam_id} and ${function.steam_networking_messages_get_last_message_size}. Messages with no data are skipped.
+ *
+ * [[Note: Size the buffer to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` and read at offset 0 to make sure every message fits.]]
+ *
+ * [[Warning: A held message is only returned by this function. Don't read the same channel with ${function.steam_networking_messages_receive_messages_on_channel} while a message is held, or the messages after it arrive first.]]
+ *
+ * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
+ * @param {Buffer} out_data The buffer that receives the message data.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes, at which to write the message. Defaults to 0.
+ * @returns {Real}
+ *
+ * @example
+ * ```gml
+ * /// Step Event
+ * var _size = steam_networking_messages_receive_message_on_channel(0, receive_buffer);
+ * while (_size > 0)
+ * {
+ *     handle_message(receive_buffer, _size, steam_networking_messages_get_last_message_steam_id());
+ *     _size = steam_networking_messages_receive_message_on_channel(0, receive_buffer);
+ * }
+ * ```
+ * The above code handles every message waiting on channel 0, each read to the start of `receive_buffer` along with the Steam ID of its sender.
+ * @function_end
+ */
+
+/**
+ * @function steam_networking_messages_discard_held_message
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function releases the message held on a channel after ${function.steam_networking_messages_receive_message_on_channel} returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`, for a message too big for any buffer you're willing to give it. It returns whether a message was held.
+ *
+ * @param {Real} local_channel The channel whose held message to release.
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function steam_networking_messages_get_last_message_steam_id
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function returns the Steam ID of the sender of the last message ${function.steam_networking_messages_receive_message_on_channel} read or held.
+ *
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function steam_networking_messages_get_last_message_size
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function returns the full size, in bytes, of the last message ${function.steam_networking_messages_receive_message_on_channel} read or held.
+ *
+ * @returns {Real}
  * @function_end
  */
 

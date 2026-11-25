@@ -107,6 +107,7 @@ namespace gm_consts
     inline constexpr std::int32_t STEAM_MATCHMAKING_FAVORITE_FLAG_NONE = 0x00;
     inline constexpr std::string_view STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION = "SteamMatchMakingServers002";
     inline constexpr std::string_view STEAM_MATCHMAKING_INTERFACE_VERSION = "SteamMatchMaking009";
+    inline constexpr std::int32_t STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT = -1;
     inline constexpr std::uint32_t STEAM_NETWORKING_POLL_GROUP_INVALID = 0;
     inline constexpr std::uint32_t STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND = 524288;
 }
@@ -7279,6 +7280,10 @@ void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFun
 void steam_networking_messages_clear_callback_session_failed();
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, gm_enums::SteamNetworkingSendFlags send_flags, std::int32_t remote_channel, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count);
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t count);
+std::int32_t steam_networking_messages_receive_message_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::optional<std::uint32_t> buffer_offset);
+bool steam_networking_messages_discard_held_message(std::int32_t local_channel);
+std::uint64_t steam_networking_messages_get_last_message_steam_id();
+std::uint32_t steam_networking_messages_get_last_message_size();
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_channel_with_user(std::uint64_t steam_id_remote, std::int32_t local_channel);

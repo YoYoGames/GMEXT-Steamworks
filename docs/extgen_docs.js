@@ -4023,6 +4023,34 @@
  */
 
 /**
+ * @function_partial steam_networking_messages_receive_message_on_channel
+ * @param {Real} local_channel
+ * @param {Buffer} out_data
+ * @param {Real} [buffer_offset]
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_networking_messages_discard_held_message
+ * @param {Real} local_channel
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_networking_messages_get_last_message_steam_id
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_networking_messages_get_last_message_size
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_networking_messages_accept_session_with_user
  * @param {Real} steam_id_remote
  * @returns {Bool}
@@ -7261,6 +7289,7 @@
  * @member STEAM_MATCHMAKING_FAVORITE_FLAG_NONE (value: '0x00')
  * @member STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION (value: '"SteamMatchMakingServers002"')
  * @member STEAM_MATCHMAKING_INTERFACE_VERSION (value: '"SteamMatchMaking009"')
+ * @member STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT (value: '-1')
  * @member STEAM_NETWORKING_POLL_GROUP_INVALID (value: '0')
  * @member STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND (value: '524288')
  * @const_end
