@@ -44,11 +44,11 @@
   },
   {
    "id": "folder",
-   "src": "if (global.ugc_item <= 0) return 0;\nvar info = steam_ugc_get_item_install_info(global.ugc_item);\nglobal.ugc_folder = is_struct(info) ? info.folder : \"\";\nshow_debug_message(\"allow_steam_paths: folder \" + global.ugc_folder);\nreturn (global.ugc_folder != \"\" && directory_exists(global.ugc_folder)) ? 1 : 0;"
+   "src": "if (global.ugc_item <= 0) return 0;\nvar info = steam_ugc_get_item_install_info(global.ugc_item);\nvar path = is_struct(info) ? info.folder : \"\";\nshow_debug_message(\"allow_steam_paths: install path \" + path);\nif (path == \"\") return 0;\n// 2 = SteamUgcItemState.LegacyItem: the install path is the item's single file, and the extension allows its parent folder\nif ((steam_ugc_get_item_state(global.ugc_item) & 2) != 0) {\n  global.ugc_folder = filename_dir(path);\n  global.ugc_file = filename_name(path);\n  show_debug_message(\"allow_steam_paths: legacy item\");\n  return (file_exists(path) && directory_exists(global.ugc_folder)) ? 1 : 0;\n}\nglobal.ugc_folder = path;\nreturn directory_exists(path) ? 1 : 0;"
   },
   {
    "id": "find",
-   "src": "global.ugc_file = (global.ugc_folder == \"\") ? \"\" : file_find_first(global.ugc_folder + \"/*\", fa_none);\nfile_find_close();\nshow_debug_message(\"allow_steam_paths: first file \" + global.ugc_file);\nreturn global.ugc_file != \"\" ? 1 : 0;"
+   "src": "// A legacy item's file is already known (folder chunk); otherwise list the folder\nif (global.ugc_file == \"\") {\n  global.ugc_file = (global.ugc_folder == \"\") ? \"\" : file_find_first(global.ugc_folder + \"/*\", fa_none);\n  file_find_close();\n}\nshow_debug_message(\"allow_steam_paths: file \" + global.ugc_file);\nreturn global.ugc_file != \"\" ? 1 : 0;"
   },
   {
    "id": "file",
@@ -140,7 +140,7 @@
    "frame": 2701,
    "assert": {
     "id": "folder",
-    "name": "directory_exists on the item's install folder",
+    "name": "directory_exists on the item's install folder (a legacy item: file_exists on its file and directory_exists on its folder)",
     "expect": 1
    }
   },
@@ -148,7 +148,7 @@
    "frame": 2702,
    "assert": {
     "id": "find",
-    "name": "file_find_first lists a file in the item's folder",
+    "name": "a file in the item's folder is found (file_find_first, or a legacy item's own file)",
     "expect": 1
    }
   },
