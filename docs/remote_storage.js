@@ -134,7 +134,7 @@
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The buffer containing the bytes to write to the file.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
- * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the bytes written to the buffer (its ${function.buffer_tell} position) minus the offset, so a grow buffer writes only what you've written to it, not its whole allocated size.
+ * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.
  * @returns {Bool}
  * @function_end 
  */
@@ -149,7 +149,7 @@
  * @param {Buffer} data The buffer holding the bytes to write to the file.
  * @param {Function} callback The callback function to call upon completion.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
- * @param {Real} [buffer_count] The number of bytes to write. Defaults to the bytes written to the buffer (its ${function.buffer_tell} position) minus the offset, so a grow buffer writes only what you've written to it, not its whole allocated size.
+ * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
@@ -332,7 +332,7 @@
  * @param {Real} stream The file write stream to write to.
  * @param {Buffer} data The buffer containing the data to write to the stream.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
- * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the bytes written to the buffer (its ${function.buffer_tell} position) minus the offset, so a grow buffer writes only what you've written to it, not its whole allocated size.
+ * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.
  * @returns {Bool} `true` if the data was successfully written to the file write stream, `false` if not.
  * @function_end 
  */
