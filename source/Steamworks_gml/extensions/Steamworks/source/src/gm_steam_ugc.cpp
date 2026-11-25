@@ -15,6 +15,49 @@
 
 // ---------------- Helpers ----------------
 
+static inline ISteamUGC* steam_ugc_iface();
+
+// Let the game read an installed item's files, which are outside the sandbox. Read-only: Steam owns them. For a legacy item the
+// install path is the item's single file, so its folder is allowed instead.
+static void ugc_allow_install_folder(const char* folder, uint32 itemState)
+{
+    if (!folder || !*folder)
+        return;
+    std::string dir(folder);
+    if ((itemState & k_EItemStateLegacyItem) != 0) {
+        const size_t slash = dir.find_last_of("/\\");
+        if (slash == std::string::npos)
+            return;
+        dir.resize(slash);
+    }
+    gm::files::AllowDirectory(dir.c_str(), gm::files::Access::Read);
+}
+
+static void ugc_allow_item(ISteamUGC* ugc, PublishedFileId_t id)
+{
+    char folder[1024] = {};
+    uint64 sizeOnDisk = 0;
+    uint32 ts = 0;
+    if (ugc->GetItemInstallInfo(id, &sizeOnDisk, folder, (uint32)sizeof(folder), &ts))
+        ugc_allow_install_folder(folder, ugc->GetItemState(id));
+}
+
+void steam_ugc_allow_installed_items()
+{
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return;
+    const uint32 count = ugc->GetNumSubscribedItems();
+    if (count == 0)
+        return;
+    std::vector<PublishedFileId_t> ids(count);
+    const uint32 got = ugc->GetSubscribedItems(ids.data(), count);
+    for (uint32 i = 0; i < got && i < count; ++i) {
+        if ((ugc->GetItemState(ids[i]) & k_EItemStateInstalled) != 0)
+            ugc_allow_item(ugc, ids[i]);
+    }
+}
+
 static inline ISteamUGC* steam_ugc_iface()
 {
     if (!steam_api_is_initialized()) {
@@ -295,6 +338,8 @@ steam_ugc_get_item_install_info(std::uint64_t published_file_id)
 
     if (!ok)
         return std::nullopt;
+
+    ugc_allow_install_folder(folder.data(), ugc->GetItemState(pubid_from_u64(published_file_id)));
 
     gm_structs::SteamUgcItemInstallInfo out {};
     out.size_on_disk = (std::uint64_t)sizeOnDisk;
@@ -806,6 +851,8 @@ public:
 void SteamUgc_ItemInstalled_Callback::OnItemInstalled(ItemInstalled_t* p)
 {
     if (!p) return;
+    if (ISteamUGC* ugc = steam_ugc_iface(); ugc && SteamUtils() && p->m_unAppID == SteamUtils()->GetAppID())
+        ugc_allow_item(ugc, p->m_nPublishedFileId);
     gm::wire::GMFunction cb;
     {
         std::lock_guard<std::mutex> lock(g_callbacks_mtx);

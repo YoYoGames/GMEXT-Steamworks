@@ -61,6 +61,8 @@ void steam_networking_sockets_release_held_messages();
 
 // Internal: register a connection status callback set before Steam was initialised (after SteamAPI_InitEx).
 void steam_networking_sockets_register_status_callback();
+// Internal: allow the folders of installed Workshop items in the runner's file whitelist (after init).
+void steam_ugc_allow_installed_items();
 
 // ------------------------------------------------------------
 // Small shared conversion helpers (optional)
