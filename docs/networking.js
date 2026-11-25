@@ -85,6 +85,8 @@
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  *
+ * [[Warning: Don't use this function on a channel where ${function.steam_networking_messages_receive_message_on_channel} is holding a message (after it returned `STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT`). This function doesn't return the held message, so the messages after it arrive first. Read the held message with ${function.steam_networking_messages_receive_message_on_channel}, or release it with ${function.steam_networking_messages_discard_held_message}, before switching back.]]
+ *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
  * @param {Real} count The number of messages to receive.
@@ -107,6 +109,8 @@
  * In either of the last two cases, the sender and full size of the message are available from ${function.steam_networking_messages_get_last_message_steam_id} and ${function.steam_networking_messages_get_last_message_size}. Messages with no data are skipped.
  *
  * [[Note: Size the buffer to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` and read at offset 0 to make sure every message fits.]]
+ *
+ * [[Warning: A held message is only returned by this function. Don't read the same channel with ${function.steam_networking_messages_receive_messages_on_channel} while a message is held, or the messages after it arrive first.]]
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
