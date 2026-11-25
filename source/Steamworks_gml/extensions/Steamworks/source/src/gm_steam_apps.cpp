@@ -488,7 +488,7 @@ void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMF
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamAppsFileDetailsResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string fn(filename);
     SteamAPICall_t call = a->GetFileDetails(fn.c_str());

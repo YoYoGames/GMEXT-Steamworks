@@ -187,7 +187,7 @@ void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_ty
     STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyCreated, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return;
+    if (!mm) return steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyCreated>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = mm->CreateLobby((ELobbyType)(int)lobby_type, (int)max_members);
 
@@ -206,7 +206,7 @@ void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFun
     STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyEnter, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return;
+    if (!mm) return steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyEnter>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = mm->JoinLobby(steam_id_from_u64(lobby_id));
 
@@ -225,7 +225,7 @@ void steam_matchmaking_request_lobby_list( const gm::wire::GMFunction& callback)
     STEAM_ASYNC_GUARD(gm_structs::SteamMatchmakingLobbyMatchList, callback);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return;
+    if (!mm) return steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyMatchList>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = mm->RequestLobbyList();
 

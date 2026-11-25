@@ -513,7 +513,7 @@ void steam_remote_storage_file_share(std::string_view file_name,  const gm::wire
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageFileShareResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return;
+    if (!rs) return steam_async::call_back_failed<gm_structs::SteamRemoteStorageFileShareResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string fn(file_name);
     SteamAPICall_t call = rs->FileShare(fn.c_str());
@@ -592,7 +592,7 @@ void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t p
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageDownloadUgcResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return;
+    if (!rs) return steam_async::call_back_failed<gm_structs::SteamRemoteStorageDownloadUgcResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = rs->UGCDownload((UGCHandle_t)ugc_handle, (uint32)priority);
 
@@ -610,7 +610,7 @@ void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std
 {
     STEAM_ASYNC_GUARD(gm_structs::SteamRemoteStorageDownloadUgcResult, callback);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return;
+    if (!rs) return steam_async::call_back_failed<gm_structs::SteamRemoteStorageDownloadUgcResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string loc(location);
     SteamAPICall_t call = rs->UGCDownloadToLocation((UGCHandle_t)ugc_handle, loc.c_str(), (uint32)priority);

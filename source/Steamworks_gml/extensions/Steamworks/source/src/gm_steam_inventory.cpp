@@ -376,12 +376,12 @@ void steam_inventory_request_eligible_promo_item_definition_ids(const gm::wire::
     STEAM_ASYNC_GUARD(gm_structs::SteamInventoryEligiblePromoItemDefIdsResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return;
+    if (!inv) return steam_async::call_back_failed<gm_structs::SteamInventoryEligiblePromoItemDefIdsResult>(callback, gm_enums::SteamApiResult::Fail);
 
     CSteamID steam_id = (SteamUser() ? SteamUser()->GetSteamID() : CSteamID());
     if (!steam_id.IsValid()) {
         steam_set_last_error("steam_inventory_request_eligible_promo_item_definition_ids: no valid local user SteamID.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamInventoryEligiblePromoItemDefIdsResult>(callback, gm_enums::SteamApiResult::Fail);
     }
 
     SteamAPICall_t call = inv->RequestEligiblePromoItemDefinitionsIDs(steam_id);
@@ -1088,7 +1088,7 @@ void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
     STEAM_ASYNC_GUARD(gm_structs::SteamInventoryRequestPricesResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return;
+    if (!inv) return steam_async::call_back_failed<gm_structs::SteamInventoryRequestPricesResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = inv->RequestPrices();
 
@@ -1109,7 +1109,7 @@ void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventory
     STEAM_ASYNC_GUARD(gm_structs::SteamInventoryStartPurchaseResult, callback);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return;
+    if (!inv) return steam_async::call_back_failed<gm_structs::SteamInventoryStartPurchaseResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::vector<SteamItemDef_t> defs;
     std::vector<uint32> qty;
@@ -1119,7 +1119,7 @@ void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventory
     }
     const uint32 n = (uint32)defs.size();
 
-    if (n == 0) return;
+    if (n == 0) return steam_async::call_back_failed<gm_structs::SteamInventoryStartPurchaseResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = inv->StartPurchase(defs.data(), qty.data(), n);
 

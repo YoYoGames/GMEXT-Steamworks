@@ -814,7 +814,7 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm:
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStoreAuthUrlResponse, callback);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return;
+    if (!u) return steam_async::call_back_failed<gm_structs::SteamUserStoreAuthUrlResponse>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string url(redirect_url);
     SteamAPICall_t call = u->RequestStoreAuthURL(url.c_str());
@@ -834,7 +834,7 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
     STEAM_ASYNC_GUARD(gm_structs::SteamUserEncryptedAppTicketResponse, callback);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return;
+    if (!u) return steam_async::call_back_failed<gm_structs::SteamUserEncryptedAppTicketResponse>(callback, gm_enums::SteamApiResult::Fail);
 
     std::uint32_t offset = buffer_offset.value_or(0);
 
@@ -842,7 +842,7 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
     if (static_cast<std::uint64_t>(offset) > data_to_include.length())
     {
         steam_set_last_error("RequestEncryptedAppTicket: buffer_offset exceeds buffer length.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUserEncryptedAppTicketResponse>(callback, gm_enums::SteamApiResult::Fail);
     }
 
     std::uint32_t actual_count;
@@ -856,7 +856,7 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data_to_include.length())
     {
         steam_set_last_error("RequestEncryptedAppTicket: buffer_offset + buffer_count exceeds buffer length.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUserEncryptedAppTicketResponse>(callback, gm_enums::SteamApiResult::Fail);
     }
 
     std::vector<std::uint8_t> tmp;
@@ -885,7 +885,7 @@ void steam_user_get_duration_control( const gm::wire::GMFunction& callback)
     STEAM_ASYNC_GUARD(gm_structs::SteamUserDurationControl, callback);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return;
+    if (!u) return steam_async::call_back_failed<gm_structs::SteamUserDurationControl>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = u->GetDurationControl();
 
@@ -904,7 +904,7 @@ void steam_user_get_market_eligibility( const gm::wire::GMFunction& callback)
     STEAM_ASYNC_GUARD(gm_structs::SteamUserMarketEligibilityResponse, callback);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return;
+    if (!u) return steam_async::call_back_failed<gm_structs::SteamUserMarketEligibilityResponse>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = u->GetMarketEligibility();
 

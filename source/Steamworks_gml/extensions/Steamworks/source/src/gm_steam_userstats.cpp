@@ -685,7 +685,7 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsUserStatsReceived, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsUserStatsReceived>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->RequestUserStats(steam_id_from_u64(steam_id_user));
 
@@ -707,7 +707,7 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsLeaderboardFindResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsLeaderboardFindResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string name(leaderboard_name);
     SteamAPICall_t call = s->FindOrCreateLeaderboard(name.c_str(),
@@ -729,7 +729,7 @@ void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const 
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsLeaderboardFindResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsLeaderboardFindResult>(callback, gm_enums::SteamApiResult::Fail);
 
     std::string name(leaderboard_name);
     SteamAPICall_t call = s->FindLeaderboard(name.c_str());
@@ -753,7 +753,7 @@ void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_hand
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsScoresDownloadedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsScoresDownloadedResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->DownloadLeaderboardEntries(
         (SteamLeaderboard_t)leaderboard_handle,
@@ -779,11 +779,11 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsScoresDownloadedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsScoresDownloadedResult>(callback, gm_enums::SteamApiResult::Fail);
 
     if (users.empty()) {
         steam_set_last_error("steam_userstats_download_leaderboard_entries_for_users: users must not be empty.");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUserStatsScoresDownloadedResult>(callback, gm_enums::SteamApiResult::Fail);
     }
 
     std::vector<CSteamID> ids;
@@ -817,11 +817,11 @@ void steam_userstats_upload_leaderboard_score(
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUserStatsScoreUploadedResult>(callback, gm_enums::SteamApiResult::Fail);
 
     if ((int)score_details.size() > k_cLeaderboardDetailsMax) {
         steam_set_last_error("steam_userstats_upload_leaderboard_score: score_details exceeds k_cLeaderboardDetailsMax (64).");
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamUserStatsScoreUploadedResult>(callback, gm_enums::SteamApiResult::Fail);
     }
 
     const int32_t* details = score_details.empty() ? nullptr : score_details.data();
@@ -853,7 +853,7 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsAttachLeaderboardUgcResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsAttachLeaderboardUgcResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->AttachLeaderboardUGC(
         (SteamLeaderboard_t)leaderboard_handle,
@@ -879,7 +879,7 @@ void steam_userstats_number_of_current_players( const gm::wire::GMFunction& call
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsNumberOfCurrentPlayersResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->GetNumberOfCurrentPlayers();
 
@@ -898,7 +898,7 @@ void steam_userstats_request_global_achievement_percentages( const gm::wire::GMF
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->RequestGlobalAchievementPercentages();
 
@@ -917,7 +917,7 @@ void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::
     STEAM_ASYNC_GUARD(gm_structs::SteamUserStatsGlobalStatsReceivedResult, callback);
 
     ISteamUserStats* s = steam_userstats_iface();
-    if (!s) return;
+    if (!s) return steam_async::call_back_failed<gm_structs::SteamUserStatsGlobalStatsReceivedResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = s->RequestGlobalStats(history_days);
 

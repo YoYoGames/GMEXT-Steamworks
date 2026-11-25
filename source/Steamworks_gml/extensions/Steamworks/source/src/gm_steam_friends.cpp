@@ -842,7 +842,7 @@ void steam_friends_get_follower_count(std::uint64_t steam_id,  const gm::wire::G
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamFriendsGetFollowerCountResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = f->GetFollowerCount(steam_id_from_u64(steam_id));
     if (!call)
@@ -861,7 +861,7 @@ void steam_friends_is_following(std::uint64_t steam_id,  const gm::wire::GMFunct
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamFriendsIsFollowingResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = f->IsFollowing(steam_id_from_u64(steam_id));
     if (!call)
@@ -880,7 +880,7 @@ void steam_friends_enumerate_following_list(std::uint32_t start_index,  const gm
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamFriendsEnumerateFollowingListResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = f->EnumerateFollowingList(start_index);
     if (!call)
@@ -899,7 +899,7 @@ void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return;
+        return steam_async::call_back_failed<gm_structs::SteamFriendsRequestClanOfficerListResult>(callback, gm_enums::SteamApiResult::Fail);
 
     SteamAPICall_t call = f->RequestClanOfficerList(steam_id_from_u64(clan_steam_id));
     if (!call)
@@ -921,12 +921,12 @@ bool steam_friends_download_clan_activity_counts(
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamFriendsDownloadClanActivityCountsResult>(callback, gm_enums::SteamApiResult::Fail), false);
 
     const uint32 n = (uint32)steam_id_clans.size();
 
     if (n == 0)
-        return false;
+        return (steam_async::call_back_failed<gm_structs::SteamFriendsDownloadClanActivityCountsResult>(callback, gm_enums::SteamApiResult::Fail), false);
 
     std::vector<CSteamID> ids;
     ids.reserve(n);
