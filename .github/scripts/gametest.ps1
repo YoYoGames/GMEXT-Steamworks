@@ -66,104 +66,125 @@ $gmrtHash = & {
 }
 Write-Host "GMRT: $(if ($gmrtHash) { $gmrtHash } else { 'unknown' })"
 
+# A *.hooks.json run uses a test build of Steamworks.dll. It's built in its own build directory and output folder, so
+# the win-x64-release build directory (what windows-build and developers use) never gets STEAMWORKS_TEST_HOOKS cached,
+# and it replaces the extension's Steamworks.dll only for this run: the finally block below puts the original back
+$extDll = Join-Path $repo 'source/Steamworks_gml/extensions/Steamworks/Steamworks.dll'
+$savedDll = $null
 if ($hooks.Count) {
     if (-not $env:STEAMWORKS_SDK_ROOT) { Write-Error 'STEAMWORKS_SDK_ROOT is not set: the test build of Steamworks.dll needs the SDK' }
-    Write-Host 'Rebuilding Steamworks.dll with STEAMWORKS_TEST_HOOKS for the *.hooks.json specs'
-    $extDir = Join-Path $repo 'source/Steamworks_gml/extensions/Steamworks'
-    Remove-Item -Force (Join-Path $extDir 'Steamworks.dll') -ErrorAction SilentlyContinue
-    Push-Location (Join-Path $extDir 'source')
+    Write-Host 'Building a test Steamworks.dll with STEAMWORKS_TEST_HOOKS for the *.hooks.json specs'
+    $hooksOut = Join-Path ([IO.Path]::GetTempPath()) "steamworks-test-hooks-$PID"
+    if (Test-Path $hooksOut) { Remove-Item -Recurse -Force $hooksOut }
+    New-Item -ItemType Directory -Force $hooksOut | Out-Null
+    $hooksLog = Join-Path $hooksOut 'build.log'
+    Push-Location (Join-Path $repo 'source/Steamworks_gml/extensions/Steamworks/source')
     try {
-        $hooksLog = Join-Path ([IO.Path]::GetTempPath()) 'steamworks-hooks-build.log'
-        cmake --preset win-x64-release "-DSTEAMWORKS_SDK_ROOT=$env:STEAMWORKS_SDK_ROOT" -DSTEAMWORKS_TEST_HOOKS=ON *> $hooksLog
+        cmake --preset win-x64-release -B out/build/win-x64-test-hooks "-DSTEAMWORKS_SDK_ROOT=$env:STEAMWORKS_SDK_ROOT" `
+            -DSTEAMWORKS_TEST_HOOKS=ON "-DEXT_OUTPUT_DIR=$hooksOut" *> $hooksLog
         if ($LASTEXITCODE -ne 0) { Get-Content $hooksLog -Tail 30 | Write-Host; Write-Error 'configuring the test build failed' }
-        cmake --build --preset win-x64-release *>> $hooksLog
+        if (-not (Select-String -Path $hooksLog -Pattern 'STEAMWORKS_TEST_HOOKS is on' -Quiet)) { Write-Error "The test build didn't report STEAMWORKS_TEST_HOOKS as on" }
+        cmake --build out/build/win-x64-test-hooks --config Release *>> $hooksLog
         if ($LASTEXITCODE -ne 0) { Select-String -Path $hooksLog -Pattern '(?i)\berror\b' | Select-Object -First 30 | ForEach-Object { Write-Host $_.Line }; Write-Error 'the test build failed' }
-        if (-not (Select-String -Path $hooksLog -Pattern 'STEAMWORKS_TEST_HOOKS is on' -Quiet)) { Write-Error "The build didn't report STEAMWORKS_TEST_HOOKS as on" }
     } finally { Pop-Location }
-    if (-not (Test-Path (Join-Path $extDir 'Steamworks.dll'))) { Write-Error "The test build didn't copy Steamworks.dll to the extension folder" }
-}
-
-# Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
-# checkout only
-$yy = [IO.File]::ReadAllText($extYy)
-$re = '("%Name":\s*"debug",\s*"defaultValue":\s*)"Auto"'
-if ($yy -notmatch $re) { Write-Error "Couldn't find the debug option set to Auto in Steamworks.yy" }
-[IO.File]::WriteAllText($extYy, ($yy -replace $re, '$1"Enabled"'), (New-Object Text.UTF8Encoding $false))
-
-New-Item -ItemType Directory -Force $Out | Out-Null
-$Out = (Resolve-Path $Out).Path
-$build = Join-Path $Out 'build'
-$cache = Join-Path $Out 'cache'
-if (Test-Path $build) { Remove-Item -Recurse -Force $build }
-
-Write-Host 'Building the demo with GMRT'
-$buildLog = Join-Path $Out 'gmrt-build.log'
-& $gmrt $project -o $build -bg $graph -bj Build-native-windows-x64 --build-type=Release --script-build-type=Release `
-    --cache-dir $cache --user-email ci@localhost "--projecttool=$projectTool" "--prefab-dir=$prefabs" *> $buildLog
-$code = $LASTEXITCODE
-if ($code -ne 0) {
-    # Error lines only, not the whole log: GMRT is private, and this output is public
-    Select-String -Path $buildLog -Pattern '(?i)\berror\b' | Select-Object -First 30 | ForEach-Object { Write-Host $_.Line }
-    Write-Error "gmrt build failed ($code); the full log stays on the runner ($buildLog)"
-}
-$exe = Get-ChildItem $build -Recurse -Filter *.exe | Where-Object { $_.Name -notmatch '^(crashpad|ProjectTool)' } | Select-Object -First 1
-if (-not $exe) { Write-Error "The build made no .exe in $build" }
-Write-Host "Built $($exe.FullName)"
-# Without it Steamworks.dll can't load, and every extension call returns garbage rather than failing. Under GMRT the
-# post-build step copies it into the game's assets folder (assets or build/assets), so look anywhere in the output
-$steamApi = Get-ChildItem $build -Recurse -Filter steam_api64.dll -ErrorAction SilentlyContinue | Select-Object -First 1
-if (-not $steamApi) {
-    Write-Error "steam_api64.dll isn't in the build output: the extension's post-build step didn't find the SDK (sdkPath)"
-}
-Write-Host "steam_api64.dll: $($steamApi.FullName.Substring($build.Length).TrimStart('\'))"
-
-$failed = 0
-foreach ($s in $Specs) {
-    $name = [IO.Path]::GetFileNameWithoutExtension($s)
-    $res = Join-Path $Out $name
-    if (Test-Path $res) { Remove-Item -Recurse -Force $res }
-    $log = Join-Path $Out "$name.log"
-    Write-Host "::group::$s"
-    $p = Start-Process -FilePath $exe.FullName -WorkingDirectory $exe.DirectoryName -PassThru -NoNewWindow `
-        -ArgumentList "--gametest=`"$(Join-Path $repo $s)`"", "--gametest-out=`"$res`"" `
-        -RedirectStandardOutput $log -RedirectStandardError "$log.err"
-    # Keep the process handle open, or ExitCode is empty once it exits
-    $null = $p.Handle
-    $exit = $null
-    if ($p.WaitForExit($TimeoutSeconds * 1000)) {
-        $exit = $p.ExitCode
-    } else {
-        Write-Host "Timed out after $TimeoutSeconds s"
-        # Kill is asynchronous, and the process can exit on its own just after the timed wait: wait for it, and
-        # don't let either case stop the remaining specs
-        try { $p.Kill() } catch { }
-        try { $null = $p.WaitForExit(10000) } catch { }
-        $exit = 'timed out'
+    $testDll = Join-Path $hooksOut 'Steamworks.dll'
+    if (-not (Test-Path $testDll)) { Write-Error "The test build didn't produce Steamworks.dll in $hooksOut" }
+    if (Test-Path $extDll) {
+        $savedDll = Join-Path $hooksOut 'Steamworks.original.dll'
+        Copy-Item $extDll $savedDll
     }
-    $json = Join-Path $res 'results.json'
-    if (-not (Test-Path $json)) {
-        Write-Host "No results.json (game exit $exit)"
-        # Not the whole log: the demo logs Steam friends' data, and this output is public
-        Select-String -Path $log, "$log.err" -Pattern '(?i)^(error|fatal|exception|unhandled|startup:)|steam_api_init' -ErrorAction SilentlyContinue |
-            Select-Object -First 20 | ForEach-Object { Write-Host $_.Line }
-        $failed++
+    Copy-Item -Force $testDll $extDll
+}
+
+try {
+    # Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
+    # checkout only
+    $yy = [IO.File]::ReadAllText($extYy)
+    $re = '("%Name":\s*"debug",\s*"defaultValue":\s*)"Auto"'
+    if ($yy -notmatch $re) { Write-Error "Couldn't find the debug option set to Auto in Steamworks.yy" }
+    [IO.File]::WriteAllText($extYy, ($yy -replace $re, '$1"Enabled"'), (New-Object Text.UTF8Encoding $false))
+
+    New-Item -ItemType Directory -Force $Out | Out-Null
+    $Out = (Resolve-Path $Out).Path
+    $build = Join-Path $Out 'build'
+    $cache = Join-Path $Out 'cache'
+    if (Test-Path $build) { Remove-Item -Recurse -Force $build }
+
+    Write-Host 'Building the demo with GMRT'
+    $buildLog = Join-Path $Out 'gmrt-build.log'
+    & $gmrt $project -o $build -bg $graph -bj Build-native-windows-x64 --build-type=Release --script-build-type=Release `
+        --cache-dir $cache --user-email ci@localhost "--projecttool=$projectTool" "--prefab-dir=$prefabs" *> $buildLog
+    $code = $LASTEXITCODE
+    if ($code -ne 0) {
+        # Error lines only, not the whole log: GMRT is private, and this output is public
+        Select-String -Path $buildLog -Pattern '(?i)\berror\b' | Select-Object -First 30 | ForEach-Object { Write-Host $_.Line }
+        Write-Error "gmrt build failed ($code); the full log stays on the runner ($buildLog)"
+    }
+    $exe = Get-ChildItem $build -Recurse -Filter *.exe | Where-Object { $_.Name -notmatch '^(crashpad|ProjectTool)' } | Select-Object -First 1
+    if (-not $exe) { Write-Error "The build made no .exe in $build" }
+    Write-Host "Built $($exe.FullName)"
+    # Without it Steamworks.dll can't load, and every extension call returns garbage rather than failing. Under GMRT the
+    # post-build step copies it into the game's assets folder (assets or build/assets), so look anywhere in the output
+    $steamApi = Get-ChildItem $build -Recurse -Filter steam_api64.dll -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $steamApi) {
+        Write-Error "steam_api64.dll isn't in the build output: the extension's post-build step didn't find the SDK (sdkPath)"
+    }
+    Write-Host "steam_api64.dll: $($steamApi.FullName.Substring($build.Length).TrimStart('\'))"
+
+    $failed = 0
+    foreach ($s in $Specs) {
+        $name = [IO.Path]::GetFileNameWithoutExtension($s)
+        $res = Join-Path $Out $name
+        if (Test-Path $res) { Remove-Item -Recurse -Force $res }
+        $log = Join-Path $Out "$name.log"
+        Write-Host "::group::$s"
+        $p = Start-Process -FilePath $exe.FullName -WorkingDirectory $exe.DirectoryName -PassThru -NoNewWindow `
+            -ArgumentList "--gametest=`"$(Join-Path $repo $s)`"", "--gametest-out=`"$res`"" `
+            -RedirectStandardOutput $log -RedirectStandardError "$log.err"
+        # Keep the process handle open, or ExitCode is empty once it exits
+        $null = $p.Handle
+        $exit = $null
+        if ($p.WaitForExit($TimeoutSeconds * 1000)) {
+            $exit = $p.ExitCode
+        } else {
+            Write-Host "Timed out after $TimeoutSeconds s"
+            # Kill is asynchronous, and the process can exit on its own just after the timed wait: wait for it, and
+            # don't let either case stop the remaining specs
+            try { $p.Kill() } catch { }
+            try { $null = $p.WaitForExit(10000) } catch { }
+            $exit = 'timed out'
+        }
+        $json = Join-Path $res 'results.json'
+        if (-not (Test-Path $json)) {
+            Write-Host "No results.json (game exit $exit)"
+            # Not the whole log: the demo logs Steam friends' data, and this output is public
+            Select-String -Path $log, "$log.err" -Pattern '(?i)^(error|fatal|exception|unhandled|startup:)|steam_api_init' -ErrorAction SilentlyContinue |
+                Select-Object -First 20 | ForEach-Object { Write-Host $_.Line }
+            $failed++
+            Write-Host '::endgroup::'
+            continue
+        }
+        $r = Get-Content $json -Raw | ConvertFrom-Json
+        foreach ($a in $r.asserts) {
+            Write-Host ('{0} {1} (actual {2})' -f ($(if ($a.pass) { 'PASS' } else { 'FAIL' })), $a.name, (ConvertTo-Json -InputObject $a.actual -Compress))
+        }
+        foreach ($e in $r.errors) { Write-Host "ERROR $e" }
+        # Lines the specs log for diagnosis (paths Steam returned, the last error) from stdout, and the extension's own
+        # Steam init trace from stderr (TRACE writes there; Steam's error text is on the line after it, hence the context).
+        # Never the rest, which can hold account details
+        Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
+        Select-String -Path "$log.err" -Pattern 'steam_api_init' -Context 0, 1 -ErrorAction SilentlyContinue |
+            ForEach-Object { Write-Host $_.Line; $_.Context.PostContext | ForEach-Object { Write-Host "  $_" } }
         Write-Host '::endgroup::'
-        continue
+        $pass = @($r.asserts | Where-Object pass).Count
+        Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $exit)"
+        if (-not $r.passed) { $failed++ }
     }
-    $r = Get-Content $json -Raw | ConvertFrom-Json
-    foreach ($a in $r.asserts) {
-        Write-Host ('{0} {1} (actual {2})' -f ($(if ($a.pass) { 'PASS' } else { 'FAIL' })), $a.name, (ConvertTo-Json -InputObject $a.actual -Compress))
+    if ($failed) { Write-Error "$failed of $($Specs.Count) specs failed" }
+} finally {
+    # Put back the Steamworks.dll that was there before a test build replaced it
+    if ($hooks.Count) {
+        if ($savedDll) { Copy-Item -Force $savedDll $extDll; Write-Host 'Restored the original Steamworks.dll' }
+        else { Remove-Item -Force $extDll -ErrorAction SilentlyContinue }
     }
-    foreach ($e in $r.errors) { Write-Host "ERROR $e" }
-    # Lines the specs log for diagnosis (paths Steam returned, the last error) from stdout, and the extension's own
-    # Steam init trace from stderr (TRACE writes there; Steam's error text is on the line after it, hence the context).
-    # Never the rest, which can hold account details
-    Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
-    Select-String -Path "$log.err" -Pattern 'steam_api_init' -Context 0, 1 -ErrorAction SilentlyContinue |
-        ForEach-Object { Write-Host $_.Line; $_.Context.PostContext | ForEach-Object { Write-Host "  $_" } }
-    Write-Host '::endgroup::'
-    $pass = @($r.asserts | Where-Object pass).Count
-    Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $exit)"
-    if (-not $r.passed) { $failed++ }
 }
-if ($failed) { Write-Error "$failed of $($Specs.Count) specs failed" }

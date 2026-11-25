@@ -25,6 +25,10 @@ namespace steam_async
     template <typename Payload>
     void call_back_failed(const gm::wire::GMFunction& callback, gm_enums::SteamApiResult result)
     {
+        // Only the known exception may skip the failure callback. Any other payload whose result can't report a
+        // failure is a compile error here rather than a game left waiting
+        static_assert(can_report_failure<Payload>() || std::is_same_v<Payload, gm_structs::SteamUtilsCheckFileSignatureResult>,
+                      "this payload's result can't report a failure: make it a SteamApiResult or bool, or add it here as an exception");
         if constexpr (can_report_failure<Payload>())
         {
             if (callback)
