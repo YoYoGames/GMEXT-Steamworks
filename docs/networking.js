@@ -85,7 +85,7 @@
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  *
- * The messages are written one after another from the start of the buffer, up to `count` of them. A message that doesn't fit in what's left of the buffer isn't lost: it's kept, with any after it, and the next receive on this channel returns it first, whether that's this function or ${function.steam_networking_messages_receive_message_on_channel}. If even the first message is bigger than the whole buffer, the function returns an empty array and ${function.steam_api_last_error} gives the size needed; the message is still kept, until a receive with a big enough buffer or ${function.steam_networking_messages_discard_held_message} releases it.
+ * The messages are written one after another from the start of the buffer, up to `count` of them. A message that doesn't fit in what's left of the buffer isn't lost: it's kept, with any after it, and the next receive on this channel returns it first, whether that's this function or ${function.steam_networking_messages_receive_message_on_channel}. If a message is bigger than the whole buffer, ${function.steam_api_last_error} gives the size needed and the message stays kept, with any after it; when it's the next message, the function returns an empty array and takes nothing more from Steam. The message stays kept, until a receive with a big enough buffer or ${function.steam_networking_messages_discard_held_message} releases it.
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer that receives the message data.
