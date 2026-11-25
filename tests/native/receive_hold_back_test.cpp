@@ -291,7 +291,7 @@ int main()
         FakeMsg* first = nullptr;
         steam.on_connection(5)(1, &first);
         h = q.stamp(first);
-        q.push_front(h);
+        q.push_front(5, h);
         check(q.held_count(5) == 1 && !a.released, "a message that doesn't fit the single receive is held");
         // batch receive on the same key returns the held message before the newer ones
         Received r;
@@ -305,10 +305,20 @@ int main()
         check(r2.ids == std::vector<int>({4}) && q.held_count(5) == 2, "batch receive holds what doesn't fit");
         Queue::Held h1 = q.pop_front(5), h2 = q.pop_front(5);
         check(h1.msg == &e && h2.msg == &f, "the single receive then takes the held messages in order");
-        q.push_front(h2);
-        q.push_front(h1);
+        q.push_front(5, h2);
+        q.push_front(5, h1);
         check(q.discard_front(5) && e.released && q.held_count(5) == 1, "discard_front releases only the oldest");
         check(!q.discard_front(6), "discard_front with nothing held returns false");
+        q.release_all();
+    }
+    {
+        // A channel receive holds under the key it was asked for, even if the message says another
+        Queue q; FakeSteam steam;
+        FakeMsg odd{9, 50, 1};
+        Queue::Fetch fetch = [&](int, FakeMsg** out) { out[0] = &odd; return 1; };
+        Received r;
+        q.receive_on_connection(3, 1, 10, fetch, r.write());
+        check(q.held_count(3) == 1 && q.held_count(9) == 0, "held under the key read with, not the message's own");
         q.release_all();
     }
     std::printf("%s\n", failures ? "FAILED" : "all passed");

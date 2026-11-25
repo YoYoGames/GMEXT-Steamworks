@@ -164,7 +164,7 @@ namespace
 {
     struct SnmMessageTraits
     {
-        // Messages are held per channel
+        // Only used by poll group receives, which Messages doesn't have: channel receives hold under the channel asked for
         static std::uint32_t conn(SteamNetworkingMessage_t* m) { return (std::uint32_t)m->m_nChannel; }
         static std::uint32_t size(SteamNetworkingMessage_t* m) { return (std::uint32_t)m->m_cbSize; }
         static void release(SteamNetworkingMessage_t* m) { m->Release(); }
@@ -267,7 +267,7 @@ std::int32_t steam_networking_messages_receive_message_on_channel(std::int32_t l
 
     const std::uint64_t offset = buffer_offset.value_or(0);
     if (offset + g_snm_last_message_size > out_data.length()) {
-        g_snm_held.push_front(held);
+        g_snm_held.push_front(snm_key(local_channel), held);
         return gm_consts::STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT;
     }
 
