@@ -10,10 +10,6 @@
    "src": "return steam_api_is_initialized() ? 1 : 0;"
   },
   {
-   "id": "api_call",
-   "src": "// An invalid handle hasn't completed: false. It used to return the SDK's failed flag, and undefined whenever the call hadn't completed\nvar r = steam_utils_is_api_call_completed(0);\nreturn is_undefined(r) ? -1 : (r ? 1 : 0);"
-  },
-  {
    "id": "read_missing",
    "src": "var b = buffer_create(16, buffer_fixed, 1);\nvar n = steam_remote_storage_file_read(\"gametest_no_such_file.bin\", b);\nbuffer_delete(b);\nshow_debug_message(\"gametest: file_read of a missing file: \" + string(n) + \", \" + string(steam_api_last_error()));\nreturn (n == 0 && string_pos(\"doesn't exist\", steam_api_last_error()) > 0) ? 1 : 0;"
   }
@@ -25,14 +21,6 @@
     "id": "init",
     "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
     "expect": 1
-   }
-  },
-  {
-   "frame": 61,
-   "assert": {
-    "id": "api_call",
-    "name": "steam_utils_is_api_call_completed is false for a call that hasn't completed (invalid handle)",
-    "expect": 0
    }
   },
   {

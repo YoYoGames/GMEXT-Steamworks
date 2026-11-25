@@ -25,6 +25,10 @@
   {
    "id": "cleanup",
    "src": "steam_networking_sockets_close_connection(global.gt_conn, 0, \"\", false);\nsteam_networking_sockets_close_listen_socket(global.gt_listen);\nsteam_networking_sockets_clear_callback_connection_status_changed();\nreturn 1;"
+  },
+  {
+   "id": "pump",
+   "src": "// Status callbacks are delivered by steam_networking_sockets_run_callbacks (steam_api_run_callbacks alone doesn't), as the demo's socket objects do every step\nsteam_networking_sockets_run_callbacks();\nreturn 1;"
   }
  ],
  "timeline": [
@@ -49,6 +53,286 @@
    "assert": {
     "id": "connect",
     "name": "a listen socket and a connection to it over 127.0.0.1 are created",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 70,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 80,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 90,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 100,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 110,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 120,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 130,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 140,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 150,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 160,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 170,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 180,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 190,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 200,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 210,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 220,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 230,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 240,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 250,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 260,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 270,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 280,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 290,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 300,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 310,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 320,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 330,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 340,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 350,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 360,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 370,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 380,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 390,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 400,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 410,
+   "assert": {
+    "id": "pump",
+    "name": "sockets callbacks pumped",
     "expect": 1
    }
   },
