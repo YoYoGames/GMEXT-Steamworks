@@ -130,6 +130,45 @@ namespace steam_receive
             return out;
         }
 
+        // One message at a time, for a receive that must not allocate in the common case (nothing held): take the
+        // oldest held message for a key, or {0, nullptr}
+        Held pop_front(Conn conn)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            auto it = held_.find(conn);
+            if (it == held_.end() || it->second.empty())
+                return Held{0, nullptr};
+            Held h = it->second.front();
+            it->second.pop_front();
+            if (it->second.empty())
+                held_.erase(it);
+            return h;
+        }
+
+        // Stamp a message just taken from Steam, so it can be held in order
+        Held stamp(Msg* msg)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            return Held{next_seq_++, msg};
+        }
+
+        // Put a message that didn't fit back in front of the key's other held messages (it's the oldest of them)
+        void push_front(const Held& h)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            held_[Traits::conn(h.msg)].push_front(h);
+        }
+
+        // Release the oldest held message for a key; false if nothing was held
+        bool discard_front(Conn conn)
+        {
+            Held h = pop_front(conn);
+            if (!h.msg)
+                return false;
+            Traits::release(h.msg);
+            return true;
+        }
+
         std::size_t held_count(Conn conn) const
         {
             std::lock_guard<std::mutex> lock(mutex_);
