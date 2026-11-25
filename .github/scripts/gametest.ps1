@@ -52,7 +52,13 @@ foreach ($s in $Specs) { $null = Need (Join-Path $repo $s) 'GameTest spec' }
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 # The hash only: GMRT is private, and this log is public
 # safe.directory: the checkout may belong to another account than the runner's
-Write-Host "GMRT: $((git -c "safe.directory=$($GmrtRoot -replace '\\', '/')" -C $GmrtRoot rev-parse --short=9 HEAD 2>&1) -join '')"
+# In its own scope with errors not stopping: under Windows PowerShell, git writing to stderr would otherwise end the
+# job, and this line is only informational
+$gmrtHash = & {
+    $ErrorActionPreference = 'Continue'
+    try { (git -c "safe.directory=$($GmrtRoot -replace '\\', '/')" -C $GmrtRoot rev-parse --short=9 HEAD 2>$null) -join '' } catch { '' }
+}
+Write-Host "GMRT: $(if ($gmrtHash) { $gmrtHash } else { 'unknown' })"
 
 # Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
 # checkout only
@@ -123,9 +129,12 @@ foreach ($s in $Specs) {
         Write-Host ('{0} {1} (actual {2})' -f ($(if ($a.pass) { 'PASS' } else { 'FAIL' })), $a.name, (ConvertTo-Json -InputObject $a.actual -Compress))
     }
     foreach ($e in $r.errors) { Write-Host "ERROR $e" }
-    # Lines the specs log for diagnosis (paths Steam returned, the last error), and the extension's own Steam init
-    # trace (paths and Steam's error text); never the rest, which can hold account details
-    Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):|steam_api_init' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
+    # Lines the specs log for diagnosis (paths Steam returned, the last error) from stdout, and the extension's own
+    # Steam init trace from stderr (TRACE writes there; Steam's error text is on the line after it, hence the context).
+    # Never the rest, which can hold account details
+    Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
+    Select-String -Path "$log.err" -Pattern 'steam_api_init' -Context 0, 1 -ErrorAction SilentlyContinue |
+        ForEach-Object { Write-Host $_.Line; $_.Context.PostContext | ForEach-Object { Write-Host "  $_" } }
     Write-Host '::endgroup::'
     $pass = @($r.asserts | Where-Object pass).Count
     Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $exit)"
