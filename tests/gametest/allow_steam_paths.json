@@ -1,0 +1,180 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 3000,
+ "fps": 60,
+ "pacing": "realtime",
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "input_init",
+   "src": "return steam_input_init(false) ? 1 : 0;"
+  },
+  {
+   "id": "glyph_path",
+   "src": "global.glyph = steam_input_get_glyph_png_for_action_origin(SteamInputActionOrigin.XBoxOne_A, SteamInputGlyphSize.Medium, SteamInputGlyphStyle.Knockout);\nshow_debug_message(\"allow_steam_paths: glyph \" + string(global.glyph));\nreturn (is_string(global.glyph) && global.glyph != \"\" && file_exists(global.glyph)) ? 1 : 0;"
+  },
+  {
+   "id": "glyph_sprite",
+   "src": "if (!is_string(global.glyph) || global.glyph == \"\") return 0;\nvar s = sprite_add(global.glyph, 1, false, false, 0, 0);\nvar ok = sprite_exists(s);\nif (ok) sprite_delete(s);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "query",
+   "src": "// Defaults, so a failed step fails its own assert instead of later chunks erroring\nglobal.ugc_item = 0; global.ugc_folder = \"\"; global.ugc_file = \"\"; global.ugc_was_subscribed = true;\nglobal.ugc_query = steam_ugc_create_query_all_ugc_request(SteamUgcQuery.RankedByVote, SteamUgcMatchingUgcType.Items_ReadyToUse, 480, 480, 1);\nsteam_ugc_send_query_ugc_request(global.ugc_query, gametest_async_recorder(\"query\"));\nreturn 1;"
+  },
+  {
+   "id": "pick",
+   "src": "// The smallest item in the first page, so the download is quick\nvar r = gametest_async_result(\"query\");\nif (r != SteamApiResult.Ok) return 0;\nglobal.ugc_item = 0; var best = infinity;\nfor (var i = 0; i < 50; i++) {\n  var q = steam_ugc_get_query_ugc_result(global.ugc_query, i);\n  if (!is_struct(q)) break;\n  if (q.total_files_size > 0 && q.total_files_size < best && !q.banned) { best = q.total_files_size; global.ugc_item = q.published_file_id; }\n}\nsteam_ugc_release_query_ugc_request(global.ugc_query);\nshow_debug_message(\"allow_steam_paths: item \" + string(global.ugc_item) + \" (\" + string(best) + \" bytes)\");\nreturn global.ugc_item > 0 ? 1 : 0;"
+  },
+  {
+   "id": "subscribe",
+   "src": "if (global.ugc_item <= 0) return 0;\n// Only unsubscribe afterwards if this run subscribed it\nglobal.ugc_was_subscribed = (steam_ugc_get_item_state(global.ugc_item) & SteamUgcItemState.Subscribed) != 0;\nsteam_ugc_subscribe_item(global.ugc_item, gametest_async_recorder(\"subscribe\"));\nreturn 1;"
+  },
+  {
+   "id": "subscribe_result",
+   "src": "var r = gametest_async_result(\"subscribe\"); return r == SteamApiResult.Ok ? 1 : 0;"
+  },
+  {
+   "id": "installed",
+   "src": "if (global.ugc_item <= 0) return 0;\nreturn (steam_ugc_get_item_state(global.ugc_item) & SteamUgcItemState.Installed) != 0 ? 1 : 0;"
+  },
+  {
+   "id": "folder",
+   "src": "if (global.ugc_item <= 0) return 0;\nvar info = steam_ugc_get_item_install_info(global.ugc_item);\nglobal.ugc_folder = is_struct(info) ? info.folder : \"\";\nshow_debug_message(\"allow_steam_paths: folder \" + global.ugc_folder);\nreturn (global.ugc_folder != \"\" && directory_exists(global.ugc_folder)) ? 1 : 0;"
+  },
+  {
+   "id": "find",
+   "src": "global.ugc_file = (global.ugc_folder == \"\") ? \"\" : file_find_first(global.ugc_folder + \"/*\", fa_none);\nfile_find_close();\nshow_debug_message(\"allow_steam_paths: first file \" + global.ugc_file);\nreturn global.ugc_file != \"\" ? 1 : 0;"
+  },
+  {
+   "id": "file",
+   "src": "return (global.ugc_file != \"\" && file_exists(global.ugc_folder + \"/\" + global.ugc_file)) ? 1 : 0;"
+  },
+  {
+   "id": "unsubscribe",
+   "src": "if (global.ugc_item > 0 && !global.ugc_was_subscribed) steam_ugc_unsubscribe_item(global.ugc_item, gametest_async_recorder(\"unsubscribe\"));\nreturn 1;"
+  },
+  {
+   "id": "unsubscribe_result",
+   "src": "if (global.ugc_was_subscribed) return 1;\nvar r = gametest_async_result(\"unsubscribe\"); return r == SteamApiResult.Ok ? 1 : 0;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "input_init",
+    "name": "steam_input_init succeeds",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "glyph_path",
+    "name": "the glyph path Steam returns exists for file_exists",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 63,
+   "assert": {
+    "id": "glyph_sprite",
+    "name": "sprite_add loads the glyph PNG from Steam's folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 64,
+   "assert": {
+    "id": "query",
+    "name": "Workshop query for app 480 is sent",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 360,
+   "assert": {
+    "id": "pick",
+    "name": "the query returns at least one item (smallest picked)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 361,
+   "assert": {
+    "id": "subscribe",
+    "name": "subscribe is sent (remembering whether it was already subscribed)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 600,
+   "assert": {
+    "id": "subscribe_result",
+    "name": "subscribe calls back with SteamApiResult.Ok",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2700,
+   "assert": {
+    "id": "installed",
+    "name": "the item is installed within 45 seconds",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2701,
+   "assert": {
+    "id": "folder",
+    "name": "directory_exists on the item's install folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2702,
+   "assert": {
+    "id": "find",
+    "name": "file_find_first lists a file in the item's folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2703,
+   "assert": {
+    "id": "file",
+    "name": "file_exists on a file in the item's folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2704,
+   "assert": {
+    "id": "unsubscribe",
+    "name": "unsubscribe is sent if this run subscribed it",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2940,
+   "assert": {
+    "id": "unsubscribe_result",
+    "name": "unsubscribe calls back with SteamApiResult.Ok (or wasn't needed)",
+    "expect": 1
+   }
+  }
+ ]
+}
