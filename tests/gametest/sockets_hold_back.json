@@ -7,11 +7,11 @@
  "chunks": [
   {
    "id": "init",
-   "src": "return steam_api_is_initialized() ? 1 : 0;"
+   "src": "if (!steam_api_is_initialized()) show_debug_message(\"gametest: Steam not initialised: \" + steam_api_last_error());\nreturn steam_api_is_initialized() ? 1 : 0;"
   },
   {
    "id": "setup",
-   "src": "var p = steam_networking_sockets_create_socket_pair(false);\nglobal.hb_a = p[0]; global.hb_b = p[1];\nglobal.hb_send = buffer_create(600, buffer_fixed, 1);\nglobal.hb_small = buffer_create(100, buffer_fixed, 1);\nglobal.hb_big = buffer_create(600, buffer_fixed, 1);\nfor (var i = 0; i < 3; i++) steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 40);\nreturn array_length(p);"
+   "src": "// Extension enums aren't available in a chunk: 8 = SteamNetworkingSendFlags.Reliable\nvar p = steam_networking_sockets_create_socket_pair(false);\nglobal.hb_a = p[0]; global.hb_b = p[1];\nglobal.hb_send = buffer_create(600, buffer_fixed, 1);\nglobal.hb_small = buffer_create(100, buffer_fixed, 1);\nglobal.hb_big = buffer_create(600, buffer_fixed, 1);\nfor (var i = 0; i < 3; i++) steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, 8, 0, 40);\nreturn array_length(p);"
   },
   {
    "id": "first",
@@ -23,7 +23,7 @@
   },
   {
    "id": "send_big",
-   "src": "steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 500); return 1;"
+   "src": "// Extension enums aren't available in a chunk: 8 = SteamNetworkingSendFlags.Reliable\nsteam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, 8, 0, 500); return 1;"
   },
   {
    "id": "big_small",
@@ -35,7 +35,7 @@
   },
   {
    "id": "group_setup",
-   "src": "global.hb_group = steam_networking_sockets_create_poll_group();\nsteam_networking_sockets_set_connection_poll_group(global.hb_b, global.hb_group);\nfor (var i = 0; i < 3; i++) { buffer_poke(global.hb_send, 0, buffer_u8, i + 1); steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, SteamNetworkingSendFlags.Reliable, 0, 40); }\nreturn 1;"
+   "src": "// Extension enums aren't available in a chunk: 8 = SteamNetworkingSendFlags.Reliable\nglobal.hb_group = steam_networking_sockets_create_poll_group();\nsteam_networking_sockets_set_connection_poll_group(global.hb_b, global.hb_group);\nfor (var i = 0; i < 3; i++) { buffer_poke(global.hb_send, 0, buffer_u8, i + 1); steam_networking_sockets_send_message_to_connection(global.hb_a, global.hb_send, 8, 0, 40); }\nreturn 1;"
   },
   {
    "id": "group_read",
