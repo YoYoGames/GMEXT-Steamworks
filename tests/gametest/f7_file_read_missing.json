@@ -1,0 +1,35 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 120,
+ "fps": 60,
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "read_missing",
+   "src": "var b = buffer_create(16, buffer_fixed, 1);\nvar n = steam_remote_storage_file_read(\"gametest_no_such_file.bin\", b);\nbuffer_delete(b);\nshow_debug_message(\"gametest: file_read of a missing file: \" + string(n) + \", \" + string(steam_api_last_error()));\nreturn (n == 0 && string_pos(\"doesn't exist\", steam_api_last_error()) > 0) ? 1 : 0;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "read_missing",
+    "name": "steam_remote_storage_file_read of a missing file returns 0 and says the file doesn't exist",
+    "expect": 1
+   }
+  }
+ ]
+}

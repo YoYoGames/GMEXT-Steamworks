@@ -194,12 +194,20 @@ std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire
     STEAM_GUARD_RET(0);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return 0;
-    if (out_data.length() == 0) return 0;
+    // Each 0 below says why: these used to return 0 without an error
+    if (out_data.length() == 0) {
+        steam_set_last_error("steam_remote_storage_file_read: the output buffer is empty (size 0).");
+        return 0;
+    }
 
     std::string fn(file_name);
 
+    if (!rs->FileExists(fn.c_str())) {
+        steam_set_last_error("steam_remote_storage_file_read: the file doesn't exist in Steam Cloud.");
+        return 0;
+    }
     const int32 file_size = rs->GetFileSize(fn.c_str());
-    if (file_size <= 0) return 0;
+    if (file_size <= 0) return 0; // an empty file: nothing to read, not an error
 
     if ((std::uint64_t)file_size > out_data.length()) {
         steam_set_last_error("steam_remote_storage_file_read: output buffer too small for file contents (query steam_remote_storage_get_file_size first).");
@@ -208,7 +216,10 @@ std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire
 
     auto w = out_data.getWriter();
     int32 read = rs->FileRead(fn.c_str(), w.data(), (int32)file_size);
-    if (read <= 0) return 0;
+    if (read <= 0) {
+        steam_set_last_error("steam_remote_storage_file_read: Steam couldn't read the file.");
+        return 0;
+    }
 
     w.skip((size_t)read);
     return (std::int32_t)read;
