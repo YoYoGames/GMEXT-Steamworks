@@ -5514,12 +5514,12 @@ function steam_remote_storage_is_cloud_enabled_for_app(): bool;
 function steam_remote_storage_set_cloud_enabled_for_app(enabled: bool): unit;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`] buffer_count: gmval): bool;
+function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`, gml_default=`buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined`] buffer_count: gmval): bool;
 
 // FileWriteAsync - non-blocking alternative to steam_remote_storage_file_write.
 // Delivers a SteamRemoteStorageFileWriteAsyncResult to the optional callback when complete.
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, callback:func, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`] buffer_count: gmval): unit;
+function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, callback:func, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`, gml_default=`buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined`] buffer_count: gmval): unit;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_read(file_name: string, [type_hint=buffer] out_data: gmval): int32;
@@ -5561,7 +5561,7 @@ function steam_remote_storage_file_forget(file_name: string): bool;
 function steam_remote_storage_file_write_stream_open(file_name: string): gmval;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`] buffer_count: gmval): bool;
+function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval, [type_hint=`uint32?`] buffer_offset: gmval, [type_hint=`uint32?`, gml_default=`buffer_exists(_data)&&buffer_tell(_data)>(_buffer_offset??0)?buffer_tell(_data)-(_buffer_offset??0):undefined`] buffer_count: gmval): bool;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_write_stream_close([type_hint=uint64] stream: gmval): bool;
