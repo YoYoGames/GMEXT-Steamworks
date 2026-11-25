@@ -135,6 +135,11 @@ void steam_utils_check_file_signature(std::string_view file_name,  const gm::wir
 
     std::string fn(file_name);
     SteamAPICall_t call = u->CheckFileSignature(fn.c_str());
+    if (call == k_uAPICallInvalid) {
+        // No callback: the result is a signature-check outcome with no failure value to report
+        steam_set_last_error("steam_utils_check_file_signature: Steam API call failed to dispatch.");
+        return;
+    }
 
     auto* h = new steam_async::CallResult<gm_structs::SteamUtilsCheckFileSignatureResult, CheckFileSignature_t>(callback, &utils_fromNative);
     h->set(call);

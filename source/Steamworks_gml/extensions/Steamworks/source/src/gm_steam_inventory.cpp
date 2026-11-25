@@ -387,6 +387,7 @@ void steam_inventory_request_eligible_promo_item_definition_ids(const gm::wire::
     SteamAPICall_t call = inv->RequestEligiblePromoItemDefinitionsIDs(steam_id);
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_inventory_request_eligible_promo_item_definition_ids: Steam API call failed to dispatch.");
+        steam_async::call_back_failed<gm_structs::SteamInventoryEligiblePromoItemDefIdsResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -1093,6 +1094,7 @@ void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_inventory_request_prices: Steam API call failed to dispatch.");
+        steam_async::call_back_failed<gm_structs::SteamInventoryRequestPricesResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -1123,6 +1125,7 @@ void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventory
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_inventory_start_purchase: Steam API call failed to dispatch.");
+        steam_async::call_back_failed<gm_structs::SteamInventoryStartPurchaseResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 

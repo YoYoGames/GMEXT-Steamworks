@@ -1,0 +1,71 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 90,
+ "fps": 60,
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "send_party_join",
+   "src": "// Beacon 0 is invalid, so Steam returns k_uAPICallInvalid instead of dispatching the call\nvar ok = steam_parties_join_party(0, gametest_async_recorder(\"party_join\"));\nshow_debug_message(\"gametest: party_join: \" + string(steam_api_last_error()));\nreturn (!ok && string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0) ? 1 : 0;"
+  },
+  {
+   "id": "send_party_slots",
+   "src": "// Beacon 0 is invalid, so Steam returns k_uAPICallInvalid instead of dispatching the call\nvar ok = steam_parties_change_num_open_slots(0, 1, gametest_async_recorder(\"party_slots\"));\nshow_debug_message(\"gametest: party_slots: \" + string(steam_api_last_error()));\nreturn (!ok && string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0) ? 1 : 0;"
+  },
+  {
+   "id": "res_party_join",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"party_join\"); return is_undefined(r) ? -1 : r;"
+  },
+  {
+   "id": "res_party_slots",
+   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"party_slots\"); return is_undefined(r) ? -1 : r;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "send_party_join",
+    "name": "steam_parties_join_party with an invalid beacon returns false and reports k_uAPICallInvalid",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "send_party_slots",
+    "name": "steam_parties_change_num_open_slots with an invalid beacon returns false and reports k_uAPICallInvalid",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 70,
+   "assert": {
+    "id": "res_party_join",
+    "name": "steam_parties_join_party calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  },
+  {
+   "frame": 71,
+   "assert": {
+    "id": "res_party_slots",
+    "name": "steam_parties_change_num_open_slots calls back with SteamApiResult.Fail",
+    "expect": 2
+   }
+  }
+ ]
+}
