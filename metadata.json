@@ -8,7 +8,7 @@
             "extensionFile": "source/Steamworks_gml/extensions/Steamworks/Steamworks.yy",
             "packageId": "com.yoyogames.steamworksext",
             "packageName": "Steamworks Ext",
-            "packageVersion": "3.0.0",
+            "packageVersion": "3.0.1",
             "packageFormat": "LTS22",
             "includeFolders": null,
             "includeResources": null,
