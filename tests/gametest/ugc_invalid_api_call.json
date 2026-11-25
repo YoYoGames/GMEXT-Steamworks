@@ -2,8 +2,8 @@
  "version": 1, "seed": 1, "total_frames": 120, "fps": 60, "stop_on_error": false,
  "chunks": [
   {"id": "init", "src": "return steam_api_is_initialized() ? 1 : 0;"},
-  {"id": "query", "src": "steam_ugc_send_query_ugc_request(STEAM_UGC_QUERY_HANDLE_INVALID, gametest_async_recorder(\"query\"));\nreturn string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0 ? 1 : 0;"},
-  {"id": "update", "src": "steam_ugc_submit_item_update(STEAM_UGC_UPDATE_HANDLE_INVALID, \"\", gametest_async_recorder(\"update\"));\nreturn string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0 ? 1 : 0;"},
+  {"id": "query", "src": "// Extension macros aren't available in a chunk: -1 = STEAM_UGC_QUERY_HANDLE_INVALID\nsteam_ugc_send_query_ugc_request(-1, gametest_async_recorder(\"query\"));\nreturn string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0 ? 1 : 0;"},
+  {"id": "update", "src": "// -1 = STEAM_UGC_UPDATE_HANDLE_INVALID\nsteam_ugc_submit_item_update(-1, \"\", gametest_async_recorder(\"update\"));\nreturn string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0 ? 1 : 0;"},
   {"id": "query_result", "src": "var r = gametest_async_result(\"query\"); return is_undefined(r) ? -1 : r;"},
   {"id": "update_result", "src": "var r = gametest_async_result(\"update\"); return is_undefined(r) ? -1 : r;"}
  ],
