@@ -1,7 +1,8 @@
 # Builds and tests with the Steamworks SDK and a signed-in Steam client: on main, nightly, and for a pull request
 # after a maintainer has reviewed it (dispatched on main with the PR number and the head SHA they reviewed).
 #
-# For now this checks the tier 3 runner, reports its build tools and builds Steamworks.dll. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
+# This checks the tier 3 runner, reports its build tools, builds Steamworks.dll, and runs the GameTest specs given
+# against it with a signed-in Steam client. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
 # file on main, and GitHub only accepts a workflow for that list once the file is on main, so it lands first. The
 # builds, tier 2 and tier 3 jobs follow.
 name: trusted
@@ -15,6 +16,10 @@ on:
         type: string
       sha:
         description: The pull request's head SHA that you reviewed
+        required: false
+        type: string
+      specs:
+        description: GameTest specs to run with Steam, space-separated paths under tests/gametest (empty to skip)
         required: false
         type: string
 
@@ -96,6 +101,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: read # to read the pull request's head repository and SHA
+    outputs:
+      ref: ${{ steps.target.outputs.ref }}
+      label: ${{ steps.target.outputs.label }}
     steps:
       - name: Choose the commit to build
         id: target
@@ -225,3 +233,60 @@ jobs:
           path: source/Steamworks_gml/extensions/Steamworks/Steamworks.dll
           if-no-files-found: error
 
+  gametest:
+    # Runs GameTest specs that need Steam against the Steamworks.dll windows-build made, with the runner's GMRT build
+    # (GMRT_ROOT, a GMRT checkout built with cctl). Same commit and the same same-repository rule as windows-build,
+    # which checked both
+    if: github.ref == 'refs/heads/main' && inputs.specs != ''
+    needs: windows-build
+    runs-on: steamworks-steam
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.windows-build.outputs.ref }}
+          persist-credentials: false
+
+      - name: Checked out the commit windows-build built
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          EXPECTED: ${{ needs.windows-build.outputs.ref }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $head = (git rev-parse HEAD).Trim()
+          if ($head -ne $env:EXPECTED) { Write-Error "Checked out $head, expected $env:EXPECTED" }
+
+      - name: Use the Steamworks.dll windows-build made
+        uses: actions/download-artifact@v4
+        with:
+          name: Steamworks-windows-${{ needs.windows-build.outputs.label }}
+          path: source/Steamworks_gml/extensions/Steamworks
+
+      - name: Build the demo with GMRT and run the specs
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          SPECS: ${{ inputs.specs }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:GMRT_ROOT) { Write-Error 'GMRT_ROOT is not set on the runner (a GMRT checkout built with cctl)' }
+          # Only spec files under tests/gametest, so the input can't point the game anywhere else
+          $specs = @($env:SPECS -split '\s+' | Where-Object { $_ })
+          foreach ($s in $specs) {
+            if ($s -notmatch '^tests/gametest/[A-Za-z0-9_.-]+\.json$') { Write-Error "Not a spec under tests/gametest: $s" }
+          }
+          & ./.github/scripts/gametest.ps1 -GmrtRoot $env:GMRT_ROOT -Specs $specs -Out (Join-Path $env:RUNNER_TEMP 'gametest')
+
+      - name: Upload the results
+        # results.json and the GMRT build log only: the game's own log can hold Steam account and friends' data, and
+        # artifacts of this public repository can be downloaded by anyone
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gametest-${{ needs.windows-build.outputs.label }}
+          path: |
+            ${{ runner.temp }}/gametest/*/results.json
+            ${{ runner.temp }}/gametest/gmrt-build.log
+          if-no-files-found: warn
