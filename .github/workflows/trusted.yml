@@ -259,6 +259,65 @@ jobs:
           $head = (git rev-parse HEAD).Trim()
           if ($head -ne $env:EXPECTED) { Write-Error "Checked out $head, expected $env:EXPECTED" }
 
+      - name: Get Steamworks SDK 1.65
+        # The same step as in windows-build, kept here rather than in a script: it handles the deploy key, so it must be
+        # main's code, not the pull request's. The demo's post-build step copies steam_api64.dll from the SDK
+        # From the private YoYoGames/steamworks-sdk with its read-only deploy key; the key file is deleted afterwards
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        env:
+          SDK_KEY: ${{ secrets.STEAMWORKS_SDK_SSH_KEY }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:SDK_KEY) { Write-Error 'STEAMWORKS_SDK_SSH_KEY is not set' }
+          # RUNNER_TEMP isn't always emptied between jobs: remove any key file an earlier run left behind. Each run's
+          # files have their own names, and the key file stays deletable by the runner's account
+          Get-ChildItem $env:RUNNER_TEMP -Filter 'steamworks_sdk_key*' -ErrorAction SilentlyContinue | ForEach-Object {
+            icacls $_.FullName /reset | Out-Null
+            Remove-Item -Force $_.FullName
+          }
+          $suffix = "$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $key = Join-Path $env:RUNNER_TEMP "steamworks_sdk_key-$suffix"
+          $known = Join-Path $env:RUNNER_TEMP "steamworks_sdk_known_hosts-$suffix"
+          $sdk = Join-Path $env:RUNNER_TEMP 'steamworks-sdk'
+          try {
+            [IO.File]::WriteAllText($key, ($env:SDK_KEY -replace "`r", '') + "`n")
+            # the runner's account only, with full control so the finally block can delete it (ssh refuses a key file
+            # others can read; read and delete alone weren't enough to delete it on the runner)
+            icacls $key /inheritance:r /grant:r "$($env:USERNAME):(F)" | Out-Null
+            # github.com's published host keys, fetched over HTTPS, so a spoofed host can't serve a different SDK
+            $meta = Invoke-RestMethod -Uri 'https://api.github.com/meta'
+            [IO.File]::WriteAllLines($known, ($meta.ssh_keys | ForEach-Object { "github.com $_" }))
+            $env:GIT_SSH_COMMAND = "ssh -i `"$key`" -o IdentitiesOnly=yes -o UserKnownHostsFile=`"$known`" -o StrictHostKeyChecking=yes"
+            if (Test-Path $sdk) { Remove-Item -Recurse -Force $sdk }
+            git clone --quiet --depth 1 --branch 1.65 git@github.com:YoYoGames/steamworks-sdk.git $sdk
+            if ($LASTEXITCODE -ne 0) { Write-Error 'Cloning the SDK failed' }
+          } finally {
+            # A few tries, in case antivirus still has the file open. The ACL is never widened, so a key that can't be
+            # deleted stays readable by the runner's account only
+            foreach ($f in @($key, $known)) {
+              for ($i = 0; ($i -lt 5) -and (Test-Path $f); $i++) {
+                try { Remove-Item -Force $f -ErrorAction Stop }
+                catch { Write-Host "Removing $(Split-Path $f -Leaf) failed (try $($i + 1)): $($_.Exception.Message)"; Start-Sleep -Seconds 1 }
+              }
+            }
+            if (Test-Path $key) { Write-Error 'The SDK key file could not be removed from RUNNER_TEMP' }
+          }
+          $root = Get-ChildItem $sdk -Recurse -Filter steam_api.h | Where-Object { $_.Directory.Name -eq 'steam' } | Select-Object -First 1
+          if (-not $root) { Write-Error 'public/steam/steam_api.h not found in the SDK' }
+          $sdkRoot = $root.Directory.Parent.Parent.FullName
+          "STEAMWORKS_SDK_ROOT=$sdkRoot" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host 'SDK ready'
+
+      - name: Put the SDK where the demo looks for it
+        # The extension's sdkPath option is ../Steamworks_sdk from the project, i.e. source/Steamworks_sdk
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $dest = 'source/Steamworks_sdk'
+          if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
+          Copy-Item -Recurse $env:STEAMWORKS_SDK_ROOT $dest
+          if (-not (Test-Path "$dest/redistributable_bin/win64/steam_api64.dll")) { Write-Error 'redistributable_bin/win64/steam_api64.dll not in the SDK' }
+
       - name: Use the Steamworks.dll windows-build made
         uses: actions/download-artifact@v4
         with:

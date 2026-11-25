@@ -51,7 +51,14 @@ foreach ($s in $Specs) { $null = Need (Join-Path $repo $s) 'GameTest spec' }
 
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 # The hash only: GMRT is private, and this log is public
-Write-Host "GMRT: $((git -C $GmrtRoot rev-parse --short=9 HEAD) -join '')"
+# safe.directory: the checkout may belong to another account than the runner's
+# In its own scope with errors not stopping: under Windows PowerShell, git writing to stderr would otherwise end the
+# job, and this line is only informational
+$gmrtHash = & {
+    $ErrorActionPreference = 'Continue'
+    try { (git -c "safe.directory=$($GmrtRoot -replace '\\', '/')" -C $GmrtRoot rev-parse --short=9 HEAD 2>$null) -join '' } catch { '' }
+}
+Write-Host "GMRT: $(if ($gmrtHash) { $gmrtHash } else { 'unknown' })"
 
 # Debug=Enabled so the extension writes steam_appid.txt and runs as app 480 outside Steam's launcher. This changes the
 # checkout only
@@ -79,6 +86,13 @@ if ($code -ne 0) {
 $exe = Get-ChildItem $build -Recurse -Filter *.exe | Where-Object { $_.Name -notmatch '^(crashpad|ProjectTool)' } | Select-Object -First 1
 if (-not $exe) { Write-Error "The build made no .exe in $build" }
 Write-Host "Built $($exe.FullName)"
+# Without it Steamworks.dll can't load, and every extension call returns garbage rather than failing. Under GMRT the
+# post-build step copies it into the game's assets folder (assets or build/assets), so look anywhere in the output
+$steamApi = Get-ChildItem $build -Recurse -Filter steam_api64.dll -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $steamApi) {
+    Write-Error "steam_api64.dll isn't in the build output: the extension's post-build step didn't find the SDK (sdkPath)"
+}
+Write-Host "steam_api64.dll: $($steamApi.FullName.Substring($build.Length).TrimStart('\'))"
 
 $failed = 0
 foreach ($s in $Specs) {
@@ -107,7 +121,7 @@ foreach ($s in $Specs) {
     if (-not (Test-Path $json)) {
         Write-Host "No results.json (game exit $exit)"
         # Not the whole log: the demo logs Steam friends' data, and this output is public
-        Select-String -Path $log, "$log.err" -Pattern '(?i)^(error|fatal|exception|unhandled|startup:)' -ErrorAction SilentlyContinue |
+        Select-String -Path $log, "$log.err" -Pattern '(?i)^(error|fatal|exception|unhandled|startup:)|steam_api_init' -ErrorAction SilentlyContinue |
             Select-Object -First 20 | ForEach-Object { Write-Host $_.Line }
         $failed++
         Write-Host '::endgroup::'
@@ -118,8 +132,12 @@ foreach ($s in $Specs) {
         Write-Host ('{0} {1} (actual {2})' -f ($(if ($a.pass) { 'PASS' } else { 'FAIL' })), $a.name, (ConvertTo-Json -InputObject $a.actual -Compress))
     }
     foreach ($e in $r.errors) { Write-Host "ERROR $e" }
-    # Lines the specs log for diagnosis (paths Steam returned), never account details
+    # Lines the specs log for diagnosis (paths Steam returned, the last error) from stdout, and the extension's own
+    # Steam init trace from stderr (TRACE writes there; Steam's error text is on the line after it, hence the context).
+    # Never the rest, which can hold account details
     Select-String -Path $log -Pattern '^(allow_steam_paths|gametest):' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.Line }
+    Select-String -Path "$log.err" -Pattern 'steam_api_init' -Context 0, 1 -ErrorAction SilentlyContinue |
+        ForEach-Object { Write-Host $_.Line; $_.Context.PostContext | ForEach-Object { Write-Host "  $_" } }
     Write-Host '::endgroup::'
     $pass = @($r.asserts | Where-Object pass).Count
     Write-Host "$s : $(if ($r.passed) { 'passed' } else { 'FAILED' }) ($pass/$(@($r.asserts).Count) asserts, game exit $exit)"
