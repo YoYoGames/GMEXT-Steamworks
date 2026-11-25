@@ -112,6 +112,16 @@ namespace steam_receive
             group_of_.clear();
         }
 
+        // Connections that have held messages (to release those of connections closed some other way)
+        std::vector<Conn> held_connections() const
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            std::vector<Conn> out;
+            for (const auto& [conn, queue] : held_)
+                out.push_back(conn);
+            return out;
+        }
+
         std::size_t held_count(Conn conn) const
         {
             std::lock_guard<std::mutex> lock(mutex_);
@@ -167,24 +177,44 @@ namespace steam_receive
                 }
             }
 
+            // Steam only orders messages within a connection. A connection receive stops at the first message that
+            // doesn't fit. A poll group receive stops only that message's connection: its later messages are held
+            // behind it, and other connections' messages that fit are still written, so one peer's big message
+            // can't stall the whole group
             std::uint64_t offset = 0;
+            std::vector<Conn> blocked;
+            std::uint32_t first_blocked_size = 0;
             std::size_t i = 0;
-            for (; i < pending.size() && i < count; ++i) {
-                const std::uint32_t size = Traits::size(pending[i].msg);
-                if (offset + size > capacity) {
-                    if (i == 0) {
-                        result.oversized = true;
-                        result.needed = size;
-                    }
-                    break;
+            for (; i < pending.size() && result.written < count; ++i) {
+                const Held& h = pending[i];
+                const Conn c = Traits::conn(h.msg);
+                const std::uint32_t size = Traits::size(h.msg);
+                const bool is_blocked = std::find(blocked.begin(), blocked.end(), c) != blocked.end();
+                if (!is_blocked && offset + size <= capacity) {
+                    write(h.msg, (std::uint32_t)offset);
+                    Traits::release(h.msg);
+                    offset += size;
+                    ++result.written;
+                    continue;
                 }
-                write(pending[i].msg, (std::uint32_t)offset);
-                Traits::release(pending[i].msg);
-                offset += size;
-                ++result.written;
+                if (!is_blocked) {
+                    if (blocked.empty())
+                        first_blocked_size = size;
+                    blocked.push_back(c);
+                }
+                put_back(h);
+                if (!from_group)
+                    break;
             }
+            if (!from_group && i < pending.size() && !blocked.empty())
+                ++i; // the message that didn't fit is already held
             for (; i < pending.size(); ++i)
                 put_back(pending[i]);
+            // Nothing could be written because the first message in the way is bigger than the whole buffer
+            if (result.written == 0 && !blocked.empty() && first_blocked_size > capacity) {
+                result.oversized = true;
+                result.needed = first_blocked_size;
+            }
             return result;
         }
     };

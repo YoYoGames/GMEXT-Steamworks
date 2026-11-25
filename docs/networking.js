@@ -526,7 +526,7 @@
  * @function steam_networking_sockets_receive_messages_on_poll_group
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup)
  *
- * This function works like ${function.steam_networking_sockets_receive_messages_on_connection}, but it returns messages from any connection in the poll group. Messages that didn't fit an earlier receive are returned first, whether that receive was on the poll group or on one of its connections, in the order they arrived.
+ * This function works like ${function.steam_networking_sockets_receive_messages_on_connection}, but it returns messages from any connection in the poll group. Messages that didn't fit an earlier receive are returned first, whether that receive was on the poll group or on one of its connections, in the order they arrived. A message that doesn't fit stops only its own connection for this receive: that connection's later messages stay behind it, and messages from the group's other connections are still returned, so one peer's large message can't stall the others.
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  * 

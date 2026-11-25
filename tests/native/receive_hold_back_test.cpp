@@ -162,6 +162,45 @@ int main()
         q.release_all();
         check(b.released && q.held_count(2) == 0, "release_all releases everything");
     }
+    {
+        // A poll group receive: one connection's big message stops only that connection
+        Queue q; FakeSteam steam;
+        FakeMsg big{1, 500, 1}, a2{1, 10, 2}, b1{2, 10, 3}, b2{2, 10, 4};
+        steam.pending = {&big, &b1, &a2, &b2};
+        Received r;
+        auto res = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2}), r.write());
+        check(r.ids == std::vector<int>({3, 4}), "other connections' messages are still written");
+        check(q.held_count(1) == 2 && !big.released && !a2.released, "the big message and its connection's later ones are held, in order");
+        check(!res.oversized, "not reported as oversized while something was written");
+        Received r2;
+        auto res2 = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2}), r2.write());
+        check(r2.ids.empty() && res2.oversized && res2.needed == 500, "with only the big message left, it's reported with its size");
+        Received r3;
+        q.receive_on_connection(1, 10, 600, steam.on_connection(1), r3.write());
+        check(r3.ids == std::vector<int>({1, 2}), "a big enough buffer returns connection 1's messages in order");
+    }
+    {
+        // A poll group receive: a connection that's stopped keeps its order, while another carries on
+        Queue q; FakeSteam steam;
+        FakeMsg a1{1, 60, 1}, b1{2, 30, 2}, a2{1, 10, 3}, b2{2, 30, 4};
+        steam.pending = {&a1, &b1, &a2, &b2};
+        Received r;
+        q.receive_on_poll_group(7, 10, 70, steam.on_group({1, 2}), r.write());
+        check(r.ids == std::vector<int>({1, 3}), "connection 1's messages that fit are written in order");
+        check(q.held_count(1) == 0 && q.held_count(2) == 2, "connection 2 stops at its first message that doesn't fit, and its later one stays behind it");
+        q.release_all();
+    }
+    {
+        // held_connections lists what's held
+        Queue q; FakeSteam steam;
+        FakeMsg a{1, 50, 1}, b{4, 50, 2};
+        steam.pending = {&a, &b};
+        Received r;
+        q.receive_on_poll_group(7, 10, 10, steam.on_group({1, 4}), r.write());
+        auto conns = q.held_connections();
+        check(conns.size() == 2, "held_connections lists both connections");
+        q.release_all();
+    }
     std::printf("%s\n", failures ? "FAILED" : "all passed");
     return failures ? 1 : 0;
 }

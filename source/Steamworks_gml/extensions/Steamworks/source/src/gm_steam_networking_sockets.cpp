@@ -175,6 +175,21 @@ bool steam_networking_sockets_close_listen_socket(std::uint32_t listen_socket)
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return false;
 
+    // Closing a listen socket closes the connections accepted on it without steam_networking_sockets_close_connection,
+
+    // so release what's held for them here (before the close, while their info still names the socket)
+
+    for (std::uint32_t conn : g_sockets_held.held_connections()) {
+
+        SteamNetConnectionInfo_t info{};
+
+        if (s->GetConnectionInfo((HSteamNetConnection)conn, &info) && info.m_hListenSocket == (HSteamListenSocket)listen_socket)
+
+            g_sockets_held.release_connection(conn);
+
+    }
+
+
     return s->CloseListenSocket((HSteamListenSocket)listen_socket);
 }
 
