@@ -848,7 +848,6 @@ void steam_friends_get_follower_count(std::uint64_t steam_id,  const gm::wire::G
     if (!call)
     {
         steam_set_last_error("Steam Friends: GetFollowerCount returned NULL SteamAPICall_t.");
-        steam_async::call_back_failed<gm_structs::SteamFriendsGetFollowerCountResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
     auto* h = new steam_async::CallResult<gm_structs::SteamFriendsGetFollowerCountResult, FriendsGetFollowerCount_t>(callback, &friends_fromNative);
@@ -867,7 +866,6 @@ void steam_friends_is_following(std::uint64_t steam_id,  const gm::wire::GMFunct
     if (!call)
     {
         steam_set_last_error("Steam Friends: IsFollowing returned NULL SteamAPICall_t.");
-        steam_async::call_back_failed<gm_structs::SteamFriendsIsFollowingResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
     auto* h = new steam_async::CallResult<gm_structs::SteamFriendsIsFollowingResult, FriendsIsFollowing_t>(callback, &friends_fromNative);
@@ -886,7 +884,6 @@ void steam_friends_enumerate_following_list(std::uint32_t start_index,  const gm
     if (!call)
     {
         steam_set_last_error("Steam Friends: EnumerateFollowingList returned NULL SteamAPICall_t.");
-        steam_async::call_back_failed<gm_structs::SteamFriendsEnumerateFollowingListResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
     auto* h = new steam_async::CallResult<gm_structs::SteamFriendsEnumerateFollowingListResult, FriendsEnumerateFollowingList_t>(callback, &friends_fromNative);
@@ -905,7 +902,6 @@ void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const
     if (!call)
     {
         steam_set_last_error("Steam Friends: RequestClanOfficerList returned NULL SteamAPICall_t.");
-        steam_async::call_back_failed<gm_structs::SteamFriendsRequestClanOfficerListResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
     auto* h = new steam_async::CallResult<gm_structs::SteamFriendsRequestClanOfficerListResult, ClanOfficerListResponse_t>(callback, &friends_fromNative);
@@ -937,7 +933,6 @@ bool steam_friends_download_clan_activity_counts(
     if (!call)
     {
         steam_set_last_error("Steam Friends: DownloadClanActivityCounts returned NULL SteamAPICall_t.");
-        steam_async::call_back_failed<gm_structs::SteamFriendsDownloadClanActivityCountsResult>(callback, gm_enums::SteamApiResult::Fail);
         return false;
     }
 

@@ -821,7 +821,6 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm:
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_user_request_store_auth_url: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStoreAuthUrlResponse>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -872,7 +871,6 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_user_request_encrypted_app_ticket: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserEncryptedAppTicketResponse>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -891,7 +889,6 @@ void steam_user_get_duration_control( const gm::wire::GMFunction& callback)
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_user_get_duration_control: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserDurationControl>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -910,7 +907,6 @@ void steam_user_get_market_eligibility( const gm::wire::GMFunction& callback)
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_user_get_market_eligibility: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserMarketEligibilityResponse>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 

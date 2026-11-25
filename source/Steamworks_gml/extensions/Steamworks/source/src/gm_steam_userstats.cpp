@@ -691,7 +691,6 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_request_user_stats: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsUserStatsReceived>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -716,7 +715,6 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_find_or_create_leaderboard: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsLeaderboardFindResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -736,7 +734,6 @@ void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const 
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_find_leaderboard: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsLeaderboardFindResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -764,7 +761,6 @@ void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_hand
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_download_leaderboard_entries: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsScoresDownloadedResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -798,7 +794,6 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_download_leaderboard_entries_for_users: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsScoresDownloadedResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -836,7 +831,6 @@ void steam_userstats_upload_leaderboard_score(
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_upload_leaderboard_score: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsScoreUploadedResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -862,7 +856,6 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_attach_leaderboard_ugc: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsAttachLeaderboardUgcResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -885,7 +878,6 @@ void steam_userstats_number_of_current_players( const gm::wire::GMFunction& call
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_number_of_current_players: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -904,7 +896,6 @@ void steam_userstats_request_global_achievement_percentages( const gm::wire::GMF
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_request_global_achievement_percentages: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -923,7 +914,6 @@ void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_userstats_request_global_stats: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamUserStatsGlobalStatsReceivedResult>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 

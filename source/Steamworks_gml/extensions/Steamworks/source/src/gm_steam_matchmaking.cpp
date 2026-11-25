@@ -193,7 +193,6 @@ void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_ty
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_matchmaking_create_lobby: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyCreated>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -212,7 +211,6 @@ void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFun
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_matchmaking_join_lobby: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyEnter>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -231,7 +229,6 @@ void steam_matchmaking_request_lobby_list( const gm::wire::GMFunction& callback)
 
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_matchmaking_request_lobby_list: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamMatchmakingLobbyMatchList>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 

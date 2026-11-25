@@ -192,7 +192,6 @@ void steam_timeline_does_event_recording_exist(std::uint64_t event_handle, const
     SteamAPICall_t call = t->DoesEventRecordingExist(timeline_handle_from_u64(event_handle));
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_timeline_does_event_recording_exist: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamTimelineEventRecordingExists>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
@@ -238,7 +237,6 @@ void steam_timeline_does_game_phase_recording_exist(std::string_view phase_id, c
     SteamAPICall_t call = t->DoesGamePhaseRecordingExist(s.c_str());
     if (call == k_uAPICallInvalid) {
         steam_set_last_error("steam_timeline_does_game_phase_recording_exist: Steam API call failed to dispatch.");
-        steam_async::call_back_failed<gm_structs::SteamTimelineGamePhaseRecordingExists>(callback, gm_enums::SteamApiResult::Fail);
         return;
     }
 
