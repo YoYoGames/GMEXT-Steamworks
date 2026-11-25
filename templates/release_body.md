@@ -14,6 +14,7 @@
 
 ## FIXES IN 3.0.1
 
+- **Behaviour change: Cloud writes without a count** (`steam_remote_storage_file_write`, `_file_write_async`, `_file_write_stream_write_chunk`) write the bytes written to the buffer past the offset (its `buffer_tell` position), not its whole allocated size. If the position isn't past the offset, as for a buffer from `buffer_load`, the whole buffer from the offset is written as before. Reading from a buffer moves its position too, so pass the count if you have read from it.
 - **Async callbacks always arrive.** Every function that takes a callback now calls it, also when the call can't go ahead:
   - with `SteamApiResult.Fail` if Steam isn't initialised, Steam won't dispatch the call, or an argument is rejected;
   - with `SteamApiResult.IoFailure` if Steam can't deliver the result.
@@ -34,10 +35,9 @@
   - `steam_networking_messages_receive_message_on_channel` receives one message at a time into your buffer, with no allocation per call.
   - `steam_input_set_dualsense_trigger_effect` is implemented.
 - **Platform files:**
-  - `libSteamworks.dylib` and `libSteamworks.so` are linked for macOS and Linux.
-  - GMRT builds stage the Steam API library in the game's `assets` folder.
+  - macOS and Linux games can load the extension. 3.0.0 didn't list `libSteamworks.dylib` and `libSteamworks.so` as the extension's files for those platforms, so they weren't found.
+  - Games built with GMRT include the Steam API library. 3.0.0 copied it into a folder current GMRT builds don't have, so the game shipped without it.
 - **Demo:** it no longer calls functions that don't exist.
-- **Cloud writes without a count** (`steam_remote_storage_file_write`, `_file_write_async`, `_file_write_stream_write_chunk`) write the bytes written to the buffer past the offset (its `buffer_tell` position), not its whole allocated size. If the position isn't past the offset, as for a buffer from `buffer_load`, the whole buffer from the offset is written as before. Reading from a buffer moves its position too, so pass the count if you have read from it.
 
 ## CHANGES SINCE ${releaseOldVersion}
 
