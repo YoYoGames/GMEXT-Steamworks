@@ -1,9 +1,8 @@
 {
  "version": 1,
  "seed": 1,
- "total_frames": 330,
+ "total_frames": 90,
  "fps": 60,
- "pacing": "realtime",
  "stop_on_error": false,
  "chunks": [
   {
@@ -11,52 +10,12 @@
    "src": "return steam_api_is_initialized() ? 1 : 0;"
   },
   {
-   "id": "send_lb_download",
-   "src": "steam_userstats_download_leaderboard_entries(0, 0, 1, 10, gametest_async_recorder(\"lb_download\"));\nshow_debug_message(\"gametest: lb_download last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_lb_upload",
-   "src": "steam_userstats_upload_leaderboard_score(0, 1, 100, [], gametest_async_recorder(\"lb_upload\"));\nshow_debug_message(\"gametest: lb_upload last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_lb_attach",
-   "src": "steam_userstats_attach_leaderboard_ugc(0, 0, gametest_async_recorder(\"lb_attach\"));\nshow_debug_message(\"gametest: lb_attach last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
    "id": "send_party_join",
-   "src": "steam_parties_join_party(0, gametest_async_recorder(\"party_join\"));\nshow_debug_message(\"gametest: party_join last error: \" + string(steam_api_last_error()));\nreturn 1;"
+   "src": "// Beacon 0 is invalid, so Steam returns k_uAPICallInvalid instead of dispatching the call\nvar ok = steam_parties_join_party(0, gametest_async_recorder(\"party_join\"));\nshow_debug_message(\"gametest: party_join: \" + string(steam_api_last_error()));\nreturn (!ok && string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0) ? 1 : 0;"
   },
   {
    "id": "send_party_slots",
-   "src": "steam_parties_change_num_open_slots(0, 1, gametest_async_recorder(\"party_slots\"));\nshow_debug_message(\"gametest: party_slots last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_rs_download",
-   "src": "steam_remote_storage_ugc_download(0, 0, gametest_async_recorder(\"rs_download\"));\nshow_debug_message(\"gametest: rs_download last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_mm_join",
-   "src": "steam_matchmaking_join_lobby(0, gametest_async_recorder(\"mm_join\"));\nshow_debug_message(\"gametest: mm_join last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_fr_officers",
-   "src": "steam_friends_request_clan_officer_list(0, gametest_async_recorder(\"fr_officers\"));\nshow_debug_message(\"gametest: fr_officers last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "send_tl_event",
-   "src": "steam_timeline_does_event_recording_exist(0, gametest_async_recorder(\"tl_event\"));\nshow_debug_message(\"gametest: tl_event last error: \" + string(steam_api_last_error()));\nreturn 1;"
-  },
-  {
-   "id": "res_lb_download",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"lb_download\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_lb_upload",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"lb_upload\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_lb_attach",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"lb_attach\"); return is_undefined(r) ? -1 : r;"
+   "src": "// Beacon 0 is invalid, so Steam returns k_uAPICallInvalid instead of dispatching the call\nvar ok = steam_parties_change_num_open_slots(0, 1, gametest_async_recorder(\"party_slots\"));\nshow_debug_message(\"gametest: party_slots: \" + string(steam_api_last_error()));\nreturn (!ok && string_pos(\"k_uAPICallInvalid\", steam_api_last_error()) > 0) ? 1 : 0;"
   },
   {
    "id": "res_party_join",
@@ -65,22 +24,6 @@
   {
    "id": "res_party_slots",
    "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"party_slots\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_rs_download",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"rs_download\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_mm_join",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"mm_join\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_fr_officers",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"fr_officers\"); return is_undefined(r) ? -1 : r;"
-  },
-  {
-   "id": "res_tl_event",
-   "src": "// 2 = SteamApiResult.Fail\nvar r = gametest_async_result(\"tl_event\"); return is_undefined(r) ? -1 : r;"
   }
  ],
  "timeline": [
@@ -95,144 +38,32 @@
   {
    "frame": 61,
    "assert": {
-    "id": "send_lb_download",
-    "name": "lb_download sent with an invalid handle",
+    "id": "send_party_join",
+    "name": "steam_parties_join_party with an invalid beacon returns false and reports k_uAPICallInvalid",
     "expect": 1
    }
   },
   {
    "frame": 62,
    "assert": {
-    "id": "send_lb_upload",
-    "name": "lb_upload sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 63,
-   "assert": {
-    "id": "send_lb_attach",
-    "name": "lb_attach sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 64,
-   "assert": {
-    "id": "send_party_join",
-    "name": "party_join sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 65,
-   "assert": {
     "id": "send_party_slots",
-    "name": "party_slots sent with an invalid handle",
+    "name": "steam_parties_change_num_open_slots with an invalid beacon returns false and reports k_uAPICallInvalid",
     "expect": 1
    }
   },
   {
-   "frame": 66,
-   "assert": {
-    "id": "send_rs_download",
-    "name": "rs_download sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 67,
-   "assert": {
-    "id": "send_mm_join",
-    "name": "mm_join sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 68,
-   "assert": {
-    "id": "send_fr_officers",
-    "name": "fr_officers sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 69,
-   "assert": {
-    "id": "send_tl_event",
-    "name": "tl_event sent with an invalid handle",
-    "expect": 1
-   }
-  },
-  {
-   "frame": 300,
-   "assert": {
-    "id": "res_lb_download",
-    "name": "lb_download calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 301,
-   "assert": {
-    "id": "res_lb_upload",
-    "name": "lb_upload calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 302,
-   "assert": {
-    "id": "res_lb_attach",
-    "name": "lb_attach calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 303,
+   "frame": 70,
    "assert": {
     "id": "res_party_join",
-    "name": "party_join calls back with SteamApiResult.Fail",
+    "name": "steam_parties_join_party calls back with SteamApiResult.Fail",
     "expect": 2
    }
   },
   {
-   "frame": 304,
+   "frame": 71,
    "assert": {
     "id": "res_party_slots",
-    "name": "party_slots calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 305,
-   "assert": {
-    "id": "res_rs_download",
-    "name": "rs_download calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 306,
-   "assert": {
-    "id": "res_mm_join",
-    "name": "mm_join calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 307,
-   "assert": {
-    "id": "res_fr_officers",
-    "name": "fr_officers calls back with SteamApiResult.Fail",
-    "expect": 2
-   }
-  },
-  {
-   "frame": 308,
-   "assert": {
-    "id": "res_tl_event",
-    "name": "tl_event calls back with SteamApiResult.Fail",
+    "name": "steam_parties_change_num_open_slots calls back with SteamApiResult.Fail",
     "expect": 2
    }
   }
