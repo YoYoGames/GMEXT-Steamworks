@@ -43,7 +43,7 @@ namespace
 
     // Receive through the hold-back queue into out_data, from offset 0
     template <typename Receive>
-    std::vector<gm_structs::SteamNetworkingMessage> sockets_receive(const char* fn, std::uint32_t count, gm::wire::GMBuffer& out_data,
+    std::vector<gm_structs::SteamNetworkingMessage> sockets_receive(const char* fn, gm::wire::GMBuffer& out_data,
                                                                     Receive&& receive)
     {
         std::vector<gm_structs::SteamNetworkingMessage> out;
@@ -350,7 +350,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         return {};
     }
 
-    return sockets_receive("steam_networking_sockets_receive_messages_on_connection", count, out_data,
+    return sockets_receive("steam_networking_sockets_receive_messages_on_connection", out_data,
         [&](std::uint64_t capacity, auto& write) {
             return g_sockets_held.receive_on_connection(conn, count, capacity,
                 [&](int max, SteamNetworkingMessage_t** msgs) {
@@ -513,7 +513,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         return {};
     }
 
-    return sockets_receive("steam_networking_sockets_receive_messages_on_poll_group", count, out_data,
+    return sockets_receive("steam_networking_sockets_receive_messages_on_poll_group", out_data,
         [&](std::uint64_t capacity, auto& write) {
             return g_sockets_held.receive_on_poll_group(poll_group, count, capacity,
                 [&](int max, SteamNetworkingMessage_t** msgs) {

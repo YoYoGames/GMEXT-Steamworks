@@ -267,6 +267,19 @@ int main()
               "a stuck connection receive doesn't take more from Steam");
         q.release_all();
     }
+    {
+        // Two stuck connections: the size reported is the larger, so one buffer of that size frees both
+        Queue q; FakeSteam steam;
+        FakeMsg a{1, 500, 1}, b{2, 2000, 2}, c{3, 10, 3};
+        steam.pending = {&a, &b, &c};
+        Received r;
+        auto res = q.receive_on_poll_group(7, 10, 100, steam.on_group({1, 2, 3}), r.write());
+        check(r.ids == std::vector<int>({3}) && res.oversized && res.needed == 2000, "the larger of two stuck messages is reported");
+        Received r2;
+        q.receive_on_poll_group(7, 10, 2000, steam.on_group({1, 2, 3}), r2.write());
+        check(r2.ids.size() == 1, "a 2000-byte buffer frees the first of them in this receive (2000 bytes total)");
+        q.release_all();
+    }
     std::printf("%s\n", failures ? "FAILED" : "all passed");
     return failures ? 1 : 0;
 }

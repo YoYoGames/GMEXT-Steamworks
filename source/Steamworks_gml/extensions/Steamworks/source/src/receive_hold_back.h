@@ -42,13 +42,14 @@ namespace steam_receive
             std::size_t written = 0;       // messages written to the buffer and released
             bool oversized = false;        // a connection's next message is bigger than the whole buffer; it stays held
             std::uint32_t needed = 0;      // that message's size, when oversized
-            bool held_limit = false;       // a stuck connection has kMaxHeldPerConnection messages held, so Steam
-                                           // wasn't asked for more (only a buffer of at least `needed` frees it)
+            bool held_limit = false;       // a stuck connection has kMaxHeldPerConnection or more messages held, so
+                                           // Steam wasn't asked for more (a buffer of at least `needed` frees it)
         };
 
         // A connection stuck behind a message bigger than the buffer keeps having its later messages taken from
-        // Steam (a poll group can't skip one connection), so its held queue is capped: once it reaches this, the
-        // receive stops taking more from Steam until the game gives a buffer big enough, and reports it
+        // Steam (a poll group can't skip one connection). Once it has this many held, the receive stops taking more
+        // from Steam until the game gives a buffer big enough, and reports it. The check is made before each fetch,
+        // so the held count can go over this by up to one receive's count
         static constexpr std::size_t kMaxHeldPerConnection = 256;
 
         // Fetch(max, out) takes up to max messages from Steam into out and returns how many.
@@ -218,9 +219,9 @@ namespace steam_receive
             // can't stall the whole group
             std::uint64_t offset = 0;
             std::vector<Conn> blocked;
-            std::uint32_t first_blocked_size = 0;
             std::size_t i = 0;
-            std::uint32_t first_oversized = 0;
+            // The largest next message of any stuck connection, so one buffer of that size frees them all
+            std::uint32_t largest_oversized = 0;
             for (; i < pending.size() && result.written < count; ++i) {
                 const Held& h = pending[i];
                 const Conn c = Traits::conn(h.msg);
@@ -234,10 +235,8 @@ namespace steam_receive
                     continue;
                 }
                 if (!is_blocked) {
-                    if (blocked.empty())
-                        first_blocked_size = size;
-                    if (size > capacity && first_oversized == 0)
-                        first_oversized = size;
+                    if (size > capacity)
+                        largest_oversized = std::max(largest_oversized, size);
                     blocked.push_back(c);
                 }
                 put_back(h);
@@ -249,18 +248,17 @@ namespace steam_receive
             for (; i < pending.size(); ++i)
                 put_back(pending[i]);
             // Report a connection whose next message is bigger than the whole buffer, even when other connections'
-            // messages were written: only a bigger buffer lets that connection carry on
-            (void)first_blocked_size;
-            if (first_oversized == 0)
-                for (const auto& [c, n] : stuck)
-                    for (const Held& h : pending)
-                        if (Traits::conn(h.msg) == c) {
-                            first_oversized = std::max(first_oversized, Traits::size(h.msg));
-                            break;
-                        }
-            if (first_oversized != 0) {
+            // messages were written: only a bigger buffer lets that connection carry on. Stuck connections the loop
+            // didn't reach (count ran out) are included
+            for (const auto& [c, n] : stuck)
+                for (const Held& h : pending)
+                    if (Traits::conn(h.msg) == c) {
+                        largest_oversized = std::max(largest_oversized, Traits::size(h.msg));
+                        break;
+                    }
+            if (largest_oversized != 0) {
                 result.oversized = true;
-                result.needed = first_oversized;
+                result.needed = largest_oversized;
             }
             return result;
         }
