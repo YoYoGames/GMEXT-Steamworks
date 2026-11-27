@@ -10,6 +10,7 @@
   2.x, and results are delivered to a GML callback function instead of the Steam Async Event, so
   moving an existing project across is a migration rather than a drop-in upgrade. Projects that need
   the old API should stay on the final 2.2.2 release. Check the documentation for the current API.
+- Games built with **GMRT** need **GMRT v0.23** or newer for 3.0.1, including the glyph and Workshop file access below.
 - When running from the IDE, set the extension's **Debug** option to `Enabled`. On `Auto`, an IDE run can restart through Steam and exit.
 
 ## FIXES IN 3.0.1
@@ -36,7 +37,9 @@
   - `steam_input_set_dualsense_trigger_effect` is implemented.
 - **Platform files:**
   - macOS and Linux games can load the extension. 3.0.0 didn't list `libSteamworks.dylib` and `libSteamworks.so` as the extension's files for those platforms, so they weren't found.
+  - `libSteamworks.so` loads in the Steam Linux Runtime 1.0 (scout) and on older distributions. 3.0.0's needed glibc 2.38 and a recent libstdc++. It's now built in the scout SDK with libstdc++ linked in, as 2.2.x was, so it needs glibc 2.14 at most.
   - Games built with GMRT include the Steam API library. 3.0.0 copied it into a folder current GMRT builds don't have, so the game shipped without it.
+- **Files Steam returns can be opened.** The glyph images from `steam_input_get_glyph_png_for_action_origin` and `_svg_`, and the folders of installed Workshop items, are added to the runner's file whitelist again, as in 2.x, so `sprite_add`, `buffer_load` and `file_*` can read them. 3.0.0 didn't add them, so those reads were refused. The paths are read-only, except on the classic runner on Linux (including the Steam Deck), where they are also writable. On GMRT this needs GMRT v0.23 or newer.
 - **Demo:** it no longer calls functions that don't exist.
 
 ## CHANGES SINCE ${releaseOldVersion}
