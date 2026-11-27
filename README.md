@@ -23,6 +23,10 @@ presets (`CMakePresets.json`) - there are no separate per-platform IDE project f
 
 After compilation the exported dll/dylib/so file is automatically copied into the extension folder inside the included GameMaker project folder.
 
+The shipped `libSteamworks.so` is built in the Steam Linux Runtime 1.0 (scout) SDK so it loads in every Steam Linux runtime: run
+`source/Steamworks_gml/extensions/Steamworks/source/cmake/linux/build_scout.sh` (needs Docker). A build made with a newer
+toolchain will need that toolchain's glibc and libstdc++ at run time.
+
 ## Requirements
 
 In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.65](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
