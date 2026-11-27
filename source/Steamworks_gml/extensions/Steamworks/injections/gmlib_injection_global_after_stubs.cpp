@@ -1,11 +1,17 @@
 struct GMRTRunnerInterface
 {
     const char* (*ExtOptGetString)(const char* _ext, const char* _opt);
+    void (*AllowPath)(const char* _path, bool _isDirectory, bool _allowWrite);
 };
 void Init_Steamworks()
 {
     GMRTRunnerInterface ri;
     ri.ExtOptGetString = &ExtensionOptions_GetValue;
+    #if defined(GMRT_HAS_EXTENSION_FILES_ALLOW_PATH)
+    ri.AllowPath = &ExtensionFiles_AllowPath;
+    #else
+    ri.AllowPath = nullptr;
+    #endif
 
     using FunctionPointer = void (*)(GMRTRunnerInterface*, size_t);
     FunctionPointer fnHandle = nullptr;

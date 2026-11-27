@@ -1,0 +1,244 @@
+{
+ "version": 1,
+ "seed": 1,
+ "total_frames": 7500,
+ "fps": 60,
+ "pacing": "realtime",
+ "stop_on_error": false,
+ "chunks": [
+  {
+   "id": "init",
+   "src": "return steam_api_is_initialized() ? 1 : 0;"
+  },
+  {
+   "id": "input_init",
+   "src": "return steam_input_init(false) ? 1 : 0;"
+  },
+  {
+   "id": "glyph_path",
+   "src": "// Extension enums aren't available in a chunk: 114 = SteamInputActionOrigin.XBoxOne_A, 1 = SteamInputGlyphSize.Medium, 0 = SteamInputGlyphStyle.Knockout\nglobal.glyph = steam_input_get_glyph_png_for_action_origin(114, 1, 0);\nshow_debug_message(\"allow_steam_paths: glyph \" + string(global.glyph));\nreturn (is_string(global.glyph) && global.glyph != \"\" && file_exists(global.glyph)) ? 1 : 0;"
+  },
+  {
+   "id": "glyph_sprite",
+   "src": "if (!is_string(global.glyph) || global.glyph == \"\") return 0;\nvar s = sprite_add(global.glyph, 1, false, false, 0, 0);\nvar ok = sprite_exists(s);\nif (ok) sprite_delete(s);\nreturn ok ? 1 : 0;"
+  },
+  {
+   "id": "query",
+   "src": "// 0 = SteamUgcQuery.RankedByVote, 2 = SteamUgcMatchingUgcType.Items_ReadyToUse\n// Defaults, so a failed step fails its own assert instead of later chunks erroring\nglobal.ugc_item = 0; global.ugc_folder = \"\"; global.ugc_file = \"\"; global.ugc_was_subscribed = true;\nglobal.ugc_query = steam_ugc_create_query_all_ugc_request(0, 2, 480, 480, 1);\nsteam_ugc_send_query_ugc_request(global.ugc_query, gametest_async_recorder(\"query\"));\nreturn 1;"
+  },
+  {
+   "id": "pick",
+   "src": "// 1 = SteamApiResult.Ok\n// The smallest item in the first page, so the download is quick\nvar r = gametest_async_result(\"query\");\nif (r != 1) return 0;\nglobal.ugc_item = 0; var best = infinity;\nfor (var i = 0; i < 50; i++) {\n  var q = steam_ugc_get_query_ugc_result(global.ugc_query, i);\n  if (!is_struct(q)) break;\n  if (q.total_files_size > 0 && q.total_files_size < best && !q.banned) { best = q.total_files_size; global.ugc_item = q.published_file_id; }\n}\nsteam_ugc_release_query_ugc_request(global.ugc_query);\nshow_debug_message(\"allow_steam_paths: item \" + string(global.ugc_item) + \" (\" + string(best) + \" bytes)\");\nreturn global.ugc_item > 0 ? 1 : 0;"
+  },
+  {
+   "id": "subscribe",
+   "src": "// 1 = SteamUgcItemState.Subscribed\nif (global.ugc_item <= 0) return 0;\n// Only unsubscribe afterwards if this run subscribed it\nglobal.ugc_was_subscribed = (steam_ugc_get_item_state(global.ugc_item) & 1) != 0;\nsteam_ugc_subscribe_item(global.ugc_item, gametest_async_recorder(\"subscribe\"));\nreturn 1;"
+  },
+  {
+   "id": "subscribe_result",
+   "src": "// 1 = SteamApiResult.Ok\nvar r = gametest_async_result(\"subscribe\"); return r == 1 ? 1 : 0;"
+  },
+  {
+   "id": "installed",
+   "src": "// 4 = SteamUgcItemState.Installed\nif (global.ugc_item <= 0) return 0;\nreturn (steam_ugc_get_item_state(global.ugc_item) & 4) != 0 ? 1 : 0;"
+  },
+  {
+   "id": "folder",
+   "src": "if (global.ugc_item <= 0) return 0;\nvar info = steam_ugc_get_item_install_info(global.ugc_item);\nvar path = is_struct(info) ? info.folder : \"\";\nshow_debug_message(\"allow_steam_paths: install path \" + path);\nif (path == \"\") return 0;\n// 2 = SteamUgcItemState.LegacyItem: the install path is the item's single file, and the extension allows its parent folder\nif ((steam_ugc_get_item_state(global.ugc_item) & 2) != 0) {\n  global.ugc_folder = filename_dir(path);\n  global.ugc_file = filename_name(path);\n  show_debug_message(\"allow_steam_paths: legacy item\");\n  return (file_exists(path) && directory_exists(global.ugc_folder)) ? 1 : 0;\n}\nglobal.ugc_folder = path;\nreturn directory_exists(path) ? 1 : 0;"
+  },
+  {
+   "id": "find",
+   "src": "// A legacy item's file is already known (folder chunk); otherwise list the folder\nif (global.ugc_file == \"\") {\n  global.ugc_file = (global.ugc_folder == \"\") ? \"\" : file_find_first(global.ugc_folder + \"/*\", fa_none);\n  file_find_close();\n}\nshow_debug_message(\"allow_steam_paths: file \" + global.ugc_file);\nreturn global.ugc_file != \"\" ? 1 : 0;"
+  },
+  {
+   "id": "file",
+   "src": "return (global.ugc_file != \"\" && file_exists(global.ugc_folder + \"/\" + global.ugc_file)) ? 1 : 0;"
+  },
+  {
+   "id": "unsubscribe",
+   "src": "if (global.ugc_item > 0 && !global.ugc_was_subscribed) steam_ugc_unsubscribe_item(global.ugc_item, gametest_async_recorder(\"unsubscribe\"));\nreturn 1;"
+  },
+  {
+   "id": "unsubscribe_result",
+   "src": "// 1 = SteamApiResult.Ok\nif (global.ugc_was_subscribed) return 1;\nvar r = gametest_async_result(\"unsubscribe\"); return r == 1 ? 1 : 0;"
+  },
+  {
+   "id": "download",
+   "src": "// Ask Steam to download it now, at high priority, rather than waiting for its own scheduling\nif (global.ugc_item <= 0) return 0;\nreturn steam_ugc_download_item(global.ugc_item, true) ? 1 : 0;"
+  },
+  {
+   "id": "progress",
+   "src": "// Logs the item's state bits and download progress for the job log; always passes\nif (global.ugc_item <= 0) return 1;\nvar dl = steam_ugc_get_item_download_info(global.ugc_item);\nshow_debug_message(\"allow_steam_paths: state \" + string(steam_ugc_get_item_state(global.ugc_item)) + \", downloaded \" + (is_struct(dl) ? string(dl.bytes_downloaded) + \"/\" + string(dl.bytes_total) : \"no info\"));\nreturn 1;"
+  }
+ ],
+ "timeline": [
+  {
+   "frame": 60,
+   "assert": {
+    "id": "init",
+    "name": "Steam is initialised (tier 3: needs a signed-in Steam client)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 61,
+   "assert": {
+    "id": "input_init",
+    "name": "steam_input_init succeeds",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 62,
+   "assert": {
+    "id": "glyph_path",
+    "name": "the glyph path Steam returns exists for file_exists",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 63,
+   "assert": {
+    "id": "glyph_sprite",
+    "name": "sprite_add loads the glyph PNG from Steam's folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 64,
+   "assert": {
+    "id": "query",
+    "name": "Workshop query for app 480 is sent",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 360,
+   "assert": {
+    "id": "pick",
+    "name": "the query returns at least one item (smallest picked)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 361,
+   "assert": {
+    "id": "subscribe",
+    "name": "subscribe is sent (remembering whether it was already subscribed)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 600,
+   "assert": {
+    "id": "subscribe_result",
+    "name": "subscribe calls back with SteamApiResult.Ok",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 601,
+   "assert": {
+    "id": "download",
+    "name": "download_item is accepted (high priority)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 1200,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (20 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 2400,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (40 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 3600,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (60 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 4800,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (80 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 6000,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (100 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7199,
+   "assert": {
+    "id": "progress",
+    "name": "download progress logged (119 s)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7200,
+   "assert": {
+    "id": "installed",
+    "name": "the item is installed within 2 minutes",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7201,
+   "assert": {
+    "id": "folder",
+    "name": "directory_exists on the item's install folder (a legacy item: file_exists on its file and directory_exists on its folder)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7202,
+   "assert": {
+    "id": "find",
+    "name": "a file in the item's folder is found (file_find_first, or a legacy item's own file)",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7203,
+   "assert": {
+    "id": "file",
+    "name": "file_exists on a file in the item's folder",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7204,
+   "assert": {
+    "id": "unsubscribe",
+    "name": "unsubscribe is sent if this run subscribed it",
+    "expect": 1
+   }
+  },
+  {
+   "frame": 7440,
+   "assert": {
+    "id": "unsubscribe_result",
+    "name": "unsubscribe calls back with SteamApiResult.Ok (or wasn't needed)",
+    "expect": 1
+   }
+  }
+ ]
+}

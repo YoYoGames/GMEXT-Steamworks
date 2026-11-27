@@ -214,7 +214,11 @@ std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums:
         (ESteamInputGlyphSize)(int)size,
         (uint32)(int)flags
     );
-    return p ? std::optional<std::string>(p) : std::nullopt;
+    if (!p)
+        return std::nullopt;
+    // The glyph is a file in the Steam install, outside the sandbox: let sprite_add and file_* read it (not write)
+    gm::files::AllowFile(p, gm::files::Access::Read);
+    return std::optional<std::string>(p);
 }
 
 std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphStyle flags)
@@ -229,7 +233,10 @@ std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums:
         (EInputActionOrigin)(int)origin,
         (uint32)(int)flags
     );
-    return p ? std::optional<std::string>(p) : std::nullopt;
+    if (!p)
+        return std::nullopt;
+    gm::files::AllowFile(p, gm::files::Access::Read);
+    return std::optional<std::string>(p);
 }
 
 

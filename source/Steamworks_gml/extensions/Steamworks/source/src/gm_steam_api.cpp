@@ -286,6 +286,7 @@ bool steam_api_init(uint32_t own_app_id)
     TRACE("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
     steam_set_initialized(true);
     steam_networking_sockets_register_status_callback();
+    steam_ugc_allow_installed_items();
     return true;
 }
 

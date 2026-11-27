@@ -154,10 +154,10 @@ namespace gm::details {
         void (*unused_66)(); // DsListAddInt64
 
         // whitelisting
-        void (*unused_67)(); // AddDirectoryToBundleWhitelist
-        void (*unused_68)(); // AddFileToBundleWhitelist
-        void (*unused_69)(); // AddDirectoryToSaveWhitelist
-        void (*unused_70)(); // AddFileToSaveWhitelist
+        void (*AddDirectoryToBundleWhitelist)(const char* _pszFilename);
+        void (*AddFileToBundleWhitelist)(const char* _pszFilename);
+        void (*AddDirectoryToSaveWhitelist)(const char* _pszFilename);
+        void (*AddFileToSaveWhitelist)(const char* _pszFilename);
 
         // utilities
         void (*unused_71)(); // KIND_NAME_RValue
@@ -209,6 +209,11 @@ namespace gm::details {
 
     struct GMRTRunnerInterface {
         const char* (*ExtOptGetString)(const char* _ext, const char* _opt);
+        // GMRT's ExtensionFiles_AllowPath: adds a path to the runner's file whitelists so
+        // GML file functions accept it, for reading only unless _allowWrite. Second on every
+        // platform, so the generated injection's two-field table has the same layout
+        // everywhere. Null when the GMRT the game is built with doesn't have it.
+        void (*AllowPath)(const char* _path, bool _isDirectory, bool _allowWrite);
 #if defined(TARGET_APPLE_MOBILE)
         // Only the Apple-mobile objc initializer currently wires this up.
         const char* (*ExtGetVersion)(const char* _ext);
@@ -234,6 +239,28 @@ namespace gm::log {
 #define LOG_INFO(fmt, ...) ::gm::log::Write(::gm::log::Level::Info, "INFO", __func__, fmt, ##__VA_ARGS__)
 #define LOG_WARNING(fmt, ...) ::gm::log::Write(::gm::log::Level::Warning, "WARNING", __func__, fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...) ::gm::log::Write(::gm::log::Level::Error, "ERROR", __func__, fmt, ##__VA_ARGS__)
+
+namespace gm::files {
+
+    enum class Access {
+        Read,      // the game can read the path but not write or delete there
+        ReadWrite, // the game can also write and delete there
+    };
+
+    // Let the game's GML file functions (file_*, buffer_load, sprite_add, ...) use a
+    // file or directory outside the game's sandbox, such as a path an SDK returns.
+    // Use Access::Read for content the SDK owns. A directory allows everything under
+    // it. The path should be absolute. Null or empty paths are ignored, and so is a
+    // path already allowed with at least this access, so calling these every frame
+    // costs a set lookup. Call on the game thread, after the runner has initialised the
+    // extension.
+    //
+    // On the classic runner, Linux has no read-only whitelist (its reads check the save
+    // list), so Access::Read also allows writing there.
+    GM_CORE_LOCAL void AllowFile(const char* path, Access access = Access::Read);
+    GM_CORE_LOCAL void AllowDirectory(const char* path, Access access = Access::Read);
+
+} // namespace gm::files
 
 namespace gm {
 
@@ -294,6 +321,10 @@ namespace gm {
         static void Init(const gm::details::GMS2RunnerInterface& runner)
         {
             s_getExtensionOption = runner.ExtOptGetString;
+            s_addDirectoryToBundleWhitelist = runner.AddDirectoryToBundleWhitelist;
+            s_addFileToBundleWhitelist = runner.AddFileToBundleWhitelist;
+            s_addDirectoryToSaveWhitelist = runner.AddDirectoryToSaveWhitelist;
+            s_addFileToSaveWhitelist = runner.AddFileToSaveWhitelist;
 
             // Run the single registered hook once.
             gm::RunInitHookOnce();
@@ -301,9 +332,16 @@ namespace gm {
 
         static void Init(const gm::details::GMRTRunnerInterface& runner)
         {
-            s_getExtensionOption = runner.ExtOptGetString;
+            // Take only the fields this table sets: on Apple mobile the Objective-C +load
+            // initialiser passes a full table first, and a later, smaller one (the injected
+            // Init_<Ext>, or an older GMRT's) must not clear what it set.
+            if (runner.ExtOptGetString)
+                s_getExtensionOption = runner.ExtOptGetString;
+            if (runner.AllowPath)
+                s_allowPath = runner.AllowPath;
 #if defined(TARGET_APPLE_MOBILE)
-            s_getExtensionVersion = runner.ExtGetVersion;
+            if (runner.ExtGetVersion)
+                s_getExtensionVersion = runner.ExtGetVersion;
 #endif
 
             // Run the single registered hook once.
@@ -313,7 +351,21 @@ namespace gm {
         // Utility: returns hex string (optionally spaced: "aa bb cc")
         static GM_CORE_LOCAL std::string BufferToHex(const void* buffer, std::size_t length, bool spaced = true);
 
+        // Implementation of gm::files::AllowFile / AllowDirectory.
+        static GM_CORE_LOCAL void AllowPath(const char* path, bool isDirectory, bool allowWrite);
+
     private:
+        using WhitelistFn = void (*)(const char* path);
+        using AllowPathFn = void (*)(const char* path, bool isDirectory, bool allowWrite);
+
+        // Classic runner (YYRunnerInterface) whitelist functions.
+        inline static WhitelistFn s_addDirectoryToBundleWhitelist = nullptr;
+        inline static WhitelistFn s_addFileToBundleWhitelist = nullptr;
+        inline static WhitelistFn s_addDirectoryToSaveWhitelist = nullptr;
+        inline static WhitelistFn s_addFileToSaveWhitelist = nullptr;
+        // GMRT whitelist function.
+        inline static AllowPathFn s_allowPath = nullptr;
+
         inline static GetExtensionOptionFn s_getExtensionOption = nullptr;
 #if defined(TARGET_APPLE_MOBILE)
         inline static GetExtensionVersionFn s_getExtensionVersion = nullptr;
