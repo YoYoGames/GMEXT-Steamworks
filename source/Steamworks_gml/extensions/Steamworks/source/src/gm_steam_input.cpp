@@ -8,13 +8,34 @@
 #include <unordered_map>
 
 #include <algorithm>
+#include <climits>
 #include <cstdint>
+#include <cstdlib>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <utility>
 #include <mutex>
 
 static std::mutex g_callbacks_mtx;
+
+// Steam builds glyph paths from its install folder plus a Windows-style relative path. On macOS the result has
+// backslashes in it (".../MacOS\controller_base\images\..."), and on Linux it goes through ".." (".../linux64/../
+// controller_base/..."). GameMaker's file functions need a plain absolute path there (sprite_add fails on the
+// backslashes, and GMRT won't allow a path with ".."), so use '/' and resolve the path before allowing and returning it.
+static std::string steam_input_glyph_path(const char* p)
+{
+#if defined(_WIN32)
+    return p;
+#else
+    std::string s(p);
+    std::replace(s.begin(), s.end(), '\\', '/');
+    char resolved[PATH_MAX];
+    if (realpath(s.c_str(), resolved) != nullptr)
+        return resolved;
+    return s;
+#endif
+}
 
 static gm::wire::GMFunction g_cb_input_device_connected = nullptr;
 static gm::wire::GMFunction g_cb_input_device_disconnected = nullptr;
@@ -217,8 +238,9 @@ std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums:
     if (!p)
         return std::nullopt;
     // The glyph is a file in the Steam install, outside the sandbox: let sprite_add and file_* read it (not write)
-    gm::files::AllowFile(p, gm::files::Access::Read);
-    return std::optional<std::string>(p);
+    std::string path = steam_input_glyph_path(p);
+    gm::files::AllowFile(path.c_str(), gm::files::Access::Read);
+    return path;
 }
 
 std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphStyle flags)
@@ -235,8 +257,9 @@ std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums:
     );
     if (!p)
         return std::nullopt;
-    gm::files::AllowFile(p, gm::files::Access::Read);
-    return std::optional<std::string>(p);
+    std::string path = steam_input_glyph_path(p);
+    gm::files::AllowFile(path.c_str(), gm::files::Access::Read);
+    return path;
 }
 
 
