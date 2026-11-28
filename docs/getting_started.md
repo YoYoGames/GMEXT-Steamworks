@@ -123,11 +123,11 @@ Run the game from the IDE with **Debug** set to `Enabled` and the Steam client l
 
 On macOS the Steam overlay is not available when the game is run from the IDE. Steam loads the overlay into a game by setting `DYLD_INSERT_LIBRARIES` when it launches it, and the IDE starts the game itself, so ${function.steam_utils_is_overlay_enabled} returns `false`, **Shift+Tab** does nothing, and neither do ${function.steam_friends_activate_game_overlay} and the other `steam_friends_activate_game_overlay_*` functions. Everything else, including achievements and DLC ownership, works as normal.
 
-To test the overlay without uploading a build to Steam, build the game from the IDE and then start it from Terminal with the variable set, with the Steam client running:
+To test the overlay without uploading a build to Steam, build the game from the IDE with **Debug** still set to `Enabled` and then start it from Terminal with the variable set, with the Steam client running:
 
 ```sh
 cd "<Game>.app/Contents/Resources"
 DYLD_INSERT_LIBRARIES="$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/gameoverlayrenderer.dylib" "../MacOS/<Game>"
 ```
 
-The above code starts the game from its `Resources` folder, where the runner looks for the game's files, with Steam's overlay library loaded into it. The output that the IDE would show is printed in Terminal instead. A build signed with the Hardened Runtime ignores the variable unless it allows DYLD environment variables - see "Building for macOS" above.
+The above code starts the game from its `Resources` folder, where the runner looks for the game's files, with Steam's overlay library loaded into it. The output that the IDE would show is printed in Terminal instead. With **Debug** set to `Auto` the game exits straight away and Steam relaunches its own copy of the app, so the overlay never shows in the build you started. A build signed with the Hardened Runtime ignores the variable unless it allows DYLD environment variables - see "Building for macOS" above.
